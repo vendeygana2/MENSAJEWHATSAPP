@@ -67,6 +67,19 @@
             background-color: #075E54;
             margin-top: 10px;
         }
+        .comercializacion {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #fff8e1;
+            border-radius: 5px;
+            white-space: pre-line;
+        }
+        .comercializacion-title {
+            color: #ff6f00;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body onload="mostrarAdvertencia()">
@@ -94,6 +107,12 @@ Ejemplo YouTube Premium: Email: user@gmail.com Password: YT123456" onblur="verif
 
         <div class="result" id="resultado"></div>
         <button class="copy-btn" onclick="copiarMensaje()">Copiar Mensaje</button>
+
+        <div class="comercializacion">
+            <div class="comercializacion-title">📢 MENSAJE DE COMERCIALIZACIÓN 📢</div>
+            <div id="mensajeComercial"></div>
+        </div>
+        <button class="copy-btn" onclick="copiarMensajeComercial()">Copiar Mensaje Comercial</button>
     </div>
 
     <script>
@@ -113,6 +132,23 @@ Ejemplo YouTube Premium: Email: user@gmail.com Password: YT123456" onblur="verif
             return true; // Indica que no hay espacios
         }
 
+        function generarMensajeComercial() {
+            const mensajesComerciales = [
+                `🌟 *¡ESPERAMOS DISFRUTES TU COMPRA!* 🌟\n\n💡 Te recordamos además que no debes pagar de más al cancelar tus facturas de servicios como:\n\n⚡ CORPOELEC\n💧 SERVICIO DE AGUA\n📞 CANTV\n\n✨ Al hacerlo en *VENDE Y GANA* *AHORRAS UN 8%* sobre el monto de la factura.`,
+
+                `🎮 *¡TENEMOS PARA TI TAMBIÉN!* 🎮\n\nAdemás de las cuentas streaming, el producto más solicitado que puedes incluir en tus ventas:\n\n🔥 PINES DE FREE FIRE\n🔫 CALL OF DUTY\n⚔️ MOBILE LEGENDS\n🏰 FORTNITE\n🧩 ROBLOX\n\n💎 ¡Y muchos otros más!`,
+
+                `🎨 *¡CANVA PRO!* 🎨\n\nNo esperes más para crear tus propios diseños con CANVA PRO, un universo por demás entretenido y de preparación constante se abre ante ti.`,
+
+                `💰 *¡OPORTUNIDAD DE NEGOCIO!* 💰\n\nPuedes pagar:\n\n📱 La renta de MOVILNET, MOVISTAR, DIGITEL\n👨‍👩‍👧‍👦 La de tus familiares, amigos o clientes\n\n🎁 Y gana excelentes premios.\n\n🎬 Ofrece por estas recargas películas y series como valor agregado para que aumentes tus ventas. Te daremos acceso a nuestro DRIVE donde podrás descargar series y películas de estreno o clásicas.`
+            ];
+
+            // Seleccionar un mensaje aleatorio
+            const mensajeAleatorio = mensajesComerciales[Math.floor(Math.random() * mensajesComerciales.length)];
+            document.getElementById('mensajeComercial').textContent = mensajeAleatorio;
+            return mensajeAleatorio;
+        }
+
         function generarMensaje() {
             if (!verificarEspacios()) {
                 return; // No generar el mensaje si hay espacios
@@ -122,7 +158,7 @@ Ejemplo YouTube Premium: Email: user@gmail.com Password: YT123456" onblur="verif
             const datos = document.getElementById('datos').value;
 
             // Servicios que usan usuario/clave
-            const serviciosUsuarioClave = ['flujo', 'flujotv', 'spotify', 'pana', 'panax', 'panaXstreaming', 'youtube', 'youtube premium'];
+            const serviciosUsuarioClave = ['flujo', 'flujotv', 'spotify', 'pana', 'panax', 'panaxstreaming', 'youtube', 'youtube premium'];
 
             // Determinar el servicio
             let servicio = "su servicio";
@@ -247,6 +283,9 @@ Ejemplo YouTube Premium: Email: user@gmail.com Password: YT123456" onblur="verif
             }
 
             document.getElementById('resultado').textContent = mensaje;
+            
+            // Generar mensaje comercial aleatorio
+            generarMensajeComercial();
         }
 
         function extraerValor(texto, regex) {
@@ -263,6 +302,13 @@ Ejemplo YouTube Premium: Email: user@gmail.com Password: YT123456" onblur="verif
             const resultado = document.getElementById('resultado');
             navigator.clipboard.writeText(resultado.textContent)
                 .then(() => alert('Mensaje copiado al portapapeles!'))
+                .catch(err => alert('Error al copiar: ' + err));
+        }
+
+        function copiarMensajeComercial() {
+            const mensajeComercial = document.getElementById('mensajeComercial');
+            navigator.clipboard.writeText(mensajeComercial.textContent)
+                .then(() => alert('Mensaje comercial copiado al portapapeles!'))
                 .catch(err => alert('Error al copiar: ' + err));
         }
     </script>
