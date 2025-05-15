@@ -80,6 +80,12 @@
             margin-bottom: 10px;
             font-weight: bold;
         }
+        .video-instructions {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e3f2fd;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body onload="mostrarAdvertencia()">
@@ -271,6 +277,14 @@ Ejemplo YouTube Premium: Email: user@gmail.com Password: YT123456" onblur="verif
                     mensaje += `⚠️ *IMPORTANTE*:\n`;
                     mensaje += `- Solo puede utilizarse en UN (1) dispositivo simultáneo\n`;
                     mensaje += `- Uso en múltiples dispositivos anula la garantía\n\n`;
+                    
+                    // Agregar instrucciones especiales para Netflix
+                    if (servicio === "NETFLIX") {
+                        mensaje += `📽️ *INSTRUCCIONES PARA ACTIVAR NETFLIX*:\n`;
+                        mensaje += `Para activar correctamente su cuenta de Netflix, por favor siga los pasos detallados en este video:\n`;
+                        mensaje += `👉 https://www.youtube.com/watch?v=SXrViahIoEQ\n\n`;
+                        mensaje += `Es importante que vea el video completo para evitar problemas con su cuenta.\n\n`;
+                    }
                 }
             }
 
