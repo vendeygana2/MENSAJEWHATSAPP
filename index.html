@@ -107,7 +107,7 @@
         <label for="datos">Ingresa los datos (formato flexible):</label>
         <textarea id="datos" rows="6" placeholder="Ejemplo Netflix: Correo: hanoi39@gcatower.com Clave: VG909090 Perfil: 4 PIN: 8976
 Ejemplo FlujoTV/Spotify: Usuario: Vg1026 Contraseña: FT5656
-Ejemplo YouTube Premium: Email: user@gmail.com Password: YT123456" onblur="verificarEspacios()"></textarea>
+Ejemplo YouTube Premium: Email: user@gmail.com Password: YT123456"></textarea>
 
         <button onclick="generarMensaje()">Generar Mensaje</button>
 
@@ -123,19 +123,7 @@ Ejemplo YouTube Premium: Email: user@gmail.com Password: YT123456" onblur="verif
 
     <script>
         function mostrarAdvertencia() {
-            alert('¡IMPORTANTE! RECUERDA NO DEJAR ESPACIOS EN BLANCO AL COLOCAR "PEGAR" EL MENSAJE PRINCIPAL PARA CREAR EL MENSAJE DE WHATSAPP O SALDRÁ CON ERRORES!');
-        }
-
-        function verificarEspacios() {
-            const datos = document.getElementById('datos').value;
-            const lineas = datos.split('\n');
-            for (const linea of lineas) {
-                if (linea.trim() !== linea) {
-                    alert('CORRIJA LOS ESPACIOS EN BLANCO PARA PODER GENERAR EL MENSAJE');
-                    return false; // Indica que hay espacios
-                }
-            }
-            return true; // Indica que no hay espacios
+            alert('¡IMPORTANTE! RECUERDA VERIFICAR QUE LOS DATOS ESTÉN CORRECTOS ANTES DE GENERAR EL MENSAJE');
         }
 
         function generarMensajeComercial() {
@@ -156,10 +144,6 @@ Ejemplo YouTube Premium: Email: user@gmail.com Password: YT123456" onblur="verif
         }
 
         function generarMensaje() {
-            if (!verificarEspacios()) {
-                return; // No generar el mensaje si hay espacios
-            }
-
             const tipo = document.getElementById('tipo').value;
             const datos = document.getElementById('datos').value;
 
@@ -169,6 +153,7 @@ Ejemplo YouTube Premium: Email: user@gmail.com Password: YT123456" onblur="verif
             // Determinar el servicio
             let servicio = "su servicio";
             let formatoUsuarioClave = false;
+            let tipoCuenta = "CUENTA COMPLETA"; // Por defecto asumimos cuenta completa
 
             // Convertir datos a minúsculas para búsqueda
             const datosLower = datos.toLowerCase();
@@ -195,14 +180,27 @@ Ejemplo YouTube Premium: Email: user@gmail.com Password: YT123456" onblur="verif
             // Extraer información según el formato
             let correo, usuario, clave, perfil, pin;
 
+            // Buscar valores sin importar mayúsculas/minúsculas ni espacios
+            const extraerValorFlexible = (texto, patrones) => {
+                for (const patron of patrones) {
+                    const regex = new RegExp(patron + "[\\s:]*([^\\s]+)", "i");
+                    const match = datos.match(regex);
+                    if (match) return match[1];
+                }
+                return null;
+            };
+
+            correo = extraerValorFlexible(datos, ["Correo", "Email", "Mail"]);
+            usuario = extraerValorFlexible(datos, ["Usuario", "User", "Cuenta"]);
+            clave = extraerValorFlexible(datos, ["Clave", "Contraseña", "Password"]);
+            perfil = extraerValorFlexible(datos, ["Perfil", "Perfiles"]);
+            pin = extraerValorFlexible(datos, ["PIN", "Pin"]);
+
+            // Determinar tipo de cuenta
             if (formatoUsuarioClave) {
-                usuario = extraerValor(datos, /Usuario:\s*([^\s]+)/i) || extraerValor(datos, /User:\s*([^\s]+)/i) || extraerValor(datos, /Cuenta:\s*([^\s]+)/i);
-                clave = extraerValor(datos, /Clave:\s*([^\s]+)/i) || extraerValor(datos, /Contraseña:\s*([^\s]+)/i) || extraerValor(datos, /Password:\s*([^\s]+)/i);
-            } else {
-                correo = extraerValor(datos, /Correo:\s*([^\s]+)/i) || extraerValor(datos, /Email:\s*([^\s]+)/i) || extraerValor(datos, /Mail:\s*([^\s]+)/i);
-                clave = extraerValor(datos, /Clave:\s*([^\s]+)/i) || extraerValor(datos, /Contraseña:\s*([^\s]+)/i) || extraerValor(datos, /Password:\s*([^\s]+)/i);
-                perfil = extraerValor(datos, /Perfil:\s*([^\s]+)/i) || extraerValor(datos, /Perfiles:\s*([^\s]+)/i);
-                pin = extraerValor(datos, /PIN:\s*([^\s]+)/i);
+                tipoCuenta = "PANTALLA";
+            } else if (servicio === "NETFLIX" && perfil) {
+                tipoCuenta = `PERFIL ${perfil}`;
             }
 
             // Obtener fechas
@@ -216,95 +214,67 @@ Ejemplo YouTube Premium: Email: user@gmail.com Password: YT123456" onblur="verif
             let mensaje = '';
             let titulo = '';
 
+            // Encabezado según tipo de mensaje
             switch(tipo) {
                 case 'VENTA':
-                    titulo = `📌 *DETALLES DE SU ${servicio}* 📌`;
-                    mensaje += `📅 Fecha de entrega: Hoy, ${fechaActual}\n`;
-                    mensaje += `⏳ Vencimiento: ${fechaVencimientoFormateada}\n\n`;
+                    titulo = `📌 *DATOS DE SU ${servicio} - ${tipoCuenta}* 📌`;
                     break;
                 case 'RENOVACION':
-                    titulo = `🔄 *RENOVACIÓN DE SU ${servicio}* 🔄`;
-                    mensaje += `⏳ Vencimiento: ${fechaVencimientoFormateada}\n\n`;
+                    titulo = `🔄 *RENOVACIÓN DE SU ${servicio} - ${tipoCuenta}* 🔄`;
                     break;
                 case 'GARANTIA':
-                    titulo = `🛡️ *INFORMACIÓN DE GARANTÍA PARA SU ${servicio}* 🛡️`;
-                    mensaje += `📅 Fecha de entrega: Hoy, ${fechaActual}\n`;
-                    mensaje += `⏳ Vencimiento: ${fechaVencimientoFormateada}\n\n`;
+                    titulo = `🛡️ *GARANTÍA DE SU ${servicio} - ${tipoCuenta}* 🛡️`;
                     break;
             }
 
             mensaje += titulo + '\n\n';
 
-            if (tipo === 'RENOVACION') {
-                mensaje += `Estimado cliente,\n\n`;
-                mensaje += `Su servicio de *${servicio}* está próximo a vencer. Para que pueda seguir disfrutando de todo nuestro contenido sin interrupciones, le recordamos realizar su pago el día de hoy.\n\n`;
-                mensaje += `Los datos de su cuenta son:\n`;
-                if (formatoUsuarioClave) {
-                    mensaje += `👤 Usuario: ${usuario || 'No proporcionado'}\n`;
-                    mensaje += `🔑 Contraseña: ${clave || 'No proporcionado'}\n\n`;
-                } else {
-                    mensaje += `📩 Correo: ${correo || 'No proporcionado'}\n`;
-                    mensaje += `🔑 Contraseña: ${clave || 'No proporcionado'}\n`;
-                    if (perfil) mensaje += `👤 Perfiles disponibles: ${perfil}\n`;
-                    if (pin) mensaje += `🔒 PIN: ${pin}\n\n`;
-                }
-                mensaje += `Si no realiza el pago hoy, perderá los beneficios de esta plataforma.\n\n`;
-                mensaje += `💳 *REALICE SU PAGO HOY PARA NO PERDER SU ACCESO* 💳\n\n`;
+            // Detalles de la cuenta
+            if (formatoUsuarioClave) {
+                mensaje += `👤 Usuario: ${usuario || 'No proporcionado'}\n`;
+                mensaje += `🔑 Contraseña: ${clave || 'No proporcionado'}\n\n`;
             } else {
-                if (formatoUsuarioClave) {
-                    mensaje += `👤 Usuario: ${usuario || 'No proporcionado'}\n`;
-                    mensaje += `🔑 Contraseña: ${clave || 'No proporcionado'}\n\n`;
-
-                    mensaje += `⚠️ *IMPORTANTE*:\n`;
-                    mensaje += `- NO CAMBIAR LA CONTRASEÑA\n`;
-                    mensaje += `- USAR EN UN SOLO DISPOSITIVO O PIERDE LA CUENTA\n`;
-
-                    // Advertencia adicional para Spotify
-                    if (servicio.includes("SPOTIFY")) {
-                        mensaje += `- No usar en modo familiar (solo cuenta individual)\n`;
-                    }
-                    // Información adicional para YouTube Premium
-                    if (servicio.includes("YOUTUBE PREMIUM")) {
-                        mensaje += `- Puede reproducir en tres (3) dispositivos en simultáneo.\n`;
-                    }
-                    mensaje += '\n';
-                } else {
-                    mensaje += `📩 Correo: ${correo || 'No proporcionado'}\n`;
-                    mensaje += `🔑 Contraseña: ${clave || 'No proporcionado'}\n`;
-                    if (perfil) mensaje += `👤 Perfiles disponibles: ${perfil}\n`;
-                    if (pin) mensaje += `🔒 PIN: ${pin}\n\n`;
-
-                    mensaje += `⚠️ *IMPORTANTE*:\n`;
-                    mensaje += `- Solo puede utilizarse en UN (1) dispositivo simultáneo\n`;
-                    mensaje += `- Uso en múltiples dispositivos anula la garantía\n\n`;
-                    
-                    // Agregar instrucciones especiales para Netflix
-                    if (servicio === "NETFLIX") {
-                        mensaje += `📽️ *INSTRUCCIONES PARA ACTIVAR NETFLIX*:\n`;
-                        mensaje += `Para activar correctamente su cuenta de Netflix, por favor siga los pasos detallados en este video:\n`;
-                        mensaje += `👉 https://www.youtube.com/watch?v=SXrViahIoEQ\n\n`;
-                        mensaje += `Es importante que vea el video completo para evitar problemas con su cuenta.\n\n`;
-                    }
-                }
+                if (correo) mensaje += `📩 Correo: ${correo}\n`;
+                else if (usuario) mensaje += `👤 Usuario: ${usuario}\n`;
+                
+                if (clave) mensaje += `🔑 Contraseña: ${clave}\n`;
+                if (perfil && servicio !== "NETFLIX") mensaje += `👥 Perfiles disponibles: ${perfil}\n`;
+                if (pin) mensaje += `🔒 PIN: ${pin}\n`;
+                mensaje += '\n';
             }
 
-            if (tipo !== 'RENOVACION') {
-                mensaje += `¡Gracias por ${tipo === 'VENTA' ? 'comprar' : tipo === 'GARANTIA' ? 'confiar en' : 'renovar con'} *DPTO. STREAMING VENDE Y GANA*!\n`;
-                mensaje += `🎬 Disfruta de tu contenido favorito`;
-            } else {
+            // Fechas
+            mensaje += `📅 Fecha de entrega: Hoy, ${fechaActual}\n`;
+            mensaje += `⏳ Vencimiento: ${fechaVencimientoFormateada}\n\n`;
+
+            // Advertencias generales
+            mensaje += `⚠️ *IMPORTANTE*:\n`;
+            mensaje += `🔴 Prohibido cambiar correo y contraseña\n`;
+            mensaje += `🔴 Prohibido editar datos de la cuenta\n`;
+            mensaje += `🔴 Prohibido usar la cuenta en más de 1 dispositivo\n`;
+            mensaje += `🔴 Prohibido compartir la cuenta\n\n`;
+
+            // Instrucciones especiales para Netflix
+            if (servicio === "NETFLIX") {
+                mensaje += `📽️ *INSTRUCCIONES PARA ACTIVAR NETFLIX*:\n`;
+                mensaje += `Para activar correctamente su cuenta de Netflix, por favor siga los pasos detallados en este video:\n`;
+                mensaje += `👉 https://www.youtube.com/watch?v=SXrViahIoEQ\n\n`;
+            }
+
+            // Mensaje final según tipo
+            if (tipo === 'RENOVACION') {
+                mensaje += `💳 *REALICE SU PAGO HOY PARA NO PERDER SU ACCESO* 💳\n\n`;
                 mensaje += `¡Gracias por preferir *DPTO. STREAMING VENDE Y GANA*!\n`;
                 mensaje += `🎬 Esperamos que siga disfrutando de su contenido.`;
+            } else {
+                mensaje += `¡Gracias por ${tipo === 'VENTA' ? 'comprar' : 'confiar en'} *DPTO. STREAMING VENDE Y GANA*!\n`;
+                mensaje += `🎬 Disfruta de tu contenido favorito`;
             }
 
             document.getElementById('resultado').textContent = mensaje;
             
             // Generar mensaje comercial aleatorio
             generarMensajeComercial();
-        }
-
-        function extraerValor(texto, regex) {
-            const match = texto.match(regex);
-            return match ? match[1] : null;
         }
 
         function formatearFecha(fecha) {
