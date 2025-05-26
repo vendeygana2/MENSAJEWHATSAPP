@@ -3,298 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Mensajes para WhatsApp Vende y Gana</title>
+    <title>Generador de Mensajes para WhatsApp</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
         }
         .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .header-images {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
             gap: 20px;
-            margin-bottom: 20px;
         }
-        .header-images img {
-            height: 80px;
-            object-fit: contain;
-        }
-        h1 {
-            color: #25D366;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        textarea, select, input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
+        .input-section, .output-section {
             border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
             box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
         }
         button {
             background-color: #25D366;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 10px 15px;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
-            display: block;
-            margin: 20px auto;
         }
         button:hover {
             background-color: #128C7E;
         }
-        .result {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e8f5e9;
-            border-radius: 5px;
-            white-space: pre-line;
-        }
-        .copy-btn {
-            background-color: #075E54;
-            margin-top: 10px;
-        }
-        .comercializacion {
-            margin-top: 30px;
-            padding: 15px;
-            background-color: #fff8e1;
-            border-radius: 5px;
-            white-space: pre-line;
-        }
-        .comercializacion-title {
-            color: #ff6f00;
-            text-align: center;
-            margin-bottom: 10px;
+        label {
+            display: block;
+            margin-bottom: 5px;
             font-weight: bold;
         }
-        .video-instructions {
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #e3f2fd;
-            border-radius: 5px;
+        select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
         }
     </style>
 </head>
-<body onload="mostrarAdvertencia()">
+<body>
     <div class="container">
-        <div class="header-images">
-            <img src="https://static.vecteezy.com/system/resources/previews/016/716/480/non_2x/whatsapp-icon-free-png.png" alt="WhatsApp Logo">
-            <img src="https://www.vendeygana.net/assets/img/logo-1.png" alt="Vende y Gana Logo">
+        <h1>Generador de Mensajes para WhatsApp</h1>
+        
+        <div class="input-section">
+            <h2>Ingresar Datos de la Cuenta</h2>
+            
+            <div>
+                <label for="account-type">Tipo de Cuenta:</label>
+                <select id="account-type">
+                    <option value="pantalla">Pantalla</option>
+                    <option value="cuenta">Cuenta</option>
+                </select>
+            </div>
+            
+            <label for="input-data">Datos de la cuenta (copiar y pegar):</label>
+            <textarea id="input-data" placeholder="Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146"></textarea>
+            
+            <button id="generate-btn">Generar Mensaje</button>
         </div>
-
-        <h1>GENERADOR DE MENSAJES PARA WHATSAPP VENDE Y GANA</h1>
-
-        <label for="tipo">Tipo de mensaje:</label>
-        <select id="tipo">
-            <option value="VENTA">VENTA</option>
-            <option value="RENOVACION">RENOVACIÓN</option>
-            <option value="GARANTIA">GARANTÍA</option>
-        </select>
-
-        <label for="datos">Ingresa los datos (formato flexible):</label>
-        <textarea id="datos" rows="6" placeholder="Ejemplo Netflix: Correo: hanoi39@gcatower.com Clave: VG909090 Perfil: 4 PIN: 8976
-Ejemplo FlujoTV/Spotify: Usuario: Vg1026 Contraseña: FT5656
-Ejemplo YouTube Premium: Email: user@gmail.com Password: YT123456"></textarea>
-
-        <button onclick="generarMensaje()">Generar Mensaje</button>
-
-        <div class="result" id="resultado"></div>
-        <button class="copy-btn" onclick="copiarMensaje()">Copiar Mensaje</button>
-
-        <div class="comercializacion">
-            <div class="comercializacion-title">📢 MENSAJE DE COMERCIALIZACIÓN 📢</div>
-            <div id="mensajeComercial"></div>
+        
+        <div class="output-section">
+            <h2>Mensaje Generado</h2>
+            <textarea id="output-message" readonly></textarea>
+            <button id="copy-btn">Copiar Mensaje</button>
         </div>
-        <button class="copy-btn" onclick="copiarMensajeComercial()">Copiar Mensaje Comercial</button>
     </div>
 
     <script>
-        function mostrarAdvertencia() {
-            alert('¡IMPORTANTE! RECUERDA VERIFICAR QUE LOS DATOS ESTÉN CORRECTOS ANTES DE GENERAR EL MENSAJE');
-        }
-
-        function generarMensajeComercial() {
-            const mensajesComerciales = [
-                `🌟 *¡ESPERAMOS DISFRUTES TU COMPRA!* 🌟\n\n💡 Te recordamos además que no debes pagar de más al cancelar tus facturas de servicios como:\n\n⚡ CORPOELEC\n💧 SERVICIO DE AGUA\n📞 CANTV\n\n✨ Al hacerlo en *VENDE Y GANA* *AHORRAS UN 8%* sobre el monto de la factura.`,
-
-                `🎮 *¡TENEMOS PARA TI TAMBIÉN!* 🎮\n\nAdemás de las cuentas streaming, el producto más solicitado que puedes incluir en tus ventas:\n\n🔥 PINES DE FREE FIRE\n🔫 CALL OF DUTY\n⚔️ MOBILE LEGENDS\n🏰 FORTNITE\n🧩 ROBLOX\n\n💎 ¡Y muchos otros más!`,
-
-                `🎨 *¡CANVA PRO!* 🎨\n\nNo esperes más para crear tus propios diseños con CANVA PRO, un universo por demás entretenido y de preparación constante se abre ante ti.`,
-
-                `💰 *¡OPORTUNIDAD DE NEGOCIO!* 💰\n\nPuedes pagar:\n\n📱 La renta de MOVILNET, MOVISTAR, DIGITEL\n👨‍👩‍👧‍👦 La de tus familiares, amigos o clientes\n\n🎁 Y gana excelentes premios.\n\n🎬 Ofrece por estas recargas películas y series como valor agregado para que aumentes tus ventas. Te daremos acceso a nuestro DRIVE donde podrás descargar series y películas de estreno o clásicas.`
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            const inputData = document.getElementById('input-data').value;
+            const accountType = document.getElementById('account-type').value;
+            
+            // Detectar servicio automáticamente
+            let service = 'Otro servicio';
+            const services = [
+                { name: 'NETFLIX', keywords: ['netflix'] },
+                { name: 'DISNEY+', keywords: ['disney'] },
+                { name: 'HBO MAX', keywords: ['hbo', 'hbo max'] },
+                { name: 'MAX PREMIUM', keywords: ['max premium'] },
+                { name: 'DISNEY+ + ESPN', keywords: ['disney+ + espn', 'disney espn'] },
+                { name: 'AMAZON PRIME VIDEO', keywords: ['amazon prime', 'prime video'] },
+                { name: 'PANAXTREAMING', keywords: ['panax'] },
+                { name: 'CRUNCHYROLL', keywords: ['crunchyroll'] },
+                { name: 'YOUTUBE PREMIUM', keywords: ['youtube premium', 'youtueb'] },
+                { name: 'SPOTIFY PREMIUM', keywords: ['spotify premium', 'spotify'] },
+                { name: 'FLUJO TV', keywords: ['flujo tv'] }
             ];
-
-            // Seleccionar un mensaje aleatorio
-            const mensajeAleatorio = mensajesComerciales[Math.floor(Math.random() * mensajesComerciales.length)];
-            document.getElementById('mensajeComercial').textContent = mensajeAleatorio;
-            return mensajeAleatorio;
-        }
-
-        function generarMensaje() {
-            const tipo = document.getElementById('tipo').value;
-            const datos = document.getElementById('datos').value;
-
-            // Servicios que usan usuario/clave
-            const serviciosUsuarioClave = ['flujo', 'flujotv', 'spotify', 'pana', 'panax', 'panaxstreaming', 'youtube', 'youtube premium'];
-
-            // Determinar el servicio
-            let servicio = "su servicio";
-            let formatoUsuarioClave = false;
-            let tipoCuenta = "CUENTA COMPLETA"; // Por defecto asumimos cuenta completa
-
-            // Convertir datos a minúsculas para búsqueda
-            const datosLower = datos.toLowerCase();
-
-            if (datosLower.includes("netflix")) servicio = "NETFLIX";
-            else if (datosLower.includes("hbo")) servicio = "HBO MAX";
-            else if (datosLower.includes("disney")) servicio = "DISNEY+";
-            else if (datosLower.includes("prime")) servicio = "PRIME VIDEO";
-            else {
-                // Verificar si es un servicio con formato usuario/clave
-                for (const servicioBuscar of serviciosUsuarioClave) {
-                    if (datosLower.includes(servicioBuscar)) {
-                        formatoUsuarioClave = true;
-                        // Asignar nombre bonito al servicio
-                        if (servicioBuscar.includes('flujo')) servicio = "FLUJOTV";
-                        else if (servicioBuscar.includes('spotify')) servicio = "SPOTIFY PREMIUM";
-                        else if (servicioBuscar.includes('youtube')) servicio = "YOUTUBE PREMIUM";
-                        else if (servicioBuscar.includes('pana')) servicio = "PanaXStreaming";
+            
+            for (const s of services) {
+                for (const keyword of s.keywords) {
+                    if (inputData.toLowerCase().includes(keyword)) {
+                        service = s.name;
                         break;
                     }
                 }
+                if (service !== 'Otro servicio') break;
             }
-
-            // Extraer información según el formato
-            let correo, usuario, clave, perfil, pin;
-
-            // Buscar valores sin importar mayúsculas/minúsculas ni espacios
-            const extraerValorFlexible = (texto, patrones) => {
-                for (const patron of patrones) {
-                    const regex = new RegExp(patron + "[\\s:]*([^\\s]+)", "i");
-                    const match = datos.match(regex);
-                    if (match) return match[1];
-                }
-                return null;
-            };
-
-            correo = extraerValorFlexible(datos, ["Correo", "Email", "Mail"]);
-            usuario = extraerValorFlexible(datos, ["Usuario", "User", "Cuenta"]);
-            clave = extraerValorFlexible(datos, ["Clave", "Contraseña", "Password"]);
-            perfil = extraerValorFlexible(datos, ["Perfil", "Perfiles"]);
-            pin = extraerValorFlexible(datos, ["PIN", "Pin"]);
-
-            // Determinar tipo de cuenta
-            if (formatoUsuarioClave) {
-                tipoCuenta = "PANTALLA";
-            } else if (servicio === "NETFLIX" && perfil) {
-                tipoCuenta = `PERFIL ${perfil}`;
-            }
-
-            // Obtener fechas
-            const hoy = new Date();
-            const fechaActual = formatearFecha(hoy);
-            const fechaVencimiento = new Date(hoy);
-            fechaVencimiento.setDate(hoy.getDate() + 30);
-            const fechaVencimientoFormateada = formatearFecha(fechaVencimiento);
-
-            // Generar mensaje según el tipo
-            let mensaje = '';
-            let titulo = '';
-
-            // Encabezado según tipo de mensaje
-            switch(tipo) {
-                case 'VENTA':
-                    titulo = `📌 *DATOS DE SU ${servicio} - ${tipoCuenta}* 📌`;
-                    break;
-                case 'RENOVACION':
-                    titulo = `🔄 *RENOVACIÓN DE SU ${servicio} - ${tipoCuenta}* 🔄`;
-                    break;
-                case 'GARANTIA':
-                    titulo = `🛡️ *GARANTÍA DE SU ${servicio} - ${tipoCuenta}* 🛡️`;
-                    break;
-            }
-
-            mensaje += titulo + '\n\n';
-
-            // Detalles de la cuenta
-            if (formatoUsuarioClave) {
-                mensaje += `👤 Usuario: ${usuario || 'No proporcionado'}\n`;
-                mensaje += `🔑 Contraseña: ${clave || 'No proporcionado'}\n\n`;
-            } else {
-                if (correo) mensaje += `📩 Correo: ${correo}\n`;
-                else if (usuario) mensaje += `👤 Usuario: ${usuario}\n`;
-                
-                if (clave) mensaje += `🔑 Contraseña: ${clave}\n`;
-                if (perfil && servicio !== "NETFLIX") mensaje += `👥 Perfiles disponibles: ${perfil}\n`;
-                if (pin) mensaje += `🔒 PIN: ${pin}\n`;
-                mensaje += '\n';
-            }
-
-            // Fechas
-            mensaje += `📅 Fecha de entrega: Hoy, ${fechaActual}\n`;
-            mensaje += `⏳ Vencimiento: ${fechaVencimientoFormateada}\n\n`;
-
-            // Advertencias generales
-            mensaje += `⚠️ *IMPORTANTE*:\n`;
-            mensaje += `🔴 Prohibido cambiar correo y contraseña\n`;
-            mensaje += `🔴 Prohibido editar datos de la cuenta\n`;
-            mensaje += `🔴 Prohibido usar la cuenta en más de 1 dispositivo\n`;
-            mensaje += `🔴 Prohibido compartir la cuenta\n\n`;
-
-            // Instrucciones especiales para Netflix
-            if (servicio === "NETFLIX") {
-                mensaje += `📽️ *INSTRUCCIONES PARA ACTIVAR NETFLIX*:\n`;
-                mensaje += `Para activar correctamente su cuenta de Netflix, por favor siga los pasos detallados en este video:\n`;
-                mensaje += `👉 https://www.youtube.com/watch?v=SXrViahIoEQ\n\n`;
-            }
-
-            // Mensaje final según tipo
-            if (tipo === 'RENOVACION') {
-                mensaje += `💳 *REALICE SU PAGO HOY PARA NO PERDER SU ACCESO* 💳\n\n`;
-                mensaje += `¡Gracias por preferir *DPTO. STREAMING VENDE Y GANA*!\n`;
-                mensaje += `🎬 Esperamos que siga disfrutando de su contenido.`;
-            } else {
-                mensaje += `¡Gracias por ${tipo === 'VENTA' ? 'comprar' : 'confiar en'} *DPTO. STREAMING VENDE Y GANA*!\n`;
-                mensaje += `🎬 Disfruta de tu contenido favorito`;
-            }
-
-            document.getElementById('resultado').textContent = mensaje;
             
-            // Generar mensaje comercial aleatorio
-            generarMensajeComercial();
-        }
-
-        function formatearFecha(fecha) {
-            const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            return fecha.toLocaleDateString('es-ES', opciones);
-        }
-
-        function copiarMensaje() {
-            const resultado = document.getElementById('resultado');
-            navigator.clipboard.writeText(resultado.textContent)
-                .then(() => alert('Mensaje copiado al portapapeles!'))
-                .catch(err => alert('Error al copiar: ' + err));
-        }
-
-        function copiarMensajeComercial() {
-            const mensajeComercial = document.getElementById('mensajeComercial');
-            navigator.clipboard.writeText(mensajeComercial.textContent)
-                .then(() => alert('Mensaje comercial copiado al portapapeles!'))
-                .catch(err => alert('Error al copiar: ' + err));
-        }
+            // Extraer datos
+            const emailMatch = inputData.match(/(CORREO|Usuario|Email|USUARIO):?\s*([^\s]+)/i);
+            const passwordMatch = inputData.match(/(CLAVE|Contraseña|Password|PASSWORD):?\s*([^\s]+)/i);
+            const profileMatch = inputData.match(/(Perfil|PERFIL|Profile):?\s*(\d+)/i);
+            const pinMatch = inputData.match(/(PIN|Pin|pin|CODIGO):?\s*(\d+)/i);
+            
+            const email = emailMatch ? emailMatch[2] : 'No proporcionado';
+            const password = passwordMatch ? passwordMatch[2] : 'No proporcionado';
+            const profile = profileMatch ? profileMatch[2] : 'No proporcionado';
+            const pin = pinMatch ? pinMatch[2] : 'No proporcionado';
+            
+            // Obtener fechas
+            const today = new Date();
+            const nextMonth = new Date();
+            nextMonth.setMonth(nextMonth.getMonth() + 1);
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const todayStr = today.toLocaleDateString('es-ES', options);
+            const nextMonthStr = nextMonth.toLocaleDateString('es-ES', options);
+            
+            // Generar mensaje
+            const accountTypeText = accountType === 'pantalla' ? 'PANTALLA' : 'CUENTA';
+            
+            // Cabecera especial para Spotify y YouTube
+            let header;
+            if (service.includes('SPOTIFY')) {
+                header = `*DATOS DE SU CUENTA SPOTIFY*`;
+            } else if (service.includes('YOUTUBE')) {
+                header = `*DATOS DE SU CUENTA YOUTUBE PREMIUM*`;
+            } else {
+                header = `📌 *DATOS DE SU ${accountTypeText} ${service}* 📌`;
+            }
+            
+            let message = `${header}\n\n`;
+            message += `👤 Usuario: ${email}\n`;
+            message += `🔑 Clave: ${password}\n`;
+            if (profile !== 'No proporcionado') message += `📌 PERFIL: ${profile}\n`;
+            if (pin !== 'No proporcionado') message += `🔢 PIN DEL PERFIL: ${pin}\n\n`;
+            
+            message += `📅 Fecha de entrega: Hoy, ${todayStr}\n`;
+            message += `⏳ Vencimiento: ${nextMonthStr}\n\n`;
+            
+            // Instrucciones especiales para Netflix
+            if (service.toLowerCase().includes('netflix')) {
+                message += `📽️ *INSTRUCCIONES PARA ACTIVAR NETFLIX*:\n`;
+                message += `Para activar correctamente su cuenta de Netflix, por favor siga los pasos detallados en este video:\n`;
+                message += `👉 https://www.youtube.com/watch?v=SXrViahIoEQ\n\n`;
+            }
+            
+            message += `⚠️ *IMPORTANTE*:\n`;
+            message += `🔴 Prohibido cambiar correo y contraseña\n`;
+            message += `🔴 Prohibido editar datos de la cuenta\n`;
+            message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo\n`;
+            message += `🔴 Prohibido compartir la cuenta\n\n`;
+            
+            message += `¡Gracias por comprar *DPTO. STREAMING VENDE Y GANA*!\n`;
+            message += `🎬 Disfruta de tu contenido favorito`;
+            
+            document.getElementById('output-message').value = message;
+        });
+        
+        document.getElementById('copy-btn').addEventListener('click', function() {
+            const outputMessage = document.getElementById('output-message');
+            outputMessage.select();
+            document.execCommand('copy');
+            alert('Mensaje copiado al portapapeles!');
+        });
     </script>
 </body>
 </html>
