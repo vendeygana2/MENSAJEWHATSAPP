@@ -16,7 +16,7 @@
             flex-direction: column;
             gap: 20px;
         }
-        .input-section, .output-section {
+        .input-section, .output-section, .promo-section {
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 8px;
@@ -53,6 +53,9 @@
             border: 1px solid #ccc;
             margin-bottom: 15px;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -80,6 +83,12 @@
             <h2>Mensaje Generado</h2>
             <textarea id="output-message" readonly></textarea>
             <button id="copy-btn">Copiar Mensaje</button>
+        </div>
+
+        <div class="promo-section hidden" id="promo-section">
+            <h2>Mensaje Promocional Adicional</h2>
+            <textarea id="promo-message" readonly></textarea>
+            <button id="copy-promo-btn">Copiar Mensaje Promocional</button>
         </div>
     </div>
 
@@ -173,6 +182,31 @@
             message += `🎬 Disfruta de tu contenido favorito`;
             
             document.getElementById('output-message').value = message;
+            
+            // Generar mensaje promocional para servicios seleccionados
+            const promoSection = document.getElementById('promo-section');
+            const promoMessage = document.getElementById('promo-message');
+            
+            const promoEnabledServices = ['NETFLIX', 'AMAZON PRIME VIDEO', 'DISNEY+', 'MAX PREMIUM', 'CRUNCHYROLL'];
+            
+            if (promoEnabledServices.includes(service)) {
+                let promoText = `*¡No te quedes atrás!* 🚀\n\n`;
+                promoText += `*¿Ya estás disfrutando de tu nueva plataforma?* 😉 ¡Genial! Pero si quieres aún más, te recordamos que el contenido de esa y otras plataformas lo consigues *TODO EN UNA* con *FLUJO TV o PANAXTREAMING!* ✨\n\n`;
+                promoText += `Además de tus películas y series favoritas 🎬, ¡disfruta de más de *1.000 CANALES EN VIVO* 🌐 para que no te pierdas nada:\n`;
+                promoText += `⚽️ *Deportes* | 🎨 *Cultura* | 📰 *Noticias* | 🎵 *Música* | 🛐 *Religión*\n`;
+                promoText += `...¡y canales de todo el continente, desde CANADÁ hasta ARGENTINA! 🌎\n\n`;
+                promoText += `*¡La diversión no tiene límites y está al alcance de tu mano!* 🙌\n\n`;
+                promoText += `¿Listo para transformar tu experiencia de entretenimiento? 😉\n\n`;
+                promoText += `👉 Descubre nuestros increíbles precios y planes aquí:\n\n`;
+                promoText += `*FLUJO TV:* https://vendeygana.forms.app/compraflujotv\n\n`;
+                promoText += `*PANAXTREAMING:* https://vendeygana.forms.app/panaxtreaming\n\n`;
+                promoText += `¡No esperes más para disfrutar de la TV del futuro! 🎉`;
+                
+                promoMessage.value = promoText;
+                promoSection.classList.remove('hidden');
+            } else {
+                promoSection.classList.add('hidden');
+            }
         });
         
         document.getElementById('copy-btn').addEventListener('click', function() {
@@ -180,6 +214,13 @@
             outputMessage.select();
             document.execCommand('copy');
             alert('Mensaje copiado al portapapeles!');
+        });
+        
+        document.getElementById('copy-promo-btn').addEventListener('click', function() {
+            const promoMessage = document.getElementById('promo-message');
+            promoMessage.select();
+            document.execCommand('copy');
+            alert('Mensaje promocional copiado al portapapeles!');
         });
     </script>
 </body>
