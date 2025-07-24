@@ -172,13 +172,28 @@
                 message += `👉 https://www.youtube.com/watch?v=SXrViahIoEQ\n\n`;
             }
             
+            // Instrucciones especiales para PANAXTREAMING
+            if (service.toLowerCase().includes('panax')) {
+                message += `📱 *INSTRUCCIONES PARA INSTALAR PANAXTREAMING*:\n`;
+                message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
+                message += `👉 https://youtu.be/mpdY5xEeWUU?si=cfo_FTLcmztB98Nz\n\n`;
+            }
+            
             message += `⚠️ *IMPORTANTE*:\n`;
-            message += `🔴 Prohibido cambiar correo y contraseña\n`;
-            message += `🔴 Prohibido editar datos de la cuenta\n`;
-            message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo\n`;
-            message += `🔴 Prohibido compartir la cuenta\n\n`;
-            message += `🔴 Prohibido Cambiar Nombre del Perfil\n\n`;
-            message += `🔴 Prohibido Cambiar pin de perfil\n\n`;
+            
+            // Condición para mostrar diferentes instrucciones según el tipo de cuenta
+            if (accountType === 'cuenta') {
+                message += `🔴 Prohibido cambiar correo y contraseña\n`;
+                message += `🔴 Prohibido editar datos de la cuenta\n`;
+                message += `🔴 Usted administra la cuenta, perfiles y pines internos de esta\n`;
+            } else {
+                message += `🔴 Prohibido cambiar correo y contraseña\n`;
+                message += `🔴 Prohibido editar datos de la cuenta\n`;
+                message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo\n`;
+                message += `🔴 Prohibido compartir la cuenta\n\n`;
+                message += `🔴 Prohibido Cambiar Nombre del Perfil\n\n`;
+                message += `🔴 Prohibido Cambiar pin de perfil\n\n`;
+            }
 
             message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DEL PERFIL SIN REEMBOLSO\n\n`;
             
