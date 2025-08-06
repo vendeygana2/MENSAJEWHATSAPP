@@ -70,6 +70,7 @@
                 <select id="account-type">
                     <option value="pantalla">Pantalla</option>
                     <option value="cuenta">Cuenta</option>
+                    <option value="renovacion">Renovación</option>
                 </select>
             </div>
             
@@ -144,25 +145,41 @@
             const nextMonthStr = nextMonth.toLocaleDateString('es-ES', options);
             
             // Generar mensaje
-            const accountTypeText = accountType === 'pantalla' ? 'PANTALLA' : 'CUENTA';
-            
-            // Cabecera especial para Spotify y YouTube
             let header;
-            if (service.includes('SPOTIFY')) {
-                header = `*DATOS DE SU CUENTA SPOTIFY*`;
-            } else if (service.includes('YOUTUBE')) {
-                header = `*DATOS DE SU CUENTA YOUTUBE PREMIUM*`;
+            let accountTypeText;
+            
+            if (accountType === 'renovacion') {
+                accountTypeText = 'RENOVACIÓN';
+                header = `✅ *${accountTypeText} DE CUENTA ${service} CON ÉXITO* ✅\n\n`;
+                header += `📌 *DATOS DE SU ${service}* 📌\n\n`;
             } else {
-                header = `📌 *DATOS DE SU ${accountTypeText} ${service}* 📌`;
+                accountTypeText = accountType === 'pantalla' ? 'PANTALLA' : 'CUENTA';
+                header = `📌 *DATOS DE SU ${accountTypeText} ${service}* 📌\n\n`;
             }
             
-            let message = `${header}\n\n`;
+            // Cabecera especial para Spotify y YouTube
+            if (service.includes('SPOTIFY')) {
+                header = accountType === 'renovacion' 
+                    ? `✅ *RENOVACIÓN DE CUENTA SPOTIFY CON ÉXITO* ✅\n\n📌 *DATOS DE SU SPOTIFY* 📌\n\n` 
+                    : `*DATOS DE SU CUENTA SPOTIFY*`;
+            } else if (service.includes('YOUTUBE')) {
+                header = accountType === 'renovacion' 
+                    ? `✅ *RENOVACIÓN DE CUENTA YOUTUBE PREMIUM CON ÉXITO* ✅\n\n📌 *DATOS DE SU YOUTUBE PREMIUM* 📌\n\n` 
+                    : `*DATOS DE SU CUENTA YOUTUBE PREMIUM*`;
+            }
+            
+            let message = header;
             message += `👤 Usuario: ${email}\n`;
             message += `🔑 Clave: ${password}\n`;
             if (profile !== 'No proporcionado') message += `📌 PERFIL: ${profile}\n`;
             if (pin !== 'No proporcionado') message += `🔢 PIN DEL PERFIL: ${pin}\n\n`;
             
-            message += `📅 Fecha de entrega: Hoy, ${todayStr}\n`;
+            // Agregar "CUENTA RENOVADA CON ÉXITO!" solo para renovaciones
+            if (accountType === 'renovacion') {
+                message += `✅ *CUENTA RENOVADA CON ÉXITO!* ✅\n\n`;
+            }
+            
+            message += `📅 Fecha de ${accountType === 'renovacion' ? 'renovación' : 'entrega'}: Hoy, ${todayStr}\n`;
             message += `⏳ Vencimiento: ${nextMonthStr}\n\n`;
             
             // Instrucciones especiales para Netflix
@@ -186,18 +203,23 @@
                 message += `🔴 Prohibido cambiar correo y contraseña\n`;
                 message += `🔴 Prohibido editar datos de la cuenta\n`;
                 message += `🔴 Usted administra la cuenta, perfiles y pines internos de esta\n`;
-            } else {
+            } else if (accountType === 'pantalla') {
                 message += `🔴 Prohibido cambiar correo y contraseña\n`;
                 message += `🔴 Prohibido editar datos de la cuenta\n`;
                 message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo\n`;
                 message += `🔴 Prohibido compartir la cuenta\n\n`;
                 message += `🔴 Prohibido Cambiar Nombre del Perfil\n\n`;
                 message += `🔴 Prohibido Cambiar pin de perfil\n\n`;
+            } else if (accountType === 'renovacion') {
+                message += `🔴 Prohibido cambiar correo y contraseña\n`;
+                message += `🔴 Prohibido editar datos de la cuenta\n`;
+                message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo (si es pantalla)\n`;
+                message += `🔴 Prohibido compartir la cuenta\n\n`;
             }
 
             message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DEL PERFIL SIN REEMBOLSO\n\n`;
             
-            message += `¡Gracias por comprar *DPTO. STREAMING VENDE Y GANA*!\n`;
+            message += `¡Gracias por ${accountType === 'renovacion' ? 'renovar con' : 'comprar'} *DPTO. STREAMING VENDE Y GANA*!\n`;
             message += `🎬 Disfruta de tu contenido favorito`;
             
             document.getElementById('output-message').value = message;
