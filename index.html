@@ -111,7 +111,8 @@
                 { name: 'CRUNCHYROLL', keywords: ['crunchyroll'] },
                 { name: 'YOUTUBE PREMIUM', keywords: ['youtube premium', 'youtueb'] },
                 { name: 'SPOTIFY PREMIUM', keywords: ['spotify premium', 'spotify'] },
-                { name: 'FLUJO TV', keywords: ['flujo tv'] }
+                { name: 'FLUJO TV', keywords: ['flujo tv'] },
+                { name: 'VIX+', keywords: ['vix+', 'vix plus'] }
             ];
             
             for (const s of services) {
@@ -151,49 +152,56 @@
             if (accountType === 'renovacion') {
                 accountTypeText = 'RENOVACIÓN';
                 header = `✅ *${accountTypeText} DE CUENTA ${service} CON ÉXITO* ✅\n\n`;
-                header += `📌 *DATOS DE SU ${service}* 📌\n\n`;
             } else {
                 accountTypeText = accountType === 'pantalla' ? 'PANTALLA' : 'CUENTA';
                 header = `📌 *DATOS DE SU ${accountTypeText} ${service}* 📌\n\n`;
             }
             
-            // Cabecera especial para Spotify y YouTube
+            // Cabecera especial para servicios específicos
             if (service.includes('SPOTIFY')) {
                 header = accountType === 'renovacion' 
-                    ? `✅ *RENOVACIÓN DE CUENTA SPOTIFY CON ÉXITO* ✅\n\n📌 *DATOS DE SU SPOTIFY* 📌\n\n` 
-                    : `*DATOS DE SU CUENTA SPOTIFY*`;
+                    ? `✅ *RENOVACIÓN DE CUENTA SPOTIFY CON ÉXITO* ✅\n\n` 
+                    : `*DATOS DE SU CUENTA SPOTIFY*\n\n`;
             } else if (service.includes('YOUTUBE')) {
                 header = accountType === 'renovacion' 
-                    ? `✅ *RENOVACIÓN DE CUENTA YOUTUBE PREMIUM CON ÉXITO* ✅\n\n📌 *DATOS DE SU YOUTUBE PREMIUM* 📌\n\n` 
-                    : `*DATOS DE SU CUENTA YOUTUBE PREMIUM*`;
+                    ? `✅ *RENOVACIÓN DE CUENTA YOUTUBE PREMIUM CON ÉXITO* ✅\n\n` 
+                    : `*DATOS DE SU CUENTA YOUTUBE PREMIUM*\n\n`;
+            } else if (service.includes('VIX+')) {
+                header = accountType === 'renovacion' 
+                    ? `✅ *RENOVACIÓN DE CUENTA VIX+ CON ÉXITO* ✅\n\n` 
+                    : `*DATOS DE SU ${accountTypeText} VIX+*\n\n`;
             }
             
             let message = header;
-            message += `👤 Usuario: ${email}\n`;
-            message += `🔑 Clave: ${password}\n`;
-            if (profile !== 'No proporcionado') message += `📌 PERFIL: ${profile}\n`;
-            if (pin !== 'No proporcionado') message += `🔢 PIN DEL PERFIL: ${pin}\n\n`;
             
             // Agregar "CUENTA RENOVADA CON ÉXITO!" solo para renovaciones
             if (accountType === 'renovacion') {
                 message += `✅ *CUENTA RENOVADA CON ÉXITO!* ✅\n\n`;
             }
             
+            // Sección de datos de la cuenta
+            message += `*DETALLES DE LA CUENTA:*\n`;
+            message += `👤 Usuario: ${email}\n`;
+            message += `🔑 Clave: ${password}\n`;
+            if (profile !== 'No proporcionado') message += `📌 PERFIL: ${profile}\n`;
+            if (pin !== 'No proporcionado') message += `🔢 PIN DEL PERFIL: ${pin}\n\n`;
+            
             message += `📅 Fecha de ${accountType === 'renovacion' ? 'renovación' : 'entrega'}: Hoy, ${todayStr}\n`;
             message += `⏳ Vencimiento: ${nextMonthStr}\n\n`;
             
-            // Instrucciones especiales para Netflix
+            // Instrucciones especiales para servicios específicos
             if (service.toLowerCase().includes('netflix')) {
                 message += `📽️ *INSTRUCCIONES PARA ACTIVAR NETFLIX*:\n`;
                 message += `Para activar correctamente su cuenta de Netflix, por favor siga los pasos detallados en este video:\n`;
                 message += `👉 https://www.youtube.com/watch?v=SXrViahIoEQ\n\n`;
-            }
-            
-            // Instrucciones especiales para PANAXTREAMING
-            if (service.toLowerCase().includes('panax')) {
+            } else if (service.toLowerCase().includes('panax')) {
                 message += `📱 *INSTRUCCIONES PARA INSTALAR PANAXTREAMING*:\n`;
                 message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
                 message += `👉 https://youtu.be/mpdY5xEeWUU?si=cfo_FTLcmztB98Nz\n\n`;
+            } else if (service.toLowerCase().includes('vix+')) {
+                message += `📺 *INSTRUCCIONES PARA ACTIVAR VIX+*:\n`;
+                message += `Puede acceder a VIX+ desde su navegador o descargando la aplicación oficial:\n`;
+                message += `👉 https://www.vix.com/es\n\n`;
             }
             
             message += `⚠️ *IMPORTANTE*:\n`;
@@ -228,7 +236,7 @@
             const promoSection = document.getElementById('promo-section');
             const promoMessage = document.getElementById('promo-message');
             
-            const promoEnabledServices = ['NETFLIX', 'AMAZON PRIME VIDEO', 'DISNEY+', 'MAX PREMIUM', 'CRUNCHYROLL'];
+            const promoEnabledServices = ['NETFLIX', 'AMAZON PRIME VIDEO', 'DISNEY+', 'MAX PREMIUM', 'CRUNCHYROLL', 'VIX+'];
             
             if (promoEnabledServices.includes(service)) {
                 let promoText = `*¡No te quedes atrás!* 🚀\n\n`;
