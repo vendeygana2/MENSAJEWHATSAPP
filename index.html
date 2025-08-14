@@ -16,7 +16,7 @@
             flex-direction: column;
             gap: 20px;
         }
-        .input-section, .output-section, .promo-section {
+        .input-section, .output-section, .promo-section, .replacement-section {
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 8px;
@@ -71,10 +71,16 @@
                     <option value="pantalla">Pantalla</option>
                     <option value="cuenta">Cuenta</option>
                     <option value="renovacion">Renovación</option>
+                    <option value="reemplazo">Reemplazo</option>
                 </select>
             </div>
             
-            <label for="input-data">Datos de la cuenta (copiar y pegar):</label>
+            <div id="replacement-section" class="replacement-section hidden">
+                <label for="replacement-data">Cuenta a Reemplazar:</label>
+                <textarea id="replacement-data" placeholder="Ingrese los datos de la cuenta que será reemplazada"></textarea>
+            </div>
+            
+            <label for="input-data" id="input-data-label">Datos de la cuenta (copiar y pegar):</label>
             <textarea id="input-data" placeholder="Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146"></textarea>
             
             <button id="generate-btn">Generar Mensaje</button>
@@ -94,9 +100,24 @@
     </div>
 
     <script>
+        // Mostrar/ocultar sección de reemplazo según selección
+        document.getElementById('account-type').addEventListener('change', function() {
+            const replacementSection = document.getElementById('replacement-section');
+            const inputDataLabel = document.getElementById('input-data-label');
+            
+            if (this.value === 'reemplazo') {
+                replacementSection.classList.remove('hidden');
+                inputDataLabel.textContent = 'Datos de la cuenta de garantía:';
+            } else {
+                replacementSection.classList.add('hidden');
+                inputDataLabel.textContent = 'Datos de la cuenta (copiar y pegar):';
+            }
+        });
+
         document.getElementById('generate-btn').addEventListener('click', function() {
             const inputData = document.getElementById('input-data').value;
             const accountType = document.getElementById('account-type').value;
+            const replacementData = document.getElementById('replacement-data').value;
             
             // Detectar servicio automáticamente
             let service = 'Otro servicio';
@@ -152,6 +173,9 @@
             if (accountType === 'renovacion') {
                 accountTypeText = 'RENOVACIÓN';
                 header = `✅ *${accountTypeText} DE CUENTA ${service} CON ÉXITO* ✅\n\n`;
+            } else if (accountType === 'reemplazo') {
+                accountTypeText = 'REEMPLAZO';
+                header = `🔄 *${accountTypeText} DE CUENTA ${service} CON ÉXITO* 🔄\n\n`;
             } else {
                 accountTypeText = accountType === 'pantalla' ? 'PANTALLA' : 'CUENTA';
                 header = `📌 *DATOS DE SU ${accountTypeText} ${service}* 📌\n\n`;
@@ -161,22 +185,32 @@
             if (service.includes('SPOTIFY')) {
                 header = accountType === 'renovacion' 
                     ? `✅ *RENOVACIÓN DE CUENTA SPOTIFY CON ÉXITO* ✅\n\n` 
+                    : accountType === 'reemplazo'
+                    ? `🔄 *REEMPLAZO DE CUENTA SPOTIFY CON ÉXITO* 🔄\n\n`
                     : `*DATOS DE SU CUENTA SPOTIFY*\n\n`;
             } else if (service.includes('YOUTUBE')) {
                 header = accountType === 'renovacion' 
                     ? `✅ *RENOVACIÓN DE CUENTA YOUTUBE PREMIUM CON ÉXITO* ✅\n\n` 
+                    : accountType === 'reemplazo'
+                    ? `🔄 *REEMPLAZO DE CUENTA YOUTUBE PREMIUM CON ÉXITO* 🔄\n\n`
                     : `*DATOS DE SU CUENTA YOUTUBE PREMIUM*\n\n`;
             } else if (service.includes('VIX+')) {
                 header = accountType === 'renovacion' 
                     ? `✅ *RENOVACIÓN DE CUENTA VIX+ CON ÉXITO* ✅\n\n` 
+                    : accountType === 'reemplazo'
+                    ? `🔄 *REEMPLAZO DE CUENTA VIX+ CON ÉXITO* 🔄\n\n`
                     : `*DATOS DE SU ${accountTypeText} VIX+*\n\n`;
             }
             
             let message = header;
             
-            // Agregar "CUENTA RENOVADA CON ÉXITO!" solo para renovaciones
+            // Agregar mensaje especial según tipo de cuenta
             if (accountType === 'renovacion') {
                 message += `✅ *CUENTA RENOVADA CON ÉXITO!* ✅\n\n`;
+            } else if (accountType === 'reemplazo') {
+                message += `🔄 *CUENTA REEMPLAZADA CON ÉXITO!* 🔄\n\n`;
+                message += `*Cuenta anterior que fue reemplazada:*\n${replacementData}\n\n`;
+                message += `*A continuación los datos de la cuenta de garantía:*\n\n`;
             }
             
             // Sección de datos de la cuenta
@@ -186,7 +220,7 @@
             if (profile !== 'No proporcionado') message += `📌 PERFIL: ${profile}\n`;
             if (pin !== 'No proporcionado') message += `🔢 PIN DEL PERFIL: ${pin}\n\n`;
             
-            message += `📅 Fecha de ${accountType === 'renovacion' ? 'renovación' : 'entrega'}: Hoy, ${todayStr}\n`;
+            message += `📅 Fecha de ${accountType === 'renovacion' ? 'renovación' : accountType === 'reemplazo' ? 'reemplazo' : 'entrega'}: Hoy, ${todayStr}\n`;
             message += `⏳ Vencimiento: ${nextMonthStr}\n\n`;
             
             // Instrucciones especiales para servicios específicos
@@ -218,7 +252,7 @@
                 message += `🔴 Prohibido compartir la cuenta\n\n`;
                 message += `🔴 Prohibido Cambiar Nombre del Perfil\n\n`;
                 message += `🔴 Prohibido Cambiar pin de perfil\n\n`;
-            } else if (accountType === 'renovacion') {
+            } else if (accountType === 'renovacion' || accountType === 'reemplazo') {
                 message += `🔴 Prohibido cambiar correo y contraseña\n`;
                 message += `🔴 Prohibido editar datos de la cuenta\n`;
                 message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo (si es pantalla)\n`;
@@ -227,7 +261,7 @@
 
             message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DEL PERFIL SIN REEMBOLSO\n\n`;
             
-            message += `¡Gracias por ${accountType === 'renovacion' ? 'renovar con' : 'comprar'} *DPTO. STREAMING VENDE Y GANA*!\n`;
+            message += `¡Gracias por ${accountType === 'renovacion' ? 'renovar con' : accountType === 'reemplazo' ? 'confiar en' : 'comprar'} *DPTO. STREAMING VENDE Y GANA*!\n`;
             message += `🎬 Disfruta de tu contenido favorito`;
             
             document.getElementById('output-message').value = message;
@@ -269,7 +303,7 @@
             const promoMessage = document.getElementById('promo-message');
             promoMessage.select();
             document.execCommand('copy');
-            alert('Mensaje promocional copiado al portapapeles!');
+            alert('Mensaje promocional copiado al portapeles!');
         });
     </script>
 </body>
