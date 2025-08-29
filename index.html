@@ -10,6 +10,8 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            background-color: #f5f8fa;
+            color: #333;
         }
         .container {
             display: flex;
@@ -20,6 +22,16 @@
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #128C7E;
+            text-align: center;
+        }
+        h2 {
+            color: #075E54;
+            margin-top: 0;
         }
         textarea {
             width: 100%;
@@ -29,6 +41,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             resize: vertical;
+            font-family: Arial, sans-serif;
         }
         button {
             background-color: #25D366;
@@ -38,6 +51,9 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background-color 0.3s;
         }
         button:hover {
             background-color: #128C7E;
@@ -46,14 +62,37 @@
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
+            color: #075E54;
         }
         select {
             padding: 8px;
             border-radius: 4px;
             border: 1px solid #ccc;
             margin-bottom: 15px;
+            width: 100%;
         }
         .hidden {
+            display: none;
+        }
+        .demo-info {
+            background-color: #E8F4f8;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 4px solid #128C7E;
+        }
+        .instructions {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
+        }
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            text-align: center;
             display: none;
         }
     </style>
@@ -72,6 +111,7 @@
                     <option value="cuenta">Cuenta</option>
                     <option value="renovacion">Renovación</option>
                     <option value="reemplazo">Reemplazo</option>
+                    <option value="demo-panax">Demo PanaxTreaming</option>
                 </select>
             </div>
             
@@ -83,7 +123,12 @@
             <label for="input-data" id="input-data-label">Datos de la cuenta (copiar y pegar):</label>
             <textarea id="input-data" placeholder="Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146"></textarea>
             
+            <div id="demo-instructions" class="demo-info hidden">
+                <p class="instructions">Para Demo PanaxTreaming, ingrese los datos en el formato: <strong>USUARIO: [usuario] CLAVE: [contraseña]</strong></p>
+            </div>
+            
             <button id="generate-btn">Generar Mensaje</button>
+            <div id="success-message" class="success-message">¡Mensaje generado con éxito!</div>
         </div>
         
         <div class="output-section">
@@ -104,13 +149,20 @@
         document.getElementById('account-type').addEventListener('change', function() {
             const replacementSection = document.getElementById('replacement-section');
             const inputDataLabel = document.getElementById('input-data-label');
+            const demoInstructions = document.getElementById('demo-instructions');
             
             if (this.value === 'reemplazo') {
                 replacementSection.classList.remove('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta de garantía:';
+                demoInstructions.classList.add('hidden');
+            } else if (this.value === 'demo-panax') {
+                replacementSection.classList.add('hidden');
+                inputDataLabel.textContent = 'Datos de la cuenta Demo PanaxTreaming:';
+                demoInstructions.classList.remove('hidden');
             } else {
                 replacementSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta (copiar y pegar):';
+                demoInstructions.classList.add('hidden');
             }
         });
 
@@ -146,7 +198,7 @@
                 if (service !== 'Otro servicio') break;
             }
             
-            // Extraer datos
+            // Extraer datos - CORREGIDO: expresión regular mal formada
             const emailMatch = inputData.match(/(CORREO|Usuario|Email|USUARIO):?\s*([^\s]+)/i);
             const passwordMatch = inputData.match(/(CLAVE|Contraseña|Password|PASSWORD):?\s*([^\s]+)/i);
             const profileMatch = inputData.match(/(Perfil|PERFIL|Profile):?\s*(\d+)/i);
@@ -169,6 +221,56 @@
             // Generar mensaje
             let header;
             let accountTypeText;
+            
+            // Caso especial para Demo PanaxTreaming
+            if (accountType === 'demo-panax') {
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+                
+                let message = `📺 *DATOS DE SU DEMO PANAXTREAMING TV GO* 📺\n\n`;
+                message += `👤 Usuario: ${email}\n`;
+                message += `🔑 Clave: ${password}\n\n`;
+                message += `📅 Fecha de entrega: ${todayStr} a las ${timeStr}\n`;
+                message += `⏳ Duración: 12 horas\n\n`;
+                
+                message += `📱 *COMPATIBLE CON:* TU TELÉFONO ANDROID, SMARTV, PC, LAPTOP O TABLET\n\n`;
+                
+                message += `🚀 *SUPER FÁCIL DE INSTALAR, TE CONTAMOS TODO*\n\n`;
+                
+                message += `🤔 *¿O PREFIERES SEGUIR PAGANDO PLATAFORMAS QUE TE DAN TANTO PROBLEMA?*\n`;
+                message += `Como Netflix con falla de hogar, contraseña, y restricciones de todo tipo...\n\n`;
+                
+                message += `🌟 *NUESTRAS VENTAJAS:*\n`;
+                message += `✅ Nuestras cuentas abren sin restricción de geolocalización\n`;
+                message += `✅ En cualquier parte del mundo puede adquirir\n\n`;
+                
+                message += `💎 *OPCIONES DE SERVICIO:*\n`;
+                message += `• CUENTA COMPLETA: 3 DISPOSITIVOS SIMULTÁNEOS\n`;
+                message += `• PANTALLA: 1 PANTALLA EN CUALQUIER PARTE DEL MUNDO\n\n`;
+                
+                message += `⚠️ *IMPORTANTE:* SIGUE LOS PASOS DEL SIGUIENTE VIDEO PARA INSTALAR LA APLICACIÓN:\n`;
+                message += `👉 https://www.youtube.com/watch?v=mpdY5xEeWUU\n\n`;
+                message += `*COLOCAR LOS DATOS EN LA SECCIÓN DEMO*\n\n`;
+                
+                message += `¡Es un placer que uses nuestro demo! Estamos seguros que terminarás adquiriendo una cuenta completa que te permitirá disfrutar de TV POR INTERNET con:\n\n`;
+                message += `✅ Más de 80 canales nacionales\n`;
+                message += `✅ Más de 48 canales de deportes\n`;
+                message += `✅ Música y películas como HBO y TODO LOS EXISTENTES\n`;
+                message += `✅ Todas las películas y series que quieres ver en otras plataformas\n`;
+                message += `✅ Sin los problemas y restricciones de otras plataformas\n\n`;
+                message += `🇻🇪 *ADEMÁS*, al comprar nuestro servicio estás apoyando lo nuestro con sabor venezolano, ¡tan pana como tú!\n\n`;
+                message += `¡Disfruta de la experiencia y no dudes en contactarnos para adquirir el servicio completo! 🎉`;
+                
+                document.getElementById('output-message').value = message;
+                document.getElementById('promo-section').classList.add('hidden');
+                
+                // Mostrar mensaje de éxito
+                const successMessage = document.getElementById('success-message');
+                successMessage.style.display = 'block';
+                setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+                
+                return;
+            }
             
             if (accountType === 'renovacion') {
                 accountTypeText = 'RENOVACIÓN';
@@ -290,6 +392,11 @@
             } else {
                 promoSection.classList.add('hidden');
             }
+            
+            // Mostrar mensaje de éxito
+            const successMessage = document.getElementById('success-message');
+            successMessage.style.display = 'block';
+            setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
         });
         
         document.getElementById('copy-btn').addEventListener('click', function() {
@@ -303,7 +410,7 @@
             const promoMessage = document.getElementById('promo-message');
             promoMessage.select();
             document.execCommand('copy');
-            alert('Mensaje promocional copiado al portapeles!');
+            alert('Mensaje promocional copiado al portapapeles!');
         });
     </script>
 </body>
