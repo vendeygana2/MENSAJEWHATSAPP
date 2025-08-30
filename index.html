@@ -18,7 +18,7 @@
             flex-direction: column;
             gap: 20px;
         }
-        .input-section, .output-section, .promo-section, .replacement-section {
+        .input-section, .output-section, .promo-section, .replacement-section, .failure-section {
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 8px;
@@ -71,6 +71,14 @@
             margin-bottom: 15px;
             width: 100%;
         }
+        input[type="text"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
         .hidden {
             display: none;
         }
@@ -112,12 +120,38 @@
                     <option value="renovacion">Renovación</option>
                     <option value="reemplazo">Reemplazo</option>
                     <option value="demo-panax">Demo PanaxTreaming</option>
+                    <option value="falla">FALLA EN CUENTA</option>
                 </select>
             </div>
             
             <div id="replacement-section" class="replacement-section hidden">
                 <label for="replacement-data">Cuenta a Reemplazar:</label>
                 <textarea id="replacement-data" placeholder="Ingrese los datos de la cuenta que será reemplazada"></textarea>
+            </div>
+            
+            <div id="failure-section" class="failure-section hidden">
+                <label for="failure-service">Servicio con falla:</label>
+                <select id="failure-service">
+                    <option value="NETFLIX">NETFLIX</option>
+                    <option value="AMAZON PRIME">AMAZON PRIME</option>
+                    <option value="DISNEY PLUS">DISNEY PLUS</option>
+                    <option value="MAX">MAX</option>
+                    <option value="PANAXTREAMING">PANAXTREAMING</option>
+                    <option value="FLUJOTV">FLUJOTV</option>
+                    <option value="APPLE TV">APPLE TV</option>
+                    <option value="SPOTIFY">SPOTIFY</option>
+                    <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
+                    <option value="PARAMOUNT">PARAMOUNT</option>
+                    <option value="CRUNCHYROLL">CRUNCHYROLL</option>
+                    <option value="VIX+">VIX+</option>
+                    <option value="CANVA PRO">CANVA PRO</option>
+                    <option value="CATCUP">CATCUP</option>
+                    <option value="CHAT GPT">CHAT GPT</option>
+                    <option value="OTRO">OTRO</option>
+                </select>
+                
+                <label for="failure-email">Correo de la cuenta:</label>
+                <input type="text" id="failure-email" placeholder="Ingrese el correo de la cuenta con falla">
             </div>
             
             <label for="input-data" id="input-data-label">Datos de la cuenta (copiar y pegar):</label>
@@ -145,24 +179,38 @@
     </div>
 
     <script>
-        // Mostrar/ocultar sección de reemplazo según selección
+        // Mostrar/ocultar secciones según selección
         document.getElementById('account-type').addEventListener('change', function() {
             const replacementSection = document.getElementById('replacement-section');
+            const failureSection = document.getElementById('failure-section');
             const inputDataLabel = document.getElementById('input-data-label');
             const demoInstructions = document.getElementById('demo-instructions');
+            const inputData = document.getElementById('input-data');
             
             if (this.value === 'reemplazo') {
                 replacementSection.classList.remove('hidden');
+                failureSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta de garantía:';
                 demoInstructions.classList.add('hidden');
+                inputData.placeholder = "Ingrese los datos de la cuenta de garantía";
             } else if (this.value === 'demo-panax') {
                 replacementSection.classList.add('hidden');
+                failureSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta Demo PanaxTreaming:';
                 demoInstructions.classList.remove('hidden');
+                inputData.placeholder = "USUARIO: [usuario] CLAVE: [contraseña]";
+            } else if (this.value === 'falla') {
+                replacementSection.classList.add('hidden');
+                failureSection.classList.remove('hidden');
+                inputDataLabel.textContent = 'Información adicional (opcional):';
+                demoInstructions.classList.add('hidden');
+                inputData.placeholder = "Puede agregar detalles adicionales sobre la falla aquí";
             } else {
                 replacementSection.classList.add('hidden');
+                failureSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta (copiar y pegar):';
                 demoInstructions.classList.add('hidden');
+                inputData.placeholder = "Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146";
             }
         });
 
@@ -171,6 +219,47 @@
             const accountType = document.getElementById('account-type').value;
             const replacementData = document.getElementById('replacement-data').value;
             
+            // Caso especial para FALLA EN CUENTA
+            if (accountType === 'falla') {
+                const failureService = document.getElementById('failure-service').value;
+                const failureEmail = document.getElementById('failure-email').value;
+                
+                let message = `👋 *Estimado usuario, un placer saludarte esperando te encuentres bien junto a los tuyos* 👋\n\n`;
+                
+                message += `📢 *INFORMACIÓN IMPORTANTE:*\n`;
+                message += `Queremos informarte que nuestro equipo de *SOPORTE TÉCNICO STREAMING* 🔧 ha verificado que la cuenta que adquiriste con nosotros:\n\n`;
+                message += `📧 *CORREO:* ${failureEmail}\n`;
+                message += `📺 *SERVICIO:* ${failureService}\n\n`;
+                message += `⚠️ *Presenta una falla que está siendo atendida en este momento.* ⚠️\n\n`;
+                message += `🙏 *Ofrecemos disculpas por las molestias ocasionadas.* 🙏\n\n`;
+                
+                // Texto agregado según solicitud
+                message += `⏱️ *Es importante resaltar que el tiempo de respuesta dependerá de la plataforma que presenta la falla, pero si el tiempo de respuesta supera las doce horas reconoceremos 24 horas de servicios adicionales a tu fecha de corte.* ⏱️\n\n`;
+                
+                message += `🔜 *Al ser solventada la falla, le estaremos informando por este medio.* 🔜\n\n`;
+                
+                // Aclaración sobre no generar nuevo reporte
+                message += `📝 *NO ES NECESARIO QUE GENERES UN NUEVO REPORTE* (si ya lo habías hecho) y te enteras de la falla por este mensaje *TAMPOCO ES NECESARIO REALIZARLO.* 📝\n\n`;
+                
+                message += `💡 *Tenga en cuenta que para solventar el inconveniente podemos:*\n`;
+                message += `✅ Restablecer la cuenta con una nueva contraseña y nuevos datos preservando la cuenta\n`;
+                message += `✅ O para cumplir con usted, como siempre, con nuestra responsabilidad de garantizar un buen servicio\n`;
+                message += `✅ Darle una NUEVA CUENTA con datos nuevos en garantía\n\n`;
+                message += `🌟 *Agradecemos su comprensión y paciencia.* 🌟\n\n`;
+                message += `*DPTO. STREAMING VENDE Y GANA* 🎬`;
+                
+                document.getElementById('output-message').value = message;
+                document.getElementById('promo-section').classList.add('hidden');
+                
+                // Mostrar mensaje de éxito
+                const successMessage = document.getElementById('success-message');
+                successMessage.style.display = 'block';
+                setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+                
+                return;
+            }
+            
+            // Resto del código para otros tipos de cuenta...
             // Detectar servicio automáticamente
             let service = 'Otro servicio';
             const services = [
@@ -198,7 +287,7 @@
                 if (service !== 'Otro servicio') break;
             }
             
-            // Extraer datos - CORREGIDO: expresión regular mal formada
+            // Extraer datos
             const emailMatch = inputData.match(/(CORREO|Usuario|Email|USUARIO):?\s*([^\s]+)/i);
             const passwordMatch = inputData.match(/(CLAVE|Contraseña|Password|PASSWORD):?\s*([^\s]+)/i);
             const profileMatch = inputData.match(/(Perfil|PERFIL|Profile):?\s*(\d+)/i);
