@@ -18,7 +18,7 @@
             flex-direction: column;
             gap: 20px;
         }
-        .input-section, .output-section, .promo-section, .replacement-section, .failure-section {
+        .input-section, .output-section, .promo-section, .replacement-section, .failure-section, .renewal-section {
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 8px;
@@ -121,6 +121,7 @@
                     <option value="reemplazo">Reemplazo</option>
                     <option value="demo-panax">Demo PanaxTreaming</option>
                     <option value="falla">FALLA EN CUENTA</option>
+                    <option value="mensaje-renovacion">MENSAJE DE RENOVACIÓN DE CUENTA</option>
                 </select>
             </div>
             
@@ -154,6 +155,31 @@
                 <input type="text" id="failure-email" placeholder="Ingrese el correo de la cuenta con falla">
             </div>
             
+            <div id="renewal-section" class="renewal-section hidden">
+                <label for="renewal-service">Servicio a renovar:</label>
+                <select id="renewal-service">
+                    <option value="NETFLIX">NETFLIX</option>
+                    <option value="AMAZON PRIME">AMAZON PRIME</option>
+                    <option value="DISNEY PLUS">DISNEY PLUS</option>
+                    <option value="MAX">MAX</option>
+                    <option value="PANAXTREAMING">PANAXTREAMING</option>
+                    <option value="FLUJOTV">FLUJOTV</option>
+                    <option value="APPLE TV">APPLE TV</option>
+                    <option value="SPOTIFY">SPOTIFY</option>
+                    <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
+                    <option value="PARAMOUNT">PARAMOUNT</option>
+                    <option value="CRUNCHYROLL">CRUNCHYROLL</option>
+                    <option value="VIX+">VIX+</option>
+                    <option value="CANVA PRO">CANVA PRO</option>
+                    <option value="CATCUP">CATCUP</option>
+                    <option value="CHAT GPT">CHAT GPT</option>
+                    <option value="OTRO">OTRO</option>
+                </select>
+                
+                <label for="renewal-email">Correo de la cuenta a renovar:</label>
+                <input type="text" id="renewal-email" placeholder="Ingrese el correo de la cuenta a renovar">
+            </div>
+            
             <label for="input-data" id="input-data-label">Datos de la cuenta (copiar y pegar):</label>
             <textarea id="input-data" placeholder="Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146"></textarea>
             
@@ -183,6 +209,7 @@
         document.getElementById('account-type').addEventListener('change', function() {
             const replacementSection = document.getElementById('replacement-section');
             const failureSection = document.getElementById('failure-section');
+            const renewalSection = document.getElementById('renewal-section');
             const inputDataLabel = document.getElementById('input-data-label');
             const demoInstructions = document.getElementById('demo-instructions');
             const inputData = document.getElementById('input-data');
@@ -190,24 +217,35 @@
             if (this.value === 'reemplazo') {
                 replacementSection.classList.remove('hidden');
                 failureSection.classList.add('hidden');
+                renewalSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta de garantía:';
                 demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Ingrese los datos de la cuenta de garantía";
             } else if (this.value === 'demo-panax') {
                 replacementSection.classList.add('hidden');
                 failureSection.classList.add('hidden');
+                renewalSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta Demo PanaxTreaming:';
                 demoInstructions.classList.remove('hidden');
                 inputData.placeholder = "USUARIO: [usuario] CLAVE: [contraseña]";
             } else if (this.value === 'falla') {
                 replacementSection.classList.add('hidden');
                 failureSection.classList.remove('hidden');
+                renewalSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Información adicional (opcional):';
                 demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Puede agregar detalles adicionales sobre la falla aquí";
+            } else if (this.value === 'mensaje-renovacion') {
+                replacementSection.classList.add('hidden');
+                failureSection.classList.add('hidden');
+                renewalSection.classList.remove('hidden');
+                inputDataLabel.textContent = 'Información adicional (opcional):';
+                demoInstructions.classList.add('hidden');
+                inputData.placeholder = "Puede agregar detalles adicionales aquí";
             } else {
                 replacementSection.classList.add('hidden');
                 failureSection.classList.add('hidden');
+                renewalSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta (copiar y pegar):';
                 demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146";
@@ -218,6 +256,30 @@
             const inputData = document.getElementById('input-data').value;
             const accountType = document.getElementById('account-type').value;
             const replacementData = document.getElementById('replacement-data').value;
+            
+            // Caso especial para MENSAJE DE RENOVACIÓN DE CUENTA
+            if (accountType === 'mensaje-renovacion') {
+                const renewalService = document.getElementById('renewal-service').value;
+                const renewalEmail = document.getElementById('renewal-email').value;
+                
+                let message = `Hola que gusto saludarte!😁🤚🏻\n\n`;
+                
+                message += `*LLEGÓ LA HORA DE RENOVAR TU SERVICIO ${renewalService}* ⏰\n\n`;
+                message += `📧 *CORREO:* ${renewalEmail}\n\n`;
+                message += `🔄 Si deseas renovar o adquirir una nueva cuenta contáctanos, estamos atentos 📞\n\n`;
+                message += `_*BENDICIONES PARA TI Y LOS TUYOS EN ESTE MARAVILLOSO DÍA*_ 🙏✨\n\n`;
+                message += `*DEPARTAMENTO STREAMING VENDE Y GANA* 🎬`;
+                
+                document.getElementById('output-message').value = message;
+                document.getElementById('promo-section').classList.add('hidden');
+                
+                // Mostrar mensaje de éxito
+                const successMessage = document.getElementById('success-message');
+                successMessage.style.display = 'block';
+                setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+                
+                return;
+            }
             
             // Caso especial para FALLA EN CUENTA
             if (accountType === 'falla') {
@@ -389,7 +451,7 @@
                 header = accountType === 'renovacion' 
                     ? `✅ *RENOVACIÓN DE CUENTA VIX+ CON ÉXITO* ✅\n\n` 
                     : accountType === 'reemplazo'
-                    ? `🔄 *REEMPLAZO DE CUENTA VIX+ CON ÉXITO* 🔄\n\n`
+                    ? `🔄 *REEMPLAZO DE CUENTA VIX+ CON ÉXito* 🔄\n\n`
                     : `*DATOS DE SU ${accountTypeText} VIX+*\n\n`;
             }
             
