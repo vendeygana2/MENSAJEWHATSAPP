@@ -18,7 +18,7 @@
             flex-direction: column;
             gap: 20px;
         }
-        .input-section, .output-section, .promo-section, .replacement-section, .failure-section, .renewal-section {
+        .input-section, .output-section, .promo-section, .replacement-section, .failure-section, .renewal-section, .obsequio-section {
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 8px;
@@ -122,6 +122,7 @@
                     <option value="demo-panax">Demo PanaxTreaming</option>
                     <option value="falla">FALLA EN CUENTA</option>
                     <option value="mensaje-renovacion">MENSAJE DE RENOVACIÓN DE CUENTA</option>
+                    <option value="obsequio">OBSEQUIO</option>
                 </select>
             </div>
             
@@ -180,6 +181,31 @@
                 <input type="text" id="renewal-email" placeholder="Ingrese el correo de la cuenta a renovar">
             </div>
             
+            <div id="obsequio-section" class="obsequio-section hidden">
+                <label for="obsequio-service">Servicio a obsequiar:</label>
+                <select id="obsequio-service">
+                    <option value="NETFLIX">NETFLIX</option>
+                    <option value="AMAZON PRIME">AMAZON PRIME</option>
+                    <option value="DISNEY PLUS">DISNEY PLUS</option>
+                    <option value="MAX">MAX</option>
+                    <option value="PANAXTREAMING">PANAXTREAMING</option>
+                    <option value="FLUJOTV">FLUJOTV</option>
+                    <option value="APPLE TV">APPLE TV</option>
+                    <option value="SPOTIFY">SPOTIFY</option>
+                    <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
+                    <option value="PARAMOUNT">PARAMOUNT</option>
+                    <option value="CRUNCHYROLL">CRUNCHYROLL</option>
+                    <option value="VIX+">VIX+</option>
+                    <option value="CANVA PRO">CANVA PRO</option>
+                    <option value="CATCUP">CATCUP</option>
+                    <option value="CHAT GPT">CHAT GPT</option>
+                    <option value="OTRO">OTRO</option>
+                </select>
+                
+                <label for="client-name">Nombre del cliente:</label>
+                <input type="text" id="client-name" placeholder="Ingrese el nombre del cliente">
+            </div>
+            
             <label for="input-data" id="input-data-label">Datos de la cuenta (copiar y pegar):</label>
             <textarea id="input-data" placeholder="Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146"></textarea>
             
@@ -210,6 +236,7 @@
             const replacementSection = document.getElementById('replacement-section');
             const failureSection = document.getElementById('failure-section');
             const renewalSection = document.getElementById('renewal-section');
+            const obsequioSection = document.getElementById('obsequio-section');
             const inputDataLabel = document.getElementById('input-data-label');
             const demoInstructions = document.getElementById('demo-instructions');
             const inputData = document.getElementById('input-data');
@@ -218,6 +245,7 @@
                 replacementSection.classList.remove('hidden');
                 failureSection.classList.add('hidden');
                 renewalSection.classList.add('hidden');
+                obsequioSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta de garantía:';
                 demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Ingrese los datos de la cuenta de garantía";
@@ -225,6 +253,7 @@
                 replacementSection.classList.add('hidden');
                 failureSection.classList.add('hidden');
                 renewalSection.classList.add('hidden');
+                obsequioSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta Demo PanaxTreaming:';
                 demoInstructions.classList.remove('hidden');
                 inputData.placeholder = "USUARIO: [usuario] CLAVE: [contraseña]";
@@ -232,6 +261,7 @@
                 replacementSection.classList.add('hidden');
                 failureSection.classList.remove('hidden');
                 renewalSection.classList.add('hidden');
+                obsequioSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Información adicional (opcional):';
                 demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Puede agregar detalles adicionales sobre la falla aquí";
@@ -239,13 +269,23 @@
                 replacementSection.classList.add('hidden');
                 failureSection.classList.add('hidden');
                 renewalSection.classList.remove('hidden');
+                obsequioSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Información adicional (opcional):';
                 demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Puede agregar detalles adicionales aquí";
+            } else if (this.value === 'obsequio') {
+                replacementSection.classList.add('hidden');
+                failureSection.classList.add('hidden');
+                renewalSection.classList.add('hidden');
+                obsequioSection.classList.remove('hidden');
+                inputDataLabel.textContent = 'Datos de la cuenta a obsequiar:';
+                demoInstructions.classList.add('hidden');
+                inputData.placeholder = "Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146";
             } else {
                 replacementSection.classList.add('hidden');
                 failureSection.classList.add('hidden');
                 renewalSection.classList.add('hidden');
+                obsequioSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta (copiar y pegar):';
                 demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146";
@@ -308,6 +348,86 @@
                 message += `✅ O para cumplir con usted, como siempre, con nuestra responsabilidad de garantizar un buen servicio\n`;
                 message += `✅ Darle una NUEVA CUENTA con datos nuevos en garantía\n\n`;
                 message += `🌟 *Agradecemos su comprensión y paciencia.* 🌟\n\n`;
+                message += `*DPTO. STREAMING VENDE Y GANA* 🎬`;
+                
+                document.getElementById('output-message').value = message;
+                document.getElementById('promo-section').classList.add('hidden');
+                
+                // Mostrar mensaje de éxito
+                const successMessage = document.getElementById('success-message');
+                successMessage.style.display = 'block';
+                setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+                
+                return;
+            }
+            
+            // Caso especial para OBSEQUIO
+            if (accountType === 'obsequio') {
+                const obsequioService = document.getElementById('obsequio-service').value;
+                const clientName = document.getElementById('client-name').value;
+                
+                // Extraer datos
+                const emailMatch = inputData.match(/(CORREO|Usuario|Email|USUARIO):?\s*([^\s]+)/i);
+                const passwordMatch = inputData.match(/(CLAVE|Contraseña|Password|PASSWORD):?\s*([^\s]+)/i);
+                const profileMatch = inputData.match(/(Perfil|PERFIL|Profile):?\s*(\d+)/i);
+                const pinMatch = inputData.match(/(PIN|Pin|pin|CODIGO):?\s*(\d+)/i);
+                
+                const email = emailMatch ? emailMatch[2] : 'No proporcionado';
+                const password = passwordMatch ? passwordMatch[2] : 'No proporcionado';
+                const profile = profileMatch ? profileMatch[2] : 'No proporcionado';
+                const pin = pinMatch ? pinMatch[2] : 'No proporcionado';
+                
+                // Obtener fechas
+                const today = new Date();
+                const nextMonth = new Date();
+                nextMonth.setMonth(nextMonth.getMonth() + 1);
+                
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const todayStr = today.toLocaleDateString('es-ES', options);
+                const nextMonthStr = nextMonth.toLocaleDateString('es-ES', options);
+                
+                let message = `👋 *ESTIMADO/A ${clientName.toUpperCase()}* 👋\n\n`;
+                
+                message += `*SIEMPRE ES UN PLACER TENERTE CON NOSOTROS* 😊\n\n`;
+                message += `*HOY QUEREMOS PREMIAR TU FIDELIDAD Y USO DE NUESTROS SERVICIOS CON EL SIGUIENTE OBSEQUIO:* 🎁\n\n`;
+                
+                message += `📌 *PANTALLA DE ${obsequioService} DE REGALO* 📌\n\n`;
+                
+                // Sección de datos de la cuenta
+                message += `*DETALLES DE LA CUENTA:*\n`;
+                message += `👤 Usuario: ${email}\n`;
+                message += `🔑 Clave: ${password}\n`;
+                if (profile !== 'No proporcionado') message += `📌 PERFIL: ${profile}\n`;
+                if (pin !== 'No proporcionado') message += `🔢 PIN DEL PERFIL: ${pin}\n\n`;
+                
+                message += `📅 Fecha de entrega: Hoy, ${todayStr}\n`;
+                message += `⏳ Vencimiento: ${nextMonthStr}\n\n`;
+                
+                // Instrucciones especiales para servicios específicos
+                if (obsequioService.toLowerCase().includes('netflix')) {
+                    message += `📽️ *INSTRUCCIONES PARA ACTIVAR NETFLIX*:\n`;
+                    message += `Para activar correctamente su cuenta de Netflix, por favor siga los pasos detallados en este video:\n`;
+                    message += `👉 https://www.youtube.com/watch?v=SXrViahIoEQ\n\n`;
+                } else if (obsequioService.toLowerCase().includes('panax')) {
+                    message += `📱 *INSTRUCCIONES PARA INSTALAR PANAXTREAMING*:\n`;
+                    message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
+                    message += `👉 https://youtu.be/mpdY5xEeWUU?si=cfo_FTLcmztB98Nz\n\n`;
+                } else if (obsequioService.toLowerCase().includes('vix+')) {
+                    message += `📺 *INSTRUCCIONES PARA ACTIVAR VIX+*:\n`;
+                    message += `Puede acceder a VIX+ desde su navegador o descargando la aplicación oficial:\n`;
+                    message += `👉 https://www.vix.com/es\n\n`;
+                }
+                
+                message += `⚠️ *IMPORTANTE*:\n`;
+                message += `🔴 Prohibido cambiar correo y contraseña\n`;
+                message += `🔴 Prohibido editar datos de la cuenta\n`;
+                message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo\n`;
+                message += `🔴 Prohibido compartir la cuenta\n`;
+                message += `🔴 Prohibido Cambiar Nombre del Perfil\n`;
+                message += `🔴 Prohibido Cambiar pin de perfil\n\n`;
+                message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DEL PERFIL SIN REEMBOLSO\n\n`;
+                
+                message += `*¡GRACIAS POR SER PARTE DE NUESTRA COMUNIDAD!* 🙏\n\n`;
                 message += `*DPTO. STREAMING VENDE Y GANA* 🎬`;
                 
                 document.getElementById('output-message').value = message;
