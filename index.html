@@ -427,6 +427,23 @@
                 message += `🔴 Prohibido Cambiar pin de perfil\n\n`;
                 message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DEL PERFIL SIN REEMBOLSO\n\n`;
                 
+                // Mensaje especial para VIX+
+                if (obsequioService === 'VIX+') {
+                    message += `📲 *¿Ya conoces ViX+?*\n`;
+                    message += `Es la plataforma premium de streaming en español que está revolucionando el entretenimiento.\n\n`;
+                    message += `🎬 *¿Qué ofrece?*\n`;
+                    message += `- Series y películas exclusivas que no verás en ningún otro lado.\n`;
+                    message += `- Estrenos semanales con historias que te atrapan desde el primer minuto.\n`;
+                    message += `- Deportes en vivo como la Liga MX y mucho más.\n`;
+                    message += `- Noticias, novelas, comedia, drama… ¡todo sin anuncios!\n\n`;
+                    message += `💥 *Ventajas que marcan la diferencia:*\n`;
+                    message += `✅ Más de 10,000 horas de contenido extra.\n`;
+                    message += `✅ Calidad HD y acceso en varios dispositivos.\n`;
+                    message += `✅ Producciones latinas que reflejan nuestra cultura.\n`;
+                    message += `✅ Ideal para toda la familia: desde acción hasta contenido infantil.\n\n`;
+                    message += `🔐 *ViX+ no es solo entretenimiento, es una experiencia completa en español. Si te gusta*\n\n`;
+                }
+                
                 message += `*¡GRACIAS POR SER PARTE DE NUESTRA COMUNIDAD!* 🙏\n\n`;
                 message += `*DPTO. STREAMING VENDE Y GANA* 🎬`;
                 
@@ -617,7 +634,7 @@
             if (accountType === 'cuenta') {
                 message += `🔴 Prohibido cambiar correo y contraseña\n`;
                 message += `🔴 Prohibido editar datos de la cuenta\n`;
-                message += `🔴 Usted administra la cuenta, perfiles y pines internos de esta\n`;
+                message += `🔴 Usted administra la cuenta, perfiles и pines internos de esta\n`;
             } else if (accountType === 'pantalla') {
                 message += `🔴 Prohibido cambiar correo y contraseña\n`;
                 message += `🔴 Prohibido editar datos de la cuenta\n`;
