@@ -103,6 +103,49 @@
             text-align: center;
             display: none;
         }
+        .amazon-header, .netflix-header, .spotify-header, .vix-header, .disney-header, .flujotv-header, .panax-header, .youtube-header, .capcut-header, .replacement-header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .netflix-header {
+            background: linear-gradient(to right, #e50914, #b81d24);
+        }
+        .spotify-header {
+            background: linear-gradient(to right, #1DB954, #1ED760);
+        }
+        .vix-header {
+            background: linear-gradient(to right, #9F2D99, #6A0D7C);
+        }
+        .disney-header {
+            background: linear-gradient(to right, #113CCF, #00072D);
+        }
+        .flujotv-header {
+            background: linear-gradient(to right, #FF6B00, #FF8C00);
+        }
+        .panax-header {
+            background: linear-gradient(to right, #0066CC, #003366);
+        }
+        .youtube-header {
+            background: linear-gradient(to right, #FF0000, #CC0000);
+        }
+        .capcut-header {
+            background: linear-gradient(to right, #00C2FF, #007BFF);
+        }
+        .replacement-header {
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+        }
+        .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .output-content {
+            display: flex;
+            flex-direction: column;
+        }
     </style>
 </head>
 <body>
@@ -147,7 +190,7 @@
                     <option value="CRUNCHYROLL">CRUNCHYROLL</option>
                     <option value="VIX+">VIX+</option>
                     <option value="CANVA PRO">CANVA PRO</option>
-                    <option value="CATCUP">CATCUP</option>
+                    <option value="CAPCUT PRO">CAPCUT PRO</option>
                     <option value="CHAT GPT">CHAT GPT</option>
                     <option value="OTRO">OTRO</option>
                 </select>
@@ -169,21 +212,21 @@
                     <option value="SPOTIFY">SPOTIFY</option>
                     <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
                     <option value="PARAMOUNT">PARAMOUNT</option>
-                    <option value="CRUNCHYROLL">CRUNCHYROLL</option>
+                    <option value="CRUNchYROLL">CRUNCHYROLL</option>
                     <option value="VIX+">VIX+</option>
                     <option value="CANVA PRO">CANVA PRO</option>
-                    <option value="CATCUP">CATCUP</option>
+                    <option value="CAPCUT PRO">CAPCUT PRO</option>
                     <option value="CHAT GPT">CHAT GPT</option>
                     <option value="OTRO">OTRO</option>
                 </select>
                 
                 <label for="renewal-email">Correo de la cuenta a renovar:</label>
-                <input type="text" id="renewal-email" placeholder="Ingrese el correo de la cuenta a renovar">
+                <input type="text" id="renewal-email" placeholder="Ingrese el correo de la cuenta to renovar">
             </div>
             
             <div id="obsequio-section" class="obsequio-section hidden">
                 <label for="obsequio-service">Servicio a obsequiar:</label>
-                <select id="obsequio-service">
+                <select id='obsequio-service'>
                     <option value="NETFLIX">NETFLIX</option>
                     <option value="AMAZON PRIME">AMAZON PRIME</option>
                     <option value="DISNEY PLUS">DISNEY PLUS</option>
@@ -197,7 +240,7 @@
                     <option value="CRUNCHYROLL">CRUNCHYROLL</option>
                     <option value="VIX+">VIX+</option>
                     <option value="CANVA PRO">CANVA PRO</option>
-                    <option value="CATCUP">CATCUP</option>
+                    <option value="CAPCUT PRO">CAPCUT PRO</option>
                     <option value="CHAT GPT">CHAT GPT</option>
                     <option value="OTRO">OTRO</option>
                 </select>
@@ -219,7 +262,39 @@
         
         <div class="output-section">
             <h2>Mensaje Generado</h2>
-            <textarea id="output-message" readonly></textarea>
+            <div class="output-content">
+                <div id="amazon-header" class="amazon-header hidden">
+                    <img src="https://i.pinimg.com/1200x/97/e6/b4/97e6b4cd50d84728372c0073ce4df2ef.jpg" alt="Amazon Prime Header">
+                </div>
+                <div id="netflix-header" class="netflix-header hidden">
+                    <img src="https://i.pinimg.com/736x/83/96/b5/8396b5f9b1ce862d1d645b59a9f79846.jpg" alt="Netflix Header">
+                </div>
+                <div id="spotify-header" class="spotify-header hidden">
+                    <img src="https://i.pinimg.com/736x/86/8c/67/868c674a9d83c5198905a9611d025a6f.jpg" alt="Spotify Header">
+                </div>
+                <div id="vix-header" class="vix-header hidden">
+                    <img src="https://i.pinimg.com/736x/db/e8/84/dbe884c49df4503ffec91c01e7463716.jpg" alt="VIX+ Header">
+                </div>
+                <div id="disney-header" class="disney-header hidden">
+                    <img src="https://i.pinimg.com/736x/e0/ac/17/e0ac175441f5d4826ca2b17aa39e1928.jpg" alt="Disney Plus Header">
+                </div>
+                <div id="flujotv-header" class="flujotv-header hidden">
+                    <img src="https://i.pinimg.com/736x/d4/76/98/d47698e15aefd1233db5f6ec6a8171e8.jpg" alt="Flujo TV Header">
+                </div>
+                <div id="panax-header" class="panax-header hidden">
+                    <img src="https://i.pinimg.com/736x/0c/0d/4f/0c0d4f7b336da43eab590d2ec432f8f7.jpg" alt="PanaxTreaming Header">
+                </div>
+                <div id="youtube-header" class="youtube-header hidden">
+                    <img src="https://i.pinimg.com/736x/b0/32/4d/b0324ddcb4f3cfee0a11ea345a6f62ad.jpg" alt="YouTube Premium Header">
+                </div>
+                <div id="capcut-header" class="capcut-header hidden">
+                    <img src="https://i.pinimg.com/736x/9f/26/dd/9f26dd84cb7f8333026172af60df115a.jpg" alt="CapCut Pro Header">
+                </div>
+                <div id="replacement-header" class="replacement-header hidden">
+                    <img src="https://i.pinimg.com/736x/20/db/1f/20db1fe044bd0a2cda4a65281fa34666.jpg" alt="Reemplazo Header">
+                </div>
+                <textarea id="output-message" readonly></textarea>
+            </div>
             <button id="copy-btn">Copiar Mensaje</button>
         </div>
 
@@ -278,7 +353,7 @@
                 failureSection.classList.add('hidden');
                 renewalSection.classList.add('hidden');
                 obsequioSection.classList.remove('hidden');
-                inputDataLabel.textContent = 'Datos de la cuenta a obsequiar:';
+                inputDataLabel.textContent = 'Datos de la cuenta to obsequiar:';
                 demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146";
             } else {
@@ -296,6 +371,28 @@
             const inputData = document.getElementById('input-data').value;
             const accountType = document.getElementById('account-type').value;
             const replacementData = document.getElementById('replacement-data').value;
+            const amazonHeader = document.getElementById('amazon-header');
+            const netflixHeader = document.getElementById('netflix-header');
+            const spotifyHeader = document.getElementById('spotify-header');
+            const vixHeader = document.getElementById('vix-header');
+            const disneyHeader = document.getElementById('disney-header');
+            const flujotvHeader = document.getElementById('flujotv-header');
+            const panaxHeader = document.getElementById('panax-header');
+            const youtubeHeader = document.getElementById('youtube-header');
+            const capcutHeader = document.getElementById('capcut-header');
+            const replacementHeader = document.getElementById('replacement-header');
+            
+            // Ocultar las imágenes de cabecera por defecto
+            amazonHeader.classList.add('hidden');
+            netflixHeader.classList.add('hidden');
+            spotifyHeader.classList.add('hidden');
+            vixHeader.classList.add('hidden');
+            disneyHeader.classList.add('hidden');
+            flujotvHeader.classList.add('hidden');
+            panaxHeader.classList.add('hidden');
+            youtubeHeader.classList.add('hidden');
+            capcutHeader.classList.add('hidden');
+            replacementHeader.classList.add('hidden');
             
             // Caso especial para MENSAJE DE RENOVACIÓN DE CUENTA
             if (accountType === 'mensaje-renovacion') {
@@ -414,8 +511,12 @@
                     message += `👉 https://youtu.be/mpdY5xEeWUU?si=cfo_FTLcmztB98Nz\n\n`;
                 } else if (obsequioService.toLowerCase().includes('vix+')) {
                     message += `📺 *INSTRUCCIONES PARA ACTIVAR VIX+*:\n`;
-                    message += `Puede acceder a VIX+ desde su navegador o descargando la aplicación oficial:\n`;
+                    message += `Puede acceder to VIX+ desde su navegador o descargando la aplicación oficial:\n`;
                     message += `👉 https://www.vix.com/es\n\n`;
+                } else if (obsequioService.toLowerCase().includes('flujo')) {
+                    message += `📺 *INSTRUCCIONES PARA ACTIVAR FLUJO TV*:\n`;
+                    message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
+                    message += `👉 https://youtu.be/ejemplo-flujotv\n\n`;
                 }
                 
                 message += `⚠️ *IMPORTANTE*:\n`;
@@ -444,7 +545,7 @@
                     message += `🔐 *ViX+ no es solo entretenimiento, es una experiencia completa en español. Si te gusta*\n\n`;
                 }
                 
-                message += `*¡GRACIAS POR SER PARTE DE NUESTRA COMUNIDAD!* 🙏\n\n`;
+                message += `*¡GRACIAS POR SER PARTE de NUESTRA COMUNIDAD!* 🙏\n\n`;
                 message += `*DPTO. STREAMING VENDE Y GANA* 🎬`;
                 
                 document.getElementById('output-message').value = message;
@@ -463,17 +564,19 @@
             let service = 'Otro servicio';
             const services = [
                 { name: 'NETFLIX', keywords: ['netflix'] },
-                { name: 'DISNEY+', keywords: ['disney'] },
+                { name: 'AMAZON PRIME', keywords: ['amazon prime', 'amazon'] },
+                { name: 'DISNEY PLUS', keywords: ['disney', 'disney plus'] },
                 { name: 'HBO MAX', keywords: ['hbo', 'hbo max'] },
                 { name: 'MAX PREMIUM', keywords: ['max premium'] },
                 { name: 'DISNEY+ + ESPN', keywords: ['disney+ + espn', 'disney espn'] },
                 { name: 'AMAZON PRIME VIDEO', keywords: ['amazon prime', 'prime video'] },
-                { name: 'PANAXTREAMING', keywords: ['panax'] },
+                { name: 'PANAXTREAMING', keywords: ['panax', 'panaxstreaming'] },
                 { name: 'CRUNCHYROLL', keywords: ['crunchyroll'] },
                 { name: 'YOUTUBE PREMIUM', keywords: ['youtube premium', 'youtueb'] },
                 { name: 'SPOTIFY PREMIUM', keywords: ['spotify premium', 'spotify'] },
-                { name: 'FLUJO TV', keywords: ['flujo tv'] },
-                { name: 'VIX+', keywords: ['vix+', 'vix plus'] }
+                { name: 'FLUJO TV', keywords: ['flujo tv', 'flujotv'] },
+                { name: 'VIX+', keywords: ['vix+', 'vix plus'] },
+                { name: 'CAPCUT PRO', keywords: ['capcut', 'capcut pro'] }
             ];
             
             for (const s of services) {
@@ -521,7 +624,7 @@
                 message += `📅 Fecha de entrega: ${todayStr} a las ${timeStr}\n`;
                 message += `⏳ Duración: 12 horas\n\n`;
                 
-                message += `📱 *COMPATIBLE CON:* TU TELÉFONO ANDROID, SMARTV, PC, LAPTOP O TABLET\n\n`;
+                message += `📱 *COMPATIBLE CON:* TU TELÉFONO ANDROID, SMARTTV, PC, LAPTOP O TABLET\n\n`;
                 
                 message += `🚀 *SUPER FÁCIL DE INSTALAR, TE CONTAMOS TODO*\n\n`;
                 
@@ -534,7 +637,7 @@
                 
                 message += `💎 *OPCIONES DE SERVICIO:*\n`;
                 message += `• CUENTA COMPLETA: 3 DISPOSITIVOS SIMULTÁNEOS\n`;
-                message += `• PANTALLA: 1 PANTALLA EN CUALQUIER PARTE DEL MUNDO\n\n`;
+                message += `• PANTALLA: 1 PANTALLA EN CUALQUIER PARTE del MUNDO\n\n`;
                 
                 message += `⚠️ *IMPORTANTE:* SIGUE LOS PASOS DEL SIGUIENTE VIDEO PARA INSTALAR LA APLICACIÓN:\n`;
                 message += `👉 https://www.youtube.com/watch?v=mpdY5xEeWUU\n\n`;
@@ -588,11 +691,61 @@
                 header = accountType === 'renovacion' 
                     ? `✅ *RENOVACIÓN DE CUENTA VIX+ CON ÉXITO* ✅\n\n` 
                     : accountType === 'reemplazo'
-                    ? `🔄 *REEMPLAZO DE CUENTA VIX+ CON ÉXito* 🔄\n\n`
+                    ? `🔄 *REEMPLAZO DE CUENTA VIX+ CON ÉXITO* 🔄\n\n`
                     : `*DATOS DE SU ${accountTypeText} VIX+*\n\n`;
+            } else if (service.includes('DISNEY PLUS')) {
+                header = accountType === 'renovacion' 
+                    ? `✅ *RENOVACIÓN DE CUENTA DISNEY+ CON ÉXITO* ✅\n\n` 
+                    : accountType === 'reemplazo'
+                    ? `🔄 *REEMPLAZO DE CUENTA DISNEY+ CON ÉXITO* 🔄\n\n`
+                    : `*DATOS DE SU ${accountTypeText} DISNEY+*\n\n`;
+            } else if (service.includes('FLUJO TV')) {
+                header = accountType === 'renovacion' 
+                    ? `✅ *RENOVACIÓN DE CUENTA FLUJO TV CON ÉXITO* ✅\n\n` 
+                    : accountType === 'reemplazo'
+                    ? `🔄 *REEMPLAZO DE CUENTA FLUJO TV CON ÉXITO* 🔄\n\n`
+                    : `*DATOS DE SU ${accountTypeText} FLUJO TV*\n\n`;
+            } else if (service.includes('PANAXTREAMING')) {
+                header = accountType === 'renovacion' 
+                    ? `✅ *RENOVACIÓN DE CUENTA PANAXTREAMING CON ÉXITO* ✅\n\n` 
+                    : accountType === 'reemplazo'
+                    ? `🔄 *REEMPLAZO DE CUENTA PANAXTREAMING CON ÉXITO* 🔄\n\n`
+                    : `*DATOS DE SU ${accountTypeText} PANAXTREAMING*\n\n`;
+            } else if (service.includes('CAPCUT PRO')) {
+                header = accountType === 'renovacion' 
+                    ? `✅ *RENOVACIÓN DE CUENTA CAPCUT PRO CON ÉXITO* ✅\n\n` 
+                    : accountType === 'reemplazo'
+                    ? `🔄 *REEMPLAZO DE CUENTA CAPCUT PRO CON ÉXITO* 🔄\n\n`
+                    : `*DATOS DE SU ${accountTypeText} CAPCUT PRO*\n\n`;
             }
             
             let message = header;
+            
+            // Mostrar imagen de cabecera para servicios específicos
+            if (service.includes('AMAZON')) {
+                amazonHeader.classList.remove('hidden');
+            } else if (service.includes('NETFLIX') && (accountType === 'pantalla' || accountType === 'cuenta')) {
+                netflixHeader.classList.remove('hidden');
+            } else if (service.includes('SPOTIFY') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion' || accountType === 'reemplazo')) {
+                spotifyHeader.classList.remove('hidden');
+            } else if (service.includes('VIX+') && (accountType === 'pantalla' || accountType === 'cuenta')) {
+                vixHeader.classList.remove('hidden');
+            } else if (service.includes('DISNEY PLUS') && (accountType === 'pantalla' || accountType === 'cuenta')) {
+                disneyHeader.classList.remove('hidden');
+            } else if (service.includes('FLUJO TV') && (accountType === 'pantalla' || accountType === 'cuenta')) {
+                flujotvHeader.classList.remove('hidden');
+            } else if (service.includes('PANAXTREAMING') && (accountType === 'pantalla' || accountType === 'cuenta')) {
+                panaxHeader.classList.remove('hidden');
+            } else if (service.includes('YOUTUBE') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion' || accountType === 'reemplazo')) {
+                youtubeHeader.classList.remove('hidden');
+            } else if (service.includes('CAPCUT PRO') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion' || accountType === 'reemplazo')) {
+                capcutHeader.classList.remove('hidden');
+            }
+            
+            // Mostrar imagen de reemplazo para todos los servicios cuando el tipo es "reemplazo"
+            if (accountType === 'reemplazo') {
+                replacementHeader.classList.remove('hidden');
+            }
             
             // Agregar mensaje especial según tipo de cuenta
             if (accountType === 'renovacion') {
@@ -626,30 +779,60 @@
                 message += `📺 *INSTRUCCIONES PARA ACTIVAR VIX+*:\n`;
                 message += `Puede acceder a VIX+ desde su navegador o descargando la aplicación oficial:\n`;
                 message += `👉 https://www.vix.com/es\n\n`;
+            } else if (service.toLowerCase().includes('disney')) {
+                message += `🏰 *INSTRUCCIONES PARA ACTIVAR DISNEY+*:\n`;
+                message += `Puede acceder a Disney+ desde su navegador o descargando la aplicación oficial:\n`;
+                message += `👉 https://www.disneyplus.com\n\n`;
+            } else if (service.toLowerCase().includes('flujo')) {
+                message += `📺 *INSTRUCCIONES PARA ACTIVAR FLUJO TV*:\n`;
+                message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
+                message += `👉 https://youtu.be/ejemplo-flujotv\n\n`;
+            } else if (service.toLowerCase().includes('panax')) {
+                message += `📱 *INSTRUCCIONES PARA INSTALAR PANAXTREAMING*:\n`;
+                message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
+                message += `👉 https://youtu.be/mpdY5xEeWUU?si=cfo_FTLcmztB98Nz\n\n`;
             }
             
             message += `⚠️ *IMPORTANTE*:\n`;
             
-            // Condición para mostrar diferentes instrucciones según el tipo de cuenta
-            if (accountType === 'cuenta') {
-                message += `🔴 Prohibido cambiar correo y contraseña\n`;
-                message += `🔴 Prohibido editar datos de la cuenta\n`;
-                message += `🔴 Usted administra la cuenta, perfiles и pines internos de esta\n`;
-            } else if (accountType === 'pantalla') {
-                message += `🔴 Prohibido cambiar correo y contraseña\n`;
-                message += `🔴 Prohibido editar datos de la cuenta\n`;
-                message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo\n`;
-                message += `🔴 Prohibido compartir la cuenta\n\n`;
-                message += `🔴 Prohibido Cambiar Nombre del Perfil\n\n`;
-                message += `🔴 Prohibido Cambiar pin de perfil\n\n`;
-            } else if (accountType === 'renovacion' || accountType === 'reemplazo') {
-                message += `🔴 Prohibido cambiar correo y contraseña\n`;
-                message += `🔴 Prohibido editar datos de la cuenta\n`;
-                message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo (si es pantalla)\n`;
-                message += `🔴 Prohibido compartir la cuenta\n\n`;
-            }
+            // Términos y condiciones especiales para CapCut Pro
+            if (service.includes('CAPCUT PRO')) {
+                message += `* 👀 TERMINOS Y CONDICIONES \n\n`;
+                message += `❗❗ Obligatorio\n`;
+                message += ` Copiar y Pegar correo y contraseña para evitar problemas de acceso \n\n`;
+                message += ` ✅Disponible Todas Las Funciones de CAPCUT PRO  👑\n`;
+                message += `Acceso \n`;
+                message += `✅1 Dispositivo Móvil 📱\n`;
+                message += `🚫No Usar VPN\n`;
+                message += `🚫No puedes cerrar sesión y abrir en otro dispositivo. Solo puedes vincular con 1 dispositivo ya que se bloquea la cuenta\n`;
+                message += `🚫No puedes compartir el correo y contraseña de acceso, con otra persona y otro dispositivo.\n`;
+                message += `🚫No puedes vincular con Tiktok ni Youtube directamente desde la app.\n`;
+                message += `Almacenamiento de ediciones\n`;
+                message += `✅En su Dispositivo Móvil.\n`;
+                message += `🚫Sin Acceso Privado a la nube.\n`;
+                message += `❗si incumple con los términos, perderá la garantía ‼\n\n`;
+            } else {
+                // Condición para mostrar diferentes instrucciones según el tipo de cuenta
+                if (accountType === 'cuenta') {
+                    message += `🔴 Prohibido cambiar correo y contraseña\n`;
+                    message += `🔴 Prohibido editar datos de la cuenta\n`;
+                    message += `🔴 Usted administra la cuenta, perfiles y pines internos de esta\n`;
+                } else if (accountType === 'pantalla') {
+                    message += `🔴 Prohibido cambiar correo y contraseña\n`;
+                    message += `🔴 Prohibido editar datos de la cuenta\n`;
+                    message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo\n`;
+                    message += `🔴 Prohibido compartir la cuenta\n\n`;
+                    message += `🔴 Prohibido Cambiar Nombre del Perfil\n\n`;
+                    message += `🔴 Prohibido Cambiar pin de perfil\n\n`;
+                } else if (accountType === 'renovacion' || accountType === 'reemplazo') {
+                    message += `🔴 Prohibido cambiar correo y contraseña\n`;
+                    message += `🔴 Prohibido editar datos de la cuenta\n`;
+                    message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo (si es pantalla)\n`;
+                    message += `🔴 Prohibido compartir la cuenta\n\n`;
+                }
 
-            message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DEL PERFIL SIN REEMBOLSO\n\n`;
+                message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DEL PERFIL SIN REEMBOLSO\n\n`;
+            }
             
             message += `¡Gracias por ${accountType === 'renovacion' ? 'renovar con' : accountType === 'reemplazo' ? 'confiar en' : 'comprar'} *DPTO. STREAMING VENDE Y GANA*!\n`;
             message += `🎬 Disfruta de tu contenido favorito`;
@@ -660,7 +843,7 @@
             const promoSection = document.getElementById('promo-section');
             const promoMessage = document.getElementById('promo-message');
             
-            const promoEnabledServices = ['NETFLIX', 'AMAZON PRIME VIDEO', 'DISNEY+', 'MAX PREMIUM', 'CRUNCHYROLL', 'VIX+'];
+            const promoEnabledServices = ['NETFLIX', 'AMAZON PRIME', 'AMAZON PRIME VIDEO', 'DISNEY+', 'MAX PREMIUM', 'CRUNCHYROLL', 'VIX+'];
             
             if (promoEnabledServices.includes(service)) {
                 let promoText = `*¡No te quedes atrás!* 🚀\n\n`;
