@@ -156,6 +156,14 @@
             <h2>Ingresar Datos de la Cuenta</h2>
             
             <div>
+                <label for="company-type">Empresa:</label>
+                <select id="company-type">
+                    <option value="vendeygana">VENDE Y GANA</option>
+                    <option value="saldoexpress">SALDO EXPRESS</option>
+                </select>
+            </div>
+            
+            <div>
                 <label for="account-type">Tipo de Cuenta:</label>
                 <select id="account-type">
                     <option value="pantalla">Pantalla</option>
@@ -370,6 +378,7 @@
         document.getElementById('generate-btn').addEventListener('click', function() {
             const inputData = document.getElementById('input-data').value;
             const accountType = document.getElementById('account-type').value;
+            const companyType = document.getElementById('company-type').value;
             const replacementData = document.getElementById('replacement-data').value;
             const amazonHeader = document.getElementById('amazon-header');
             const netflixHeader = document.getElementById('netflix-header');
@@ -394,6 +403,14 @@
             capcutHeader.classList.add('hidden');
             replacementHeader.classList.add('hidden');
             
+            // Definir firma según la empresa seleccionada
+            let signature = '';
+            if (companyType === 'vendeygana') {
+                signature = '*Que gusto que confíes en nosotros gracias por preferirnos ATENTAMENTE: DPTO. CUENTAS STREAMING PANAXTREAMING/VENDE Y GANA*';
+            } else if (companyType === 'saldoexpress') {
+                signature = '*Que gusto que confíes en nosotros gracias por preferirnos ATENTAMENTE: SALDO EXPRESS C.A. ubicados en pleno centro de MERIDA CALLE 26 ENTRE AVENIDAS 7 Y 8*';
+            }
+            
             // Caso especial para MENSAJE DE RENOVACIÓN DE CUENTA
             if (accountType === 'mensaje-renovacion') {
                 const renewalService = document.getElementById('renewal-service').value;
@@ -405,7 +422,7 @@
                 message += `📧 *CORREO:* ${renewalEmail}\n\n`;
                 message += `🔄 Si deseas renovar o adquirir una nueva cuenta contáctanos, estamos atentos 📞\n\n`;
                 message += `_*BENDICIONES PARA TI Y LOS TUYOS EN ESTE MARAVILLOSO DÍA*_ 🙏✨\n\n`;
-                message += `*DEPARTAMENTO STREAMING VENDE Y GANA* 🎬`;
+                message += `${signature}`;
                 
                 document.getElementById('output-message').value = message;
                 document.getElementById('promo-section').classList.add('hidden');
@@ -445,14 +462,14 @@
                 message += `✅ O para cumplir con usted, como siempre, con nuestra responsabilidad de garantizar un buen servicio\n`;
                 message += `✅ Darle una NUEVA CUENTA con datos nuevos en garantía\n\n`;
                 message += `🌟 *Agradecemos su comprensión y paciencia.* 🌟\n\n`;
-                message += `*DPTO. STREAMING VENDE Y GANA* 🎬`;
+                message += `${signature}`;
                 
                 document.getElementById('output-message').value = message;
                 document.getElementById('promo-section').classList.add('hidden');
                 
                 // Mostrar mensaje de éxito
                 const successMessage = document.getElementById('success-message');
-                successMessage.style.display = 'block';
+                signature.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
                 
                 return;
@@ -511,7 +528,7 @@
                     message += `👉 https://youtu.be/mpdY5xEeWUU?si=cfo_FTLcmztB98Nz\n\n`;
                 } else if (obsequioService.toLowerCase().includes('vix+')) {
                     message += `📺 *INSTRUCCIONES PARA ACTIVAR VIX+*:\n`;
-                    message += `Puede acceder to VIX+ desde su navegador o descargando la aplicación oficial:\n`;
+                    message += `Puede acceder a VIX+ desde su navegador o descargando la aplicación oficial:\n`;
                     message += `👉 https://www.vix.com/es\n\n`;
                 } else if (obsequioService.toLowerCase().includes('flujo')) {
                     message += `📺 *INSTRUCCIONES PARA ACTIVAR FLUJO TV*:\n`;
@@ -545,8 +562,7 @@
                     message += `🔐 *ViX+ no es solo entretenimiento, es una experiencia completa en español. Si te gusta*\n\n`;
                 }
                 
-                message += `*¡GRACIAS POR SER PARTE de NUESTRA COMUNIDAD!* 🙏\n\n`;
-                message += `*DPTO. STREAMING VENDE Y GANA* 🎬`;
+                message += `${signature}`;
                 
                 document.getElementById('output-message').value = message;
                 document.getElementById('promo-section').classList.add('hidden');
@@ -637,7 +653,7 @@
                 
                 message += `💎 *OPCIONES DE SERVICIO:*\n`;
                 message += `• CUENTA COMPLETA: 3 DISPOSITIVOS SIMULTÁNEOS\n`;
-                message += `• PANTALLA: 1 PANTALLA EN CUALQUIER PARTE del MUNDO\n\n`;
+                message += `• PANTALla: 1 PANTALLA EN CUALQUIER PARTE del MUNDO\n\n`;
                 
                 message += `⚠️ *IMPORTANTE:* SIGUE LOS PASOS DEL SIGUIENTE VIDEO PARA INSTALAR LA APLICACIÓN:\n`;
                 message += `👉 https://www.youtube.com/watch?v=mpdY5xEeWUU\n\n`;
@@ -650,7 +666,7 @@
                 message += `✅ Todas las películas y series que quieres ver en otras plataformas\n`;
                 message += `✅ Sin los problemas y restricciones de otras plataformas\n\n`;
                 message += `🇻🇪 *ADEMÁS*, al comprar nuestro servicio estás apoyando lo nuestro con sabor venezolano, ¡tan pana como tú!\n\n`;
-                message += `¡Disfruta de la experiencia y no dudes en contactarnos para adquirir el servicio completo! 🎉`;
+                message += `${signature}`;
                 
                 document.getElementById('output-message').value = message;
                 document.getElementById('promo-section').classList.add('hidden');
@@ -834,8 +850,9 @@
                 message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DEL PERFIL SIN REEMBOLSO\n\n`;
             }
             
-            message += `¡Gracias por ${accountType === 'renovacion' ? 'renovar con' : accountType === 'reemplazo' ? 'confiar en' : 'comprar'} *DPTO. STREAMING VENDE Y GANA*!\n`;
-            message += `🎬 Disfruta de tu contenido favorito`;
+            message += `¡Gracias por ${accountType === 'renovacion' ? 'renovar con' : accountType === 'reemplazo' ? 'confiar en' : 'comprar'} ${companyType === 'vendeygana' ? '*DPTO. STREAMING VENDE Y GANA*' : '*SALDO EXPRESS*'}!\n`;
+            message += `🎬 Disfruta de tu contenido favorito\n\n`;
+            message += `${signature}`;
             
             document.getElementById('output-message').value = message;
             
