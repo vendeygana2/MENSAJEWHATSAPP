@@ -103,7 +103,7 @@
             text-align: center;
             display: none;
         }
-        .amazon-header, .netflix-header, .spotify-header, .vix-header, .disney-header, .flujotv-header, .panax-header, .youtube-header, .capcut-header, .replacement-header {
+        .amazon-header, .netflix-header, .spotify-header, .vix-header, .disney-header, .flujotv-header, .panax-header, .youtube-header, .capcut-header, .replacement-header, .failure-header {
             text-align: center;
             margin-bottom: 15px;
             padding: 10px;
@@ -136,7 +136,10 @@
         .replacement-header {
             background: linear-gradient(to right, #4CAF50, #2E7D32);
         }
-        .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img {
+        .failure-header {
+            background: linear-gradient(to right, #FF9800, #F57C00);
+        }
+        .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img, .failure-header img {
             max-width: 100%;
             height: auto;
             border-radius: 6px;
@@ -301,6 +304,9 @@
                 <div id="replacement-header" class="replacement-header hidden">
                     <img src="https://i.pinimg.com/736x/20/db/1f/20db1fe044bd0a2cda4a65281fa34666.jpg" alt="Reemplazo Header">
                 </div>
+                <div id="failure-header" class="failure-header hidden">
+                    <img src="https://i.pinimg.com/736x/07/6a/35/076a3565d1d6bb64a8b08bbc74ca9fcf.jpg" alt="Falla en Cuenta Header">
+                </div>
                 <textarea id="output-message" readonly></textarea>
             </div>
             <button id="copy-btn">Copiar Mensaje</button>
@@ -390,6 +396,7 @@
             const youtubeHeader = document.getElementById('youtube-header');
             const capcutHeader = document.getElementById('capcut-header');
             const replacementHeader = document.getElementById('replacement-header');
+            const failureHeader = document.getElementById('failure-header');
             
             // Ocultar las imágenes de cabecera por defecto
             amazonHeader.classList.add('hidden');
@@ -402,6 +409,7 @@
             youtubeHeader.classList.add('hidden');
             capcutHeader.classList.add('hidden');
             replacementHeader.classList.add('hidden');
+            failureHeader.classList.add('hidden');
             
             // Definir firma según la empresa seleccionada
             let signature = '';
@@ -440,6 +448,9 @@
                 const failureService = document.getElementById('failure-service').value;
                 const failureEmail = document.getElementById('failure-email').value;
                 
+                // Mostrar la imagen de falla en cuenta
+                failureHeader.classList.remove('hidden');
+                
                 let message = `👋 *Estimado usuario, un placer saludarte esperando te encuentres bien junto a los tuyos* 👋\n\n`;
                 
                 message += `📢 *INFORMACIÓN IMPORTANTE:*\n`;
@@ -469,7 +480,7 @@
                 
                 // Mostrar mensaje de éxito
                 const successMessage = document.getElementById('success-message');
-                signature.style.display = 'block';
+                successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
                 
                 return;
@@ -832,7 +843,7 @@
                 if (accountType === 'cuenta') {
                     message += `🔴 Prohibido cambiar correo y contraseña\n`;
                     message += `🔴 Prohibido editar datos de la cuenta\n`;
-                    message += `🔴 Usted administra la cuenta, perfiles y pines internos de esta\n`;
+                    message += `🔴 Usted administra la cuenta, perfiles и pines internos de esta\n`;
                 } else if (accountType === 'pantalla') {
                     message += `🔴 Prohibido cambiar correo y contraseña\n`;
                     message += `🔴 Prohibido editar datos de la cuenta\n`;
