@@ -103,7 +103,7 @@
             text-align: center;
             display: none;
         }
-        .amazon-header, .netflix-header, .spotify-header, .vix-header, .disney-header, .flujotv-header, .panax-header, .youtube-header, .capcut-header, .replacement-header, .failure-header, .renewal-header {
+        .amazon-header, .netflix-header, .spotify-header, .vix-header, .disney-header, .flujotv-header, .panax-header, .youtube-header, .capcut-header, .replacement-header, .failure-header, .renewal-header, .max-header {
             text-align: center;
             margin-bottom: 15px;
             padding: 10px;
@@ -142,7 +142,10 @@
         .renewal-header {
             background: linear-gradient(to right, #4CAF50, #2E7D32);
         }
-        .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img, .failure-header img, .renewal-header img {
+        .max-header {
+            background: linear-gradient(to right, #0066CC, #003366);
+        }
+        .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img, .failure-header img, .renewal-header img, .max-header img {
             max-width: 100%;
             height: auto;
             border-radius: 6px;
@@ -199,7 +202,7 @@
                     <option value="FLUJOTV">FLUJOTV</option>
                     <option value="APPLE TV">APPLE TV</option>
                     <option value="SPOTIFY">SPOTIFY</option>
-                    <option value="YOUTUBE PREMIUM">YOUTUBE PREmium</option>
+                    <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
                     <option value="PARAMOUNT">PARAMOUNT</option>
                     <option value="CRUNCHYROLL">CRUNCHYROLL</option>
                     <option value="VIX+">VIX+</option>
@@ -313,6 +316,9 @@
                 <div id="renewal-header" class="renewal-header hidden">
                     <img src="https://i.pinimg.com/736x/71/31/ba/7131ba5a0ad70b113c4f056665808860.jpg" alt="Renovación Header">
                 </div>
+                <div id="max-header" class="max-header hidden">
+                    <img src="https://i.pinimg.com/736x/b0/f6/b8/b0f6b8108268d39d691ba631a397cb85.jpg" alt="MAX Header">
+                </div>
                 <textarea id="output-message" readonly></textarea>
             </div>
             <button id="copy-btn">Copiar Mensaje</button>
@@ -404,6 +410,7 @@
             const replacementHeader = document.getElementById('replacement-header');
             const failureHeader = document.getElementById('failure-header');
             const renewalHeader = document.getElementById('renewal-header');
+            const maxHeader = document.getElementById('max-header');
             
             // Ocultar las imágenes de cabecera por defecto
             amazonHeader.classList.add('hidden');
@@ -418,6 +425,7 @@
             replacementHeader.classList.add('hidden');
             failureHeader.classList.add('hidden');
             renewalHeader.classList.add('hidden');
+            maxHeader.classList.add('hidden');
             
             // Definir firma según la empresa seleccionada
             let signature = '';
@@ -617,6 +625,7 @@
                 { name: 'NETFLIX', keywords: ['netflix'] },
                 { name: 'AMAZON PRIME', keywords: ['amazon prime', 'amazon'] },
                 { name: 'DISNEY PLUS', keywords: ['disney', 'disney plus'] },
+                { name: 'MAX', keywords: ['max', 'hbo max'] },
                 { name: 'HBO MAX', keywords: ['hbo', 'hbo max'] },
                 { name: 'MAX PREMIUM', keywords: ['max premium'] },
                 { name: 'DISNEY+ + ESPN', keywords: ['disney+ + espn', 'disney espn'] },
@@ -680,7 +689,7 @@
                 message += `🚀 *SUPER FÁCIL DE INSTALAR, TE CONTAMOS TODO*\n\n`;
                 
                 message += `🤔 *¿O PREFIERES SEGUIR PAGANDO PLATAFORMAS QUE TE DAN TANTO PROBLEMA?*\n`;
-                message += `Como Netflix con falla de hogar, contraseña, y restricciones de todo tipo...\n\n`;
+                message += `Como Netflix con falla de hogar, contraseña, and restricciones de todo tipo...\n\n`;
                 
                 message += `🌟 *NUESTRAS VENTAJAS:*\n`;
                 message += `✅ Nuestras cuentas abren sin restricción de geolocalización\n`;
@@ -768,6 +777,12 @@
                     : accountType === 'reemplazo'
                     ? `🔄 *REEMPLAZO DE CUENTA CAPCUT PRO CON ÉXITO* 🔄\n\n`
                     : `*DATOS DE SU ${accountTypeText} CAPCUT PRO*\n\n`;
+            } else if (service.includes('MAX')) {
+                header = accountType === 'renovacion' 
+                    ? `✅ *RENOVACIÓN DE CUENTA MAX CON ÉXITO* ✅\n\n` 
+                    : accountType === 'reemplazo'
+                    ? `🔄 *REEMPLAZO DE CUENTA MAX CON ÉXITO* 🔄\n\n`
+                    : `*DATOS DE SU ${accountTypeText} MAX*\n\n`;
             }
             
             let message = header;
@@ -791,6 +806,8 @@
                 youtubeHeader.classList.remove('hidden');
             } else if (service.includes('CAPCUT PRO') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion' || accountType === 'reemplazo')) {
                 capcutHeader.classList.remove('hidden');
+            } else if (service.includes('MAX') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion' || accountType === 'reemplazo')) {
+                maxHeader.classList.remove('hidden');
             }
             
             // Mostrar imagen de reemplazo para todos los servicios cuando el tipo es "reemplazo"
@@ -847,6 +864,10 @@
                 message += `📱 *INSTRUCCIONES PARA INSTALAR PANAXTREAMING*:\n`;
                 message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
                 message += `👉 https://youtu.be/mpdY5xEeWUU?si=cfo_FTLcmztB98Nz\n\n`;
+            } else if (service.toLowerCase().includes('max')) {
+                message += `🎬 *INSTRUCCIONES PARA ACTIVAR MAX*:\n`;
+                message += `Puede acceder a MAX desde su navegador o descargando la aplicación oficial:\n`;
+                message += `👉 https://www.max.com\n\n`;
             }
             
             message += `⚠️ *IMPORTANTE*:\n`;
@@ -900,7 +921,7 @@
             const promoSection = document.getElementById('promo-section');
             const promoMessage = document.getElementById('promo-message');
             
-            const promoEnabledServices = ['NETFLIX', 'AMAZON PRIME', 'AMAZON PRIME VIDEO', 'DISNEY+', 'MAX PREMIUM', 'CRUNCHYROLL', 'VIX+'];
+            const promoEnabledServices = ['NETFLIX', 'AMAZON PRIME', 'AMAZON PRIME VIDEO', 'DISNEY+', 'MAX', 'MAX PREMIUM', 'CRUNCHYROLL', 'VIX+'];
             
             if (promoEnabledServices.includes(service)) {
                 let promoText = `*¡No te quedes atrás!* 🚀\n\n`;
