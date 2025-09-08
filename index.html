@@ -103,7 +103,7 @@
             text-align: center;
             display: none;
         }
-        .amazon-header, .netflix-header, .spotify-header, .vix-header, .disney-header, .flujotv-header, .panax-header, .youtube-header, .capcut-header, .replacement-header, .failure-header {
+        .amazon-header, .netflix-header, .spotify-header, .vix-header, .disney-header, .flujotv-header, .panax-header, .youtube-header, .capcut-header, .replacement-header, .failure-header, .renewal-header {
             text-align: center;
             margin-bottom: 15px;
             padding: 10px;
@@ -139,7 +139,10 @@
         .failure-header {
             background: linear-gradient(to right, #FF9800, #F57C00);
         }
-        .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img, .failure-header img {
+        .renewal-header {
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+        }
+        .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img, .failure-header img, .renewal-header img {
             max-width: 100%;
             height: auto;
             border-radius: 6px;
@@ -196,7 +199,7 @@
                     <option value="FLUJOTV">FLUJOTV</option>
                     <option value="APPLE TV">APPLE TV</option>
                     <option value="SPOTIFY">SPOTIFY</option>
-                    <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
+                    <option value="YOUTUBE PREMIUM">YOUTUBE PREmium</option>
                     <option value="PARAMOUNT">PARAMOUNT</option>
                     <option value="CRUNCHYROLL">CRUNCHYROLL</option>
                     <option value="VIX+">VIX+</option>
@@ -307,6 +310,9 @@
                 <div id="failure-header" class="failure-header hidden">
                     <img src="https://i.pinimg.com/736x/07/6a/35/076a3565d1d6bb64a8b08bbc74ca9fcf.jpg" alt="Falla en Cuenta Header">
                 </div>
+                <div id="renewal-header" class="renewal-header hidden">
+                    <img src="https://i.pinimg.com/736x/71/31/ba/7131ba5a0ad70b113c4f056665808860.jpg" alt="Renovación Header">
+                </div>
                 <textarea id="output-message" readonly></textarea>
             </div>
             <button id="copy-btn">Copiar Mensaje</button>
@@ -397,6 +403,7 @@
             const capcutHeader = document.getElementById('capcut-header');
             const replacementHeader = document.getElementById('replacement-header');
             const failureHeader = document.getElementById('failure-header');
+            const renewalHeader = document.getElementById('renewal-header');
             
             // Ocultar las imágenes de cabecera por defecto
             amazonHeader.classList.add('hidden');
@@ -410,6 +417,7 @@
             capcutHeader.classList.add('hidden');
             replacementHeader.classList.add('hidden');
             failureHeader.classList.add('hidden');
+            renewalHeader.classList.add('hidden');
             
             // Definir firma según la empresa seleccionada
             let signature = '';
@@ -424,10 +432,20 @@
                 const renewalService = document.getElementById('renewal-service').value;
                 const renewalEmail = document.getElementById('renewal-email').value;
                 
+                // Mostrar la imagen de renovación
+                renewalHeader.classList.remove('hidden');
+                
                 let message = `Hola que gusto saludarte!😁🤚🏻\n\n`;
                 
                 message += `*LLEGÓ LA HORA DE RENOVAR TU SERVICIO ${renewalService}* ⏰\n\n`;
                 message += `📧 *CORREO:* ${renewalEmail}\n\n`;
+                
+                // Agregar información adicional si se proporcionó
+                if (inputData.trim() !== '') {
+                    message += `📝 *INFORMACIÓN ADICIONAL:*\n`;
+                    message += `${inputData}\n\n`;
+                }
+                
                 message += `🔄 Si deseas renovar o adquirir una nueva cuenta contáctanos, estamos atentos 📞\n\n`;
                 message += `_*BENDICIONES PARA TI Y LOS TUYOS EN ESTE MARAVILLOSO DÍA*_ 🙏✨\n\n`;
                 message += `${signature}`;
@@ -462,6 +480,12 @@
                 
                 // Texto agregado según solicitud
                 message += `⏱️ *Es importante resaltar que el tiempo de respuesta dependerá de la plataforma que presenta la falla, pero si el tiempo de respuesta supera las doce horas reconoceremos 24 horas de servicios adicionales a tu fecha de corte.* ⏱️\n\n`;
+                
+                // Agregar información adicional si se proporcionó
+                if (inputData.trim() !== '') {
+                    message += `📝 *IMPORTANTE:*\n`;
+                    message += `${inputData}\n\n`;
+                }
                 
                 message += `🔜 *Al ser solventada la falla, le estaremos informando por este medio.* 🔜\n\n`;
                 
@@ -772,6 +796,11 @@
             // Mostrar imagen de reemplazo para todos los servicios cuando el tipo es "reemplazo"
             if (accountType === 'reemplazo') {
                 replacementHeader.classList.remove('hidden');
+            }
+            
+            // Mostrar imagen de renovación para todos los servicios cuando el tipo es "renovacion"
+            if (accountType === 'renovacion') {
+                renewalHeader.classList.remove('hidden');
             }
             
             // Agregar mensaje especial según tipo de cuenta
