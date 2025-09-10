@@ -187,6 +187,26 @@
             </div>
             
             <div id="replacement-section" class="replacement-section hidden">
+                <label for="replacement-service">Servicio a Reemplazar:</label>
+                <select id="replacement-service">
+                    <option value="NETFLIX">NETFLIX</option>
+                    <option value="AMAZON PRIME">AMAZON PRIME</option>
+                    <option value="DISNEY PLUS">DISNEY PLUS</option>
+                    <option value="MAX">MAX</option>
+                    <option value="PANAXTREAMING">PANAXTREAMING</option>
+                    <option value="FLUJOTV">FLUJOTV</option>
+                    <option value="APPLE TV">APPLE TV</option>
+                    <option value="SPOTIFY">SPOTIFY</option>
+                    <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
+                    <option value="PARAMOUNT">PARAMOUNT</option>
+                    <option value="CRUNCHYROLL">CRUNCHYROLL</option>
+                    <option value="VIX+">VIX+</option>
+                    <option value="CANVA PRO">CANVA PRO</option>
+                    <option value="CAPCUT PRO">CAPCUT PRO</option>
+                    <option value="CHAT GPT">CHAT GPT</option>
+                    <option value="OTRO">OTRO</option>
+                </select>
+                
                 <label for="replacement-data">Cuenta a Reemplazar:</label>
                 <textarea id="replacement-data" placeholder="Ingrese los datos de la cuenta que será reemplazada"></textarea>
             </div>
@@ -618,6 +638,97 @@
                 return;
             }
             
+            // Caso especial para REEMPLAZO
+            if (accountType === 'reemplazo') {
+                const replacementService = document.getElementById('replacement-service').value;
+                
+                // Extraer datos de la cuenta de garantía
+                const emailMatch = inputData.match(/(CORREO|Usuario|Email|USUARIO):?\s*([^\s]+)/i);
+                const passwordMatch = inputData.match(/(CLAVE|Contraseña|Password|PASSWORD):?\s*([^\s]+)/i);
+                const profileMatch = inputData.match(/(Perfil|PERFIL|Profile):?\s*(\d+)/i);
+                const pinMatch = inputData.match(/(PIN|Pin|pin|CODIGO):?\s*(\d+)/i);
+                
+                const email = emailMatch ? emailMatch[2] : 'No proporcionado';
+                const password = passwordMatch ? passwordMatch[2] : 'No proporcionado';
+                const profile = profileMatch ? profileMatch[2] : 'No proporcionado';
+                const pin = pinMatch ? pinMatch[2] : 'No proporcionado';
+                
+                // Obtener fechas
+                const today = new Date();
+                const nextMonth = new Date();
+                nextMonth.setMonth(nextMonth.getMonth() + 1);
+                
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const todayStr = today.toLocaleDateString('es-ES', options);
+                const nextMonthStr = nextMonth.toLocaleDateString('es-ES', options);
+                
+                // Mostrar la imagen de reemplazo
+                replacementHeader.classList.remove('hidden');
+                
+                let message = `🔄 *REEMPLAZO DE CUENTA ${replacementService} CON ÉXITO* 🔄\n\n`;
+                message += `✅ *CUENTA REEMPLAZADA CON ÉXITO!* ✅\n\n`;
+                message += `*Cuenta anterior que fue reemplazada (${replacementService}):*\n${replacementData}\n\n`;
+                message += `*A continuación los datos de la cuenta de garantía:*\n\n`;
+                
+                // Sección de datos de la cuenta
+                message += `*DETALLES DE LA CUENTA DE GARANTÍA:*\n`;
+                message += `👤 Usuario: ${email}\n`;
+                message += `🔑 Clave: ${password}\n`;
+                if (profile !== 'No proporcionado') message += `📌 PERFIL: ${profile}\n`;
+                if (pin !== 'No proporcionado') message += `🔢 PIN DEL PERFIL: ${pin}\n\n`;
+                
+                message += `📅 Fecha de reemplazo: Hoy, ${todayStr}\n`;
+                message += `⏳ Vencimiento: ${nextMonthStr}\n\n`;
+                
+                // Instrucciones especiales para servicios específicos
+                if (replacementService.toLowerCase().includes('netflix')) {
+                    message += `📽️ *INSTRUCCIONES PARA ACTIVAR NETFLIX*:\n`;
+                    message += `Para activar correctamente su cuenta de Netflix, por favor siga los pasos detallados en este video:\n`;
+                    message += `👉 https://www.youtube.com/watch?v=SXrViahIoEQ\n\n`;
+                } else if (replacementService.toLowerCase().includes('panax')) {
+                    message += `📱 *INSTRUCCIONES PARA INSTALAR PANAXTREAMING*:\n`;
+                    message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
+                    message += `👉 https://youtu.be/mpdY5xEeWUU?si=cfo_FTLcmztB98Nz\n\n`;
+                } else if (replacementService.toLowerCase().includes('vix+')) {
+                    message += `📺 *INSTRUCCIONES PARA ACTIVAR VIX+*:\n`;
+                    message += `Puede acceder a VIX+ desde su navegador o descargando la aplicación oficial:\n`;
+                    message += `👉 https://www.vix.com/es\n\n`;
+                } else if (replacementService.toLowerCase().includes('disney')) {
+                    message += `🏰 *INSTRUCCIONES PARA ACTIVAR DISNEY+*:\n`;
+                    message += `Puede acceder a Disney+ desde su navegador o descargando la aplicación oficial:\n`;
+                    message += `👉 https://www.disneyplus.com\n\n`;
+                } else if (replacementService.toLowerCase().includes('flujo')) {
+                    message += `📺 *INSTRUCCIONES PARA ACTIVAR FLUJO TV*:\n`;
+                    message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
+                    message += `👉 https://youtu.be/ejemplo-flujotv\n\n`;
+                } else if (replacementService.toLowerCase().includes('max')) {
+                    message += `🎬 *INSTRUCCIONES PARA ACTIVAR MAX*:\n`;
+                    message += `Puede acceder a MAX desde su navegador o descargando la aplicación oficial:\n`;
+                    message += `👉 https://www.max.com\n\n`;
+                }
+                
+                message += `⚠️ *IMPORTANTE*:\n`;
+                message += `🔴 Prohibido cambiar correo y contraseña\n`;
+                message += `🔴 Prohibido editar datos de la cuenta\n`;
+                message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo\n`;
+                message += `🔴 Prohibido compartir la cuenta\n\n`;
+                message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DEL PERFIL SIN REEMBOLSO\n\n`;
+                
+                message += `¡Gracias por confiar en ${companyType === 'vendeygana' ? '*DPTO. STREAMING VENDE Y GANA*' : '*SALDO EXPRESS*'}!\n`;
+                message += `🎬 Disfruta de tu contenido favorito\n\n`;
+                message += `${signature}`;
+                
+                document.getElementById('output-message').value = message;
+                document.getElementById('promo-section').classList.add('hidden');
+                
+                // Mostrar mensaje de éxito
+                const successMessage = document.getElementById('success-message');
+                successMessage.style.display = 'block';
+                setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+                
+                return;
+            }
+            
             // Resto del código para otros tipos de cuenta...
             // Detectar servicio automáticamente
             let service = 'Otro servicio';
@@ -726,9 +837,6 @@
             if (accountType === 'renovacion') {
                 accountTypeText = 'RENOVACIÓN';
                 header = `✅ *${accountTypeText} DE CUENTA ${service} CON ÉXITO* ✅\n\n`;
-            } else if (accountType === 'reemplazo') {
-                accountTypeText = 'REEMPLAZO';
-                header = `🔄 *${accountTypeText} DE CUENTA ${service} CON ÉXITO* 🔄\n\n`;
             } else {
                 accountTypeText = accountType === 'pantalla' ? 'PANTALLA' : 'CUENTA';
                 header = `📌 *DATOS DE SU ${accountTypeText} ${service}* 📌\n\n`;
@@ -738,50 +846,34 @@
             if (service.includes('SPOTIFY')) {
                 header = accountType === 'renovacion' 
                     ? `✅ *RENOVACIÓN DE CUENTA SPOTIFY CON ÉXITO* ✅\n\n` 
-                    : accountType === 'reemplazo'
-                    ? `🔄 *REEMPLAZO DE CUENTA SPOTIFY CON ÉXITO* 🔄\n\n`
                     : `*DATOS DE SU CUENTA SPOTIFY*\n\n`;
             } else if (service.includes('YOUTUBE')) {
                 header = accountType === 'renovacion' 
                     ? `✅ *RENOVACIÓN DE CUENTA YOUTUBE PREMIUM CON ÉXITO* ✅\n\n` 
-                    : accountType === 'reemplazo'
-                    ? `🔄 *REEMPLAZO DE CUENTA YOUTUBE PREMIUM CON ÉXITO* 🔄\n\n`
                     : `*DATOS DE SU CUENTA YOUTUBE PREMIUM*\n\n`;
             } else if (service.includes('VIX+')) {
                 header = accountType === 'renovacion' 
                     ? `✅ *RENOVACIÓN DE CUENTA VIX+ CON ÉXITO* ✅\n\n` 
-                    : accountType === 'reemplazo'
-                    ? `🔄 *REEMPLAZO DE CUENTA VIX+ CON ÉXITO* 🔄\n\n`
                     : `*DATOS DE SU ${accountTypeText} VIX+*\n\n`;
             } else if (service.includes('DISNEY PLUS')) {
                 header = accountType === 'renovacion' 
                     ? `✅ *RENOVACIÓN DE CUENTA DISNEY+ CON ÉXITO* ✅\n\n` 
-                    : accountType === 'reemplazo'
-                    ? `🔄 *REEMPLAZO DE CUENTA DISNEY+ CON ÉXITO* 🔄\n\n`
                     : `*DATOS DE SU ${accountTypeText} DISNEY+*\n\n`;
             } else if (service.includes('FLUJO TV')) {
                 header = accountType === 'renovacion' 
                     ? `✅ *RENOVACIÓN DE CUENTA FLUJO TV CON ÉXITO* ✅\n\n` 
-                    : accountType === 'reemplazo'
-                    ? `🔄 *REEMPLAZO DE CUENTA FLUJO TV CON ÉXITO* 🔄\n\n`
                     : `*DATOS DE SU ${accountTypeText} FLUJO TV*\n\n`;
             } else if (service.includes('PANAXTREAMING')) {
                 header = accountType === 'renovacion' 
                     ? `✅ *RENOVACIÓN DE CUENTA PANAXTREAMING CON ÉXITO* ✅\n\n` 
-                    : accountType === 'reemplazo'
-                    ? `🔄 *REEMPLAZO DE CUENTA PANAXTREAMING CON ÉXITO* 🔄\n\n`
                     : `*DATOS DE SU ${accountTypeText} PANAXTREAMING*\n\n`;
             } else if (service.includes('CAPCUT PRO')) {
                 header = accountType === 'renovacion' 
                     ? `✅ *RENOVACIÓN DE CUENTA CAPCUT PRO CON ÉXITO* ✅\n\n` 
-                    : accountType === 'reemplazo'
-                    ? `🔄 *REEMPLAZO DE CUENTA CAPCUT PRO CON ÉXITO* 🔄\n\n`
                     : `*DATOS DE SU ${accountTypeText} CAPCUT PRO*\n\n`;
             } else if (service.includes('MAX')) {
                 header = accountType === 'renovacion' 
                     ? `✅ *RENOVACIÓN DE CUENTA MAX CON ÉXITO* ✅\n\n` 
-                    : accountType === 'reemplazo'
-                    ? `🔄 *REEMPLAZO DE CUENTA MAX CON ÉXITO* 🔄\n\n`
                     : `*DATOS DE SU ${accountTypeText} MAX*\n\n`;
             }
             
@@ -792,7 +884,7 @@
                 amazonHeader.classList.remove('hidden');
             } else if (service.includes('NETFLIX') && (accountType === 'pantalla' || accountType === 'cuenta')) {
                 netflixHeader.classList.remove('hidden');
-            } else if (service.includes('SPOTIFY') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion' || accountType === 'reemplazo')) {
+            } else if (service.includes('SPOTIFY') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion')) {
                 spotifyHeader.classList.remove('hidden');
             } else if (service.includes('VIX+') && (accountType === 'pantalla' || accountType === 'cuenta')) {
                 vixHeader.classList.remove('hidden');
@@ -802,17 +894,12 @@
                 flujotvHeader.classList.remove('hidden');
             } else if (service.includes('PANAXTREAMING') && (accountType === 'pantalla' || accountType === 'cuenta')) {
                 panaxHeader.classList.remove('hidden');
-            } else if (service.includes('YOUTUBE') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion' || accountType === 'reemplazo')) {
+            } else if (service.includes('YOUTUBE') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion')) {
                 youtubeHeader.classList.remove('hidden');
-            } else if (service.includes('CAPCUT PRO') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion' || accountType === 'reemplazo')) {
+            } else if (service.includes('CAPCUT PRO') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion')) {
                 capcutHeader.classList.remove('hidden');
-            } else if (service.includes('MAX') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion' || accountType === 'reemplazo')) {
+            } else if (service.includes('MAX') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion')) {
                 maxHeader.classList.remove('hidden');
-            }
-            
-            // Mostrar imagen de reemplazo para todos los servicios cuando el tipo es "reemplazo"
-            if (accountType === 'reemplazo') {
-                replacementHeader.classList.remove('hidden');
             }
             
             // Mostrar imagen de renovación para todos los servicios cuando el tipo es "renovacion"
@@ -823,10 +910,6 @@
             // Agregar mensaje especial según tipo de cuenta
             if (accountType === 'renovacion') {
                 message += `✅ *CUENTA RENOVADA CON ÉXITO!* ✅\n\n`;
-            } else if (accountType === 'reemplazo') {
-                message += `🔄 *CUENTA REEMPLAZADA CON ÉXITO!* 🔄\n\n`;
-                message += `*Cuenta anterior que fue reemplazada:*\n${replacementData}\n\n`;
-                message += `*A continuación los datos de la cuenta de garantía:*\n\n`;
             }
             
             // Sección de datos de la cuenta
@@ -836,7 +919,7 @@
             if (profile !== 'No proporcionado') message += `📌 PERFIL: ${profile}\n`;
             if (pin !== 'No proporcionado') message += `🔢 PIN DEL PERFIL: ${pin}\n\n`;
             
-            message += `📅 Fecha de ${accountType === 'renovacion' ? 'renovación' : accountType === 'reemplazo' ? 'reemplazo' : 'entrega'}: Hoy, ${todayStr}\n`;
+            message += `📅 Fecha de ${accountType === 'renovacion' ? 'renovación' : 'entrega'}: Hoy, ${todayStr}\n`;
             message += `⏳ Vencimiento: ${nextMonthStr}\n\n`;
             
             // Instrucciones especiales para servicios específicos
@@ -860,10 +943,6 @@
                 message += `📺 *INSTRUCCIONES PARA ACTIVAR FLUJO TV*:\n`;
                 message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
                 message += `👉 https://youtu.be/ejemplo-flujotv\n\n`;
-            } else if (service.toLowerCase().includes('panax')) {
-                message += `📱 *INSTRUCCIONES PARA INSTALAR PANAXTREAMING*:\n`;
-                message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
-                message += `👉 https://youtu.be/mpdY5xEeWUU?si=cfo_FTLcmztB98Nz\n\n`;
             } else if (service.toLowerCase().includes('max')) {
                 message += `🎬 *INSTRUCCIONES PARA ACTIVAR MAX*:\n`;
                 message += `Puede acceder a MAX desde su navegador o descargando la aplicación oficial:\n`;
@@ -901,7 +980,7 @@
                     message += `🔴 Prohibido compartir la cuenta\n\n`;
                     message += `🔴 Prohibido Cambiar Nombre del Perfil\n\n`;
                     message += `🔴 Prohibido Cambiar pin de perfil\n\n`;
-                } else if (accountType === 'renovacion' || accountType === 'reemplazo') {
+                } else if (accountType === 'renovacion') {
                     message += `🔴 Prohibido cambiar correo y contraseña\n`;
                     message += `🔴 Prohibido editar datos de la cuenta\n`;
                     message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo (si es pantalla)\n`;
@@ -911,7 +990,7 @@
                 message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DEL PERFIL SIN REEMBOLSO\n\n`;
             }
             
-            message += `¡Gracias por ${accountType === 'renovacion' ? 'renovar con' : accountType === 'reemplazo' ? 'confiar en' : 'comprar'} ${companyType === 'vendeygana' ? '*DPTO. STREAMING VENDE Y GANA*' : '*SALDO EXPRESS*'}!\n`;
+            message += `¡Gracias por ${accountType === 'renovacion' ? 'renovar con' : 'comprar'} ${companyType === 'vendeygana' ? '*DPTO. STREAMING VENDE Y GANA*' : '*SALDO EXPRESS*'}!\n`;
             message += `🎬 Disfruta de tu contenido favorito\n\n`;
             message += `${signature}`;
             
@@ -934,7 +1013,7 @@
                 promoText += `👉 Descubre nuestros increíbles precios y planes aquí:\n\n`;
                 promoText += `*FLUJO TV:* https://vendeygana.forms.app/compraflujotv\n\n`;
                 promoText += `*PANAXTREAMING:* https://vendeygana.forms.app/panaxtreaming\n\n`;
-                promoText += `¡No esperes más para disfrutar de la TV del futuro! 🎉`;
+                promoText += `¡No esperas más para disfrutar de la TV del futuro! 🎉`;
                 
                 promoMessage.value = promoText;
                 promoSection.classList.remove('hidden');
@@ -964,4 +1043,3 @@
     </script>
 </body>
 </html>
-
