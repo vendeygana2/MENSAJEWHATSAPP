@@ -18,7 +18,7 @@
             flex-direction: column;
             gap: 20px;
         }
-        .input-section, .output-section, .promo-section, .replacement-section, .failure-section, .renewal-section, .obsequio-section {
+        .input-section, .output-section, .promo-section, .replacement-section, .failure-section, .renewal-section, .obsequio-section, .canva-section {
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 8px;
@@ -103,7 +103,7 @@
             text-align: center;
             display: none;
         }
-        .amazon-header, .netflix-header, .spotify-header, .vix-header, .disney-header, .flujotv-header, .panax-header, .youtube-header, .capcut-header, .replacement-header, .failure-header, .renewal-header, .max-header {
+        .amazon-header, .netflix-header, .spotify-header, .vix-header, .disney-header, .flujotv-header, .panax-header, .youtube-header, .capcut-header, .replacement-header, .failure-header, .renewal-header, .max-header, .canva-header {
             text-align: center;
             margin-bottom: 15px;
             padding: 10px;
@@ -145,7 +145,10 @@
         .max-header {
             background: linear-gradient(to right, #0066CC, #003366);
         }
-        .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img, .failure-header img, .renewal-header img, .max-header img {
+        .canva-header {
+            background: linear-gradient(to right, #20C4CB, #3966FF);
+        }
+        .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img, .failure-header img, .renewal-header img, .max-header img, .canva-header img {
             max-width: 100%;
             height: auto;
             border-radius: 6px;
@@ -221,7 +224,7 @@
                     <option value="PANAXTREAMING">PANAXTREAMING</option>
                     <option value="FLUJOTV">FLUJOTV</option>
                     <option value="APPLE TV">APPLE TV</option>
-                    <option value="SPOTIFY">SPOTIFY</option>
+                    <option value="SPOTIFY">SPOTify</option>
                     <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
                     <option value="PARAMOUNT">PARAMOUNT</option>
                     <option value="CRUNCHYROLL">CRUNCHYROLL</option>
@@ -249,7 +252,7 @@
                     <option value="SPOTIFY">SPOTIFY</option>
                     <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
                     <option value="PARAMOUNT">PARAMOUNT</option>
-                    <option value="CRUNchYROLL">CRUNCHYROLL</option>
+                    <option value="CRUNCHYROLL">CRUNCHYROLL</option>
                     <option value="VIX+">VIX+</option>
                     <option value="CANVA PRO">CANVA PRO</option>
                     <option value="CAPCUT PRO">CAPCUT PRO</option>
@@ -284,6 +287,12 @@
                 
                 <label for="client-name">Nombre del cliente:</label>
                 <input type="text" id="client-name" placeholder="Ingrese el nombre del cliente">
+            </div>
+            
+            <!-- Sección especial para Canva Pro -->
+            <div id="canva-section" class="canva-section hidden">
+                <label for="canva-email">Correo para la invitación de Canva Pro:</label>
+                <input type="text" id="canva-email" placeholder="Ingrese el correo donde se envió la invitación">
             </div>
             
             <label for="input-data" id="input-data-label">Datos de la cuenta (copiar y pegar):</label>
@@ -339,6 +348,9 @@
                 <div id="max-header" class="max-header hidden">
                     <img src="https://i.pinimg.com/736x/b0/f6/b8/b0f6b8108268d39d691ba631a397cb85.jpg" alt="MAX Header">
                 </div>
+                <div id="canva-header" class="canva-header hidden">
+                    <img src="https://i.pinimg.com/736x/fe/97/a9/fe97a9c799792715625a765dac287efc.jpg" alt="Canva Pro Header">
+                </div>
                 <textarea id="output-message" readonly></textarea>
             </div>
             <button id="copy-btn">Copiar Mensaje</button>
@@ -358,6 +370,7 @@
             const failureSection = document.getElementById('failure-section');
             const renewalSection = document.getElementById('renewal-section');
             const obsequioSection = document.getElementById('obsequio-section');
+            const canvaSection = document.getElementById('canva-section');
             const inputDataLabel = document.getElementById('input-data-label');
             const demoInstructions = document.getElementById('demo-instructions');
             const inputData = document.getElementById('input-data');
@@ -367,6 +380,7 @@
                 failureSection.classList.add('hidden');
                 renewalSection.classList.add('hidden');
                 obsequioSection.classList.add('hidden');
+                canvaSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta de garantía:';
                 demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Ingrese los datos de la cuenta de garantía";
@@ -375,6 +389,7 @@
                 failureSection.classList.add('hidden');
                 renewalSection.classList.add('hidden');
                 obsequioSection.classList.add('hidden');
+                canvaSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta Demo PanaxTreaming:';
                 demoInstructions.classList.remove('hidden');
                 inputData.placeholder = "USUARIO: [usuario] CLAVE: [contraseña]";
@@ -383,6 +398,7 @@
                 failureSection.classList.remove('hidden');
                 renewalSection.classList.add('hidden');
                 obsequioSection.classList.add('hidden');
+                canvaSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Información adicional (opcional):';
                 demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Puede agregar detalles adicionales sobre la falla aquí";
@@ -391,6 +407,7 @@
                 failureSection.classList.add('hidden');
                 renewalSection.classList.remove('hidden');
                 obsequioSection.classList.add('hidden');
+                canvaSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Información adicional (opcional):';
                 demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Puede agregar detalles adicionales aquí";
@@ -399,6 +416,7 @@
                 failureSection.classList.add('hidden');
                 renewalSection.classList.add('hidden');
                 obsequioSection.classList.remove('hidden');
+                canvaSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta to obsequiar:';
                 demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146";
@@ -407,9 +425,22 @@
                 failureSection.classList.add('hidden');
                 renewalSection.classList.add('hidden');
                 obsequioSection.classList.add('hidden');
+                canvaSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta (copiar y pegar):';
                 demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146";
+            }
+        });
+
+        // Detectar si es Canva Pro para mostrar campo especial
+        document.getElementById('input-data').addEventListener('input', function() {
+            const inputData = this.value.toLowerCase();
+            const canvaSection = document.getElementById('canva-section');
+            
+            if (inputData.includes('canva')) {
+                canvaSection.classList.remove('hidden');
+            } else {
+                canvaSection.classList.add('hidden');
             }
         });
 
@@ -418,6 +449,7 @@
             const accountType = document.getElementById('account-type').value;
             const companyType = document.getElementById('company-type').value;
             const replacementData = document.getElementById('replacement-data').value;
+            const canvaEmail = document.getElementById('canva-email').value;
             const amazonHeader = document.getElementById('amazon-header');
             const netflixHeader = document.getElementById('netflix-header');
             const spotifyHeader = document.getElementById('spotify-header');
@@ -431,6 +463,7 @@
             const failureHeader = document.getElementById('failure-header');
             const renewalHeader = document.getElementById('renewal-header');
             const maxHeader = document.getElementById('max-header');
+            const canvaHeader = document.getElementById('canva-header');
             
             // Ocultar las imágenes de cabecera por defecto
             amazonHeader.classList.add('hidden');
@@ -446,6 +479,7 @@
             failureHeader.classList.add('hidden');
             renewalHeader.classList.add('hidden');
             maxHeader.classList.add('hidden');
+            canvaHeader.classList.add('hidden');
             
             // Definir firma según la empresa seleccionada
             let signature = '';
@@ -691,7 +725,7 @@
                     message += `👉 https://youtu.be/mpdY5xEeWUU?si=cfo_FTLcmztB98Nz\n\n`;
                 } else if (replacementService.toLowerCase().includes('vix+')) {
                     message += `📺 *INSTRUCCIONES PARA ACTIVAR VIX+*:\n`;
-                    message += `Puede acceder a VIX+ desde su navegador o descargando la aplicación oficial:\n`;
+                    message += `Puede acceder to VIX+ desde su navegador o descargando la aplicación oficial:\n`;
                     message += `👉 https://www.vix.com/es\n\n`;
                 } else if (replacementService.toLowerCase().includes('disney')) {
                     message += `🏰 *INSTRUCCIONES PARA ACTIVAR DISNEY+*:\n`;
@@ -747,6 +781,7 @@
                 { name: 'SPOTIFY PREMIUM', keywords: ['spotify premium', 'spotify'] },
                 { name: 'FLUJO TV', keywords: ['flujo tv', 'flujotv'] },
                 { name: 'VIX+', keywords: ['vix+', 'vix plus'] },
+                { name: 'CANVA PRO', keywords: ['canva', 'canva pro'] },
                 { name: 'CAPCUT PRO', keywords: ['capcut', 'capcut pro'] }
             ];
             
@@ -779,6 +814,49 @@
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             const todayStr = today.toLocaleDateString('es-ES', options);
             const nextMonthStr = nextMonth.toLocaleDateString('es-ES', options);
+            
+            // Caso especial para Canva Pro
+            if (service.includes('CANVA PRO')) {
+                // Mostrar la imagen de Canva Pro
+                canvaHeader.classList.remove('hidden');
+                
+                let message = `📌 *DATOS DE SU CUENTA CANVA PRO* 📌\n\n`;
+                
+                message += `Estimado cliente, le fue enviada una invitación por un año al correo ${canvaEmail || 'No proporcionado'} para activar la cuenta Canva. Por favor, ingrese al correo, seleccione el mensaje y haga click en el botón "Unirse a la clase".\n\n`;
+                
+                message += `*DETALLES DE LA CUENTA:*\n`;
+                message += `👤 Usuario: ${email}\n`;
+                message += `🔑 Clave: ${password}\n\n`;
+                
+                message += `📅 Fecha de entrega: Hoy, ${todayStr}\n`;
+                message += `⏳ Vencimiento: ${nextMonthStr}\n\n`;
+                
+                message += `📝 *INSTRUCCIONES PARA ACTIVAR CANVA PRO*:\n`;
+                message += `1. Revise su correo electrónico (${canvaEmail || 'No proporcionado'})\n`;
+                message += `2. Busque el correo de invitación de Canva\n`;
+                message += `3. Haga clic en el botón "Unirse a la clase"\n`;
+                message += `4. Inicie sesión con las credenciales proporcionadas\n\n`;
+                
+                message += `⚠️ *IMPORTANTE*:\n`;
+                message += `🔴 Prohibido cambiar correo y contraseña\n`;
+                message += `🔴 Prohibido editar datos de la cuenta\n`;
+                message += `🔴 Prohibido compartir la cuenta\n\n`;
+                message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DE LA CUENTA SIN REEMBOLSO\n\n`;
+                
+                message += `¡Gracias por comprar ${companyType === 'vendeygana' ? '*DPTO. STREAMING VENDE Y GANA*' : '*SALDO EXPRESS*'}!\n`;
+                message += `🎨 Disfruta de todas las funciones premium de Canva Pro\n\n`;
+                message += `${signature}`;
+                
+                document.getElementById('output-message').value = message;
+                document.getElementById('promo-section').classList.add('hidden');
+                
+                // Mostrar mensaje de éxito
+                const successMessage = document.getElementById('success-message');
+                successMessage.style.display = 'block';
+                setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+                
+                return;
+            }
             
             // Generar mensaje
             let header;
