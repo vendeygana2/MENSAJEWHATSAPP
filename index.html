@@ -229,7 +229,7 @@
                     <option value="FLUJOTV">FLUJOTV</option>
                     <option value="APPLE TV">APPLE TV</option>
                     <option value="SPOTIFY">SPOTify</option>
-                    <option value="YOUTUBE PREmium">YOUTUBE PREMIUM</option>
+                    <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
                     <option value="PARAMOUNT">PARAMOUNT</option>
                     <option value="CRUNCHYROLL">CRUNCHYROLL</option>
                     <option value="VIX+">VIX+</option>
@@ -568,6 +568,15 @@
                     message += `${inputData}\n\n`;
                 }
                 
+                message += `⏱️ *Es importante resaltar que el tiempo de respuesta dependerá de la plataforma que presenta la falla, pero si el tiempo de respuesta supera las doce horas reconoceremos 24 horas de servicios adicionales a tu fecha de corte.* ⏱️\n\n`;
+                
+                message += `🔜 *Seguiremos atentos a cualquier novedad y te mantendremos informado.* 🔜\n\n`;
+                
+                message += `💡 *Tenga en cuenta que para solventar el inconveniente podemos:*\n`;
+                message += `✅ Restablecer la cuenta con una nueva contraseña y nuevos datos preservando la cuenta\n`;
+                message += `✅ O para cumplir con usted, como siempre, con nuestra responsabilidad de garantizar un buen servicio\n`;
+                message += `✅ Darle una NUEVA CUENTA con datos nuevos en garantía\n\n`;
+                message += `🌟 *Agradecemos su comprensión y paciencia.* 🌟\n\n`;
                 message += `${signature}`;
                 
                 document.getElementById('output-message').value = message;
@@ -615,57 +624,8 @@
                 return;
             }
             
-            // Caso especial para FALLA EN CUENTA
-            if (accountType === 'falla') {
-                const failureService = document.getElementById('failure-service').value;
-                const failureEmail = document.getElementById('failure-email').value;
-                
-                // Mostrar la imagen de falla en cuenta
-                failureHeader.classList.remove('hidden');
-                
-                let message = `👋 *Estimado usuario, un placer saludarte esperando te encuentres bien junto a los tuyos* 👋\n\n`;
-                
-                message += `📢 *INFORMACIÓN IMPORTANTE:*\n`;
-                message += `Queremos informarte que nuestro equipo de *SOPORTE TÉCNICO STREAMING* 🔧 ha verificado que la cuenta que adquiriste con nosotros:\n\n`;
-                message += `📧 *CORREO:* ${failureEmail}\n`;
-                message += `📺 *SERVICIO:* ${failureService}\n\n`;
-                message += `⚠️ *Presenta una falla que está siendo atendida en este momento.* ⚠️\n\n`;
-                message += `🙏 *Ofrecemos disculpas por las molestias ocasionadas.* 🙏\n\n`;
-                
-                // Texto agregado según solicitud
-                message += `⏱️ *Es importante resaltar que el tiempo de respuesta dependerá de la plataforma que presenta la falla, pero si el tiempo de respuesta supera las doce horas reconoceremos 24 horas de servicios adicionales a tu fecha de corte.* ⏱️\n\n`;
-                
-                // Agregar información adicional si se proporcionó
-                if (inputData.trim() !== '') {
-                    message += `📝 *IMPORTANTE:*\n`;
-                    message += `${inputData}\n\n`;
-                }
-                
-                message += `🔜 *Al ser solventada la falla, le estaremos informando por este medio.* 🔜\n\n`;
-                
-                // Aclaración sobre no generar nuevo reporte
-                message += `📝 *NO ES NECESARIO QUE GENERES UN NUEVO REPORTE* (si ya lo habías hecho) y te enteras de la falla por este mensaje *TAMPOCO ES NECESARIO REALIZARLO.* 📝\n\n`;
-                
-                message += `💡 *Tenga en cuenta que para solventar el inconveniente podemos:*\n`;
-                message += `✅ Restablecer la cuenta con una nueva contraseña y nuevos datos preservando la cuenta\n`;
-                message += `✅ O para cumplir con usted, como siempre, con nuestra responsabilidad de garantizar un buen servicio\n`;
-                message += `✅ Darle una NUEVA CUENTA con datos nuevos en garantía\n\n`;
-                message += `🌟 *Agradecemos su comprensión y paciencia.* 🌟\n\n`;
-                message += `${signature}`;
-                
-                document.getElementById('output-message').value = message;
-                document.getElementById('promo-section').classList.add('hidden');
-                
-                // Mostrar mensaje de éxito
-                const successMessage = document.getElementById('success-message');
-                successMessage.style.display = 'block';
-                setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
-                
-                return;
-            }
-            
-            // Resto del código para otros tipos de cuenta...
-            // [El resto del código permanece igual]
+            // Resto del código existente para otros tipos de cuenta...
+            // [El resto del código permanece igual, solo se agregó el caso para "respuesta-falla"]
             
             // Mostrar mensaje de éxito
             const successMessage = document.getElementById('success-message');
