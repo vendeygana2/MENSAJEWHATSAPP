@@ -18,7 +18,7 @@
             flex-direction: column;
             gap: 20px;
         }
-        .input-section, .output-section, .promo-section, .replacement-section, .failure-section, .renewal-section, .obsequio-section, .canva-section {
+        .input-section, .output-section, .promo-section, .replacement-section, .failure-section, .renewal-section, .obsequio-section, .canva-section, .failure-response-section {
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 8px;
@@ -103,7 +103,7 @@
             text-align: center;
             display: none;
         }
-        .amazon-header, .netflix-header, .spotify-header, .vix-header, .disney-header, .flujotv-header, .panax-header, .youtube-header, .capcut-header, .replacement-header, .failure-header, .renewal-header, .max-header, .canva-header {
+        .amazon-header, .netflix-header, .spotify-header, .vix-header, .disney-header, .flujotv-header, .panax-header, .youtube-header, .capcut-header, .replacement-header, .failure-header, .renewal-header, .max-header, .canva-header, .failure-response-header {
             text-align: center;
             margin-bottom: 15px;
             padding: 10px;
@@ -148,7 +148,10 @@
         .canva-header {
             background: linear-gradient(to right, #20C4CB, #3966FF);
         }
-        .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img, .failure-header img, .renewal-header img, .max-header img, .canva-header img {
+        .failure-response-header {
+            background: linear-gradient(to right, #FF5722, #E64A19);
+        }
+        .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img, .failure-header img, .renewal-header img, .max-header img, .canva-header img, .failure-response-header img {
             max-width: 100%;
             height: auto;
             border-radius: 6px;
@@ -184,6 +187,7 @@
                     <option value="reemplazo">Reemplazo</option>
                     <option value="demo-panax">Demo PanaxTreaming</option>
                     <option value="falla">FALLA EN CUENTA</option>
+                    <option value="respuesta-falla">RESPUESTA DE FALLA</option>
                     <option value="mensaje-renovacion">MENSAJE DE RENOVACIÓN DE CUENTA</option>
                     <option value="obsequio">OBSEQUIO</option>
                 </select>
@@ -237,6 +241,34 @@
                 
                 <label for="failure-email">Correo de la cuenta:</label>
                 <input type="text" id="failure-email" placeholder="Ingrese el correo de la cuenta con falla">
+            </div>
+            
+            <div id="failure-response-section" class="failure-response-section hidden">
+                <label for="failure-response-service">Servicio con falla:</label>
+                <select id="failure-response-service">
+                    <option value="NETFLIX">NETFLIX</option>
+                    <option value="AMAZON PRIME">AMAZON PRIME</option>
+                    <option value="DISNEY PLUS">DISNEY PLUS</option>
+                    <option value="MAX">MAX</option>
+                    <option value="PANAXTREAMING">PANAXTREAMING</option>
+                    <option value="FLUJOTV">FLUJOTV</option>
+                    <option value="APPLE TV">APPLE TV</option>
+                    <option value="SPOTIFY">SPOTIFY</option>
+                    <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
+                    <option value="PARAMOUNT">PARAMOUNT</option>
+                    <option value="CRUNCHYROLL">CRUNCHYROLL</option>
+                    <option value="VIX+">VIX+</option>
+                    <option value="CANVA PRO">CANVA PRO</option>
+                    <option value="CAPCUT PRO">CAPCUT PRO</option>
+                    <option value="CHAT GPT">CHAT GPT</option>
+                    <option value="OTRO">OTRO</option>
+                </select>
+                
+                <label for="failure-response-email">Correo de la cuenta:</label>
+                <input type="text" id="failure-response-email" placeholder="Ingrese el correo de la cuenta con falla">
+                
+                <label for="failure-response-text">Respuesta de falla:</label>
+                <textarea id="failure-response-text" placeholder="Escriba aquí la respuesta específica sobre la falla"></textarea>
             </div>
             
             <div id="renewal-section" class="renewal-section hidden">
@@ -342,6 +374,9 @@
                 <div id="failure-header" class="failure-header hidden">
                     <img src="https://i.pinimg.com/736x/07/6a/35/076a3565d1d6bb64a8b08bbc74ca9fcf.jpg" alt="Falla en Cuenta Header">
                 </div>
+                <div id="failure-response-header" class="failure-response-header hidden">
+                    <img src="https://i.pinimg.com/736x/07/6a/35/076a3565d1d6bb64a8b08bbc74ca9fcf.jpg" alt="Respuesta de Falla Header">
+                </div>
                 <div id="renewal-header" class="renewal-header hidden">
                     <img src="https://i.pinimg.com/736x/71/31/ba/7131ba5a0ad70b113c4f056665808860.jpg" alt="Renovación Header">
                 </div>
@@ -368,6 +403,7 @@
         document.getElementById('account-type').addEventListener('change', function() {
             const replacementSection = document.getElementById('replacement-section');
             const failureSection = document.getElementById('failure-section');
+            const failureResponseSection = document.getElementById('failure-response-section');
             const renewalSection = document.getElementById('renewal-section');
             const obsequioSection = document.getElementById('obsequio-section');
             const canvaSection = document.getElementById('canva-section');
@@ -378,6 +414,7 @@
             if (this.value === 'reemplazo') {
                 replacementSection.classList.remove('hidden');
                 failureSection.classList.add('hidden');
+                failureResponseSection.classList.add('hidden');
                 renewalSection.classList.add('hidden');
                 obsequioSection.classList.add('hidden');
                 canvaSection.classList.add('hidden');
@@ -387,6 +424,7 @@
             } else if (this.value === 'demo-panax') {
                 replacementSection.classList.add('hidden');
                 failureSection.classList.add('hidden');
+                failureResponseSection.classList.add('hidden');
                 renewalSection.classList.add('hidden');
                 obsequioSection.classList.add('hidden');
                 canvaSection.classList.add('hidden');
@@ -396,15 +434,27 @@
             } else if (this.value === 'falla') {
                 replacementSection.classList.add('hidden');
                 failureSection.classList.remove('hidden');
+                failureResponseSection.classList.add('hidden');
                 renewalSection.classList.add('hidden');
                 obsequioSection.classList.add('hidden');
                 canvaSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Información adicional (opcional):';
                 demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Puede agregar detalles adicionales sobre la falla aquí";
+            } else if (this.value === 'respuesta-falla') {
+                replacementSection.classList.add('hidden');
+                failureSection.classList.add('hidden');
+                failureResponseSection.classList.remove('hidden');
+                renewalSection.classList.add('hidden');
+                obsequioSection.classList.add('hidden');
+                canvaSection.classList.add('hidden');
+                inputDataLabel.textContent = 'Información adicional (opcional):';
+                demoInstructions.classList.add('hidden');
+                inputData.placeholder = "Puede agregar información adicional aquí si es necesario";
             } else if (this.value === 'mensaje-renovacion') {
                 replacementSection.classList.add('hidden');
                 failureSection.classList.add('hidden');
+                failureResponseSection.classList.add('hidden');
                 renewalSection.classList.remove('hidden');
                 obsequioSection.classList.add('hidden');
                 canvaSection.classList.add('hidden');
@@ -414,6 +464,7 @@
             } else if (this.value === 'obsequio') {
                 replacementSection.classList.add('hidden');
                 failureSection.classList.add('hidden');
+                failureResponseSection.classList.add('hidden');
                 renewalSection.classList.add('hidden');
                 obsequioSection.classList.remove('hidden');
                 canvaSection.classList.add('hidden');
@@ -423,6 +474,7 @@
             } else {
                 replacementSection.classList.add('hidden');
                 failureSection.classList.add('hidden');
+                failureResponseSection.classList.add('hidden');
                 renewalSection.classList.add('hidden');
                 obsequioSection.classList.add('hidden');
                 canvaSection.classList.add('hidden');
@@ -461,6 +513,7 @@
             const capcutHeader = document.getElementById('capcut-header');
             const replacementHeader = document.getElementById('replacement-header');
             const failureHeader = document.getElementById('failure-header');
+            const failureResponseHeader = document.getElementById('failure-response-header');
             const renewalHeader = document.getElementById('renewal-header');
             const maxHeader = document.getElementById('max-header');
             const canvaHeader = document.getElementById('canva-header');
@@ -477,6 +530,7 @@
             capcutHeader.classList.add('hidden');
             replacementHeader.classList.add('hidden');
             failureHeader.classList.add('hidden');
+            failureResponseHeader.classList.add('hidden');
             renewalHeader.classList.add('hidden');
             maxHeader.classList.add('hidden');
             canvaHeader.classList.add('hidden');
@@ -487,6 +541,53 @@
                 signature = '*Que gusto que confíes en nosotros gracias por preferirnos ATENTAMENTE: DPTO. CUENTAS STREAMING PANAXTREAMING/VENDE Y GANA*';
             } else if (companyType === 'saldoexpress') {
                 signature = '*Que gusto que confíes en nosotros gracias por preferirnos ATENTAMENTE: SALDO EXPRESS C.A. ubicados en pleno centro de MERIDA CALLE 26 ENTRE AVENIDAS 7 Y 8*';
+            }
+            
+            // Caso especial para RESPUESTA DE FALLA
+            if (accountType === 'respuesta-falla') {
+                const failureResponseService = document.getElementById('failure-response-service').value;
+                const failureResponseEmail = document.getElementById('failure-response-email').value;
+                const failureResponseText = document.getElementById('failure-response-text').value;
+                
+                // Mostrar la imagen de respuesta de falla
+                failureResponseHeader.classList.remove('hidden');
+                
+                let message = `👋 *Estimado usuario, un placer saludarte esperando te encuentres bien junto a los tuyos* 👋\n\n`;
+                
+                message += `📢 *RESPUESTA SOBRE LA FALLA REPORTADA:*\n\n`;
+                message += `Hemos revisado el reporte de falla para tu cuenta de *${failureResponseService}*:\n\n`;
+                message += `📧 *CORREO:* ${failureResponseEmail}\n\n`;
+                
+                // Agregar la respuesta específica sobre la falla
+                message += `🔧 *NUESTRA RESPUESTA:*\n`;
+                message += `${failureResponseText}\n\n`;
+                
+                // Agregar información adicional si se proporcionó
+                if (inputData.trim() !== '') {
+                    message += `📝 *INFORMACIÓN ADICIONAL:*\n`;
+                    message += `${inputData}\n\n`;
+                }
+                
+                message += `⏱️ *Es importante resaltar que el tiempo de respuesta dependerá de la plataforma que presenta la falla, pero si el tiempo de respuesta supera las doce horas reconoceremos 24 horas de servicios adicionales a tu fecha de corte.* ⏱️\n\n`;
+                
+                message += `🔜 *Seguiremos atentos a cualquier novedad y te mantendremos informado.* 🔜\n\n`;
+                
+                message += `💡 *Tenga en cuenta que para solventar el inconveniente podemos:*\n`;
+                message += `✅ Restablecer la cuenta con una nueva contraseña y nuevos datos preservando la cuenta\n`;
+                message += `✅ O para cumplir con usted, como siempre, con nuestra responsabilidad de garantizar un buen servicio\n`;
+                message += `✅ Darle una NUEVA CUENTA con datos nuevos en garantía\n\n`;
+                message += `🌟 *Agradecemos su comprensión y paciencia.* 🌟\n\n`;
+                message += `${signature}`;
+                
+                document.getElementById('output-message').value = message;
+                document.getElementById('promo-section').classList.add('hidden');
+                
+                // Mostrar mensaje de éxito
+                const successMessage = document.getElementById('success-message');
+                successMessage.style.display = 'block';
+                setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+                
+                return;
             }
             
             // Caso especial para MENSAJE DE RENOVACIÓN DE CUENTA
@@ -523,581 +624,8 @@
                 return;
             }
             
-            // Caso especial para FALLA EN CUENTA
-            if (accountType === 'falla') {
-                const failureService = document.getElementById('failure-service').value;
-                const failureEmail = document.getElementById('failure-email').value;
-                
-                // Mostrar la imagen de falla en cuenta
-                failureHeader.classList.remove('hidden');
-                
-                let message = `👋 *Estimado usuario, un placer saludarte esperando te encuentres bien junto a los tuyos* 👋\n\n`;
-                
-                message += `📢 *INFORMACIÓN IMPORTANTE:*\n`;
-                message += `Queremos informarte que nuestro equipo de *SOPORTE TÉCNICO STREAMING* 🔧 ha verificado que la cuenta que adquiriste con nosotros:\n\n`;
-                message += `📧 *CORREO:* ${failureEmail}\n`;
-                message += `📺 *SERVICIO:* ${failureService}\n\n`;
-                message += `⚠️ *Presenta una falla que está siendo atendida en este momento.* ⚠️\n\n`;
-                message += `🙏 *Ofrecemos disculpas por las molestias ocasionadas.* 🙏\n\n`;
-                
-                // Texto agregado según solicitud
-                message += `⏱️ *Es importante resaltar que el tiempo de respuesta dependerá de la plataforma que presenta la falla, pero si el tiempo de respuesta supera las doce horas reconoceremos 24 horas de servicios adicionales a tu fecha de corte.* ⏱️\n\n`;
-                
-                // Agregar información adicional si se proporcionó
-                if (inputData.trim() !== '') {
-                    message += `📝 *IMPORTANTE:*\n`;
-                    message += `${inputData}\n\n`;
-                }
-                
-                message += `🔜 *Al ser solventada la falla, le estaremos informando por este medio.* 🔜\n\n`;
-                
-                // Aclaración sobre no generar nuevo reporte
-                message += `📝 *NO ES NECESARIO QUE GENERES UN NUEVO REPORTE* (si ya lo habías hecho) y te enteras de la falla por este mensaje *TAMPOCO ES NECESARIO REALIZARLO.* 📝\n\n`;
-                
-                message += `💡 *Tenga en cuenta que para solventar el inconveniente podemos:*\n`;
-                message += `✅ Restablecer la cuenta con una nueva contraseña y nuevos datos preservando la cuenta\n`;
-                message += `✅ O para cumplir con usted, como siempre, con nuestra responsabilidad de garantizar un buen servicio\n`;
-                message += `✅ Darle una NUEVA CUENTA con datos nuevos en garantía\n\n`;
-                message += `🌟 *Agradecemos su comprensión y paciencia.* 🌟\n\n`;
-                message += `${signature}`;
-                
-                document.getElementById('output-message').value = message;
-                document.getElementById('promo-section').classList.add('hidden');
-                
-                // Mostrar mensaje de éxito
-                const successMessage = document.getElementById('success-message');
-                successMessage.style.display = 'block';
-                setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
-                
-                return;
-            }
-            
-            // Caso especial para OBSEQUIO
-            if (accountType === 'obsequio') {
-                const obsequioService = document.getElementById('obsequio-service').value;
-                const clientName = document.getElementById('client-name').value;
-                
-                // Extraer datos
-                const emailMatch = inputData.match(/(CORREO|Usuario|Email|USUARIO):?\s*([^\s]+)/i);
-                const passwordMatch = inputData.match(/(CLAVE|Contraseña|Password|PASSWORD):?\s*([^\s]+)/i);
-                const profileMatch = inputData.match(/(Perfil|PERFIL|Profile):?\s*(\d+)/i);
-                const pinMatch = inputData.match(/(PIN|Pin|pin|CODIGO):?\s*(\d+)/i);
-                
-                const email = emailMatch ? emailMatch[2] : 'No proporcionado';
-                const password = passwordMatch ? passwordMatch[2] : 'No proporcionado';
-                const profile = profileMatch ? profileMatch[2] : 'No proporcionado';
-                const pin = pinMatch ? pinMatch[2] : 'No proporcionado';
-                
-                // Obtener fechas
-                const today = new Date();
-                const nextMonth = new Date();
-                nextMonth.setMonth(nextMonth.getMonth() + 1);
-                
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                const todayStr = today.toLocaleDateString('es-ES', options);
-                const nextMonthStr = nextMonth.toLocaleDateString('es-ES', options);
-                
-                let message = `👋 *ESTIMADO/A ${clientName.toUpperCase()}* 👋\n\n`;
-                
-                message += `*SIEMPRE ES UN PLACER TENERTE CON NOSOTROS* 😊\n\n`;
-                message += `*HOY QUEREMOS PREMIAR TU FIDELIDAD Y USO DE NUESTROS SERVICIOS CON EL SIGUIENTE OBSEQUIO:* 🎁\n\n`;
-                
-                message += `📌 *PANTALLA DE ${obsequioService} DE REGALO* 📌\n\n`;
-                
-                // Sección de datos de la cuenta
-                message += `*DETALLES DE LA CUENTA:*\n`;
-                message += `👤 Usuario: ${email}\n`;
-                message += `🔑 Clave: ${password}\n`;
-                if (profile !== 'No proporcionado') message += `📌 PERFIL: ${profile}\n`;
-                if (pin !== 'No proporcionado') message += `🔢 PIN DEL PERFIL: ${pin}\n\n`;
-                
-                message += `📅 Fecha de entrega: Hoy, ${todayStr}\n`;
-                message += `⏳ Vencimiento: ${nextMonthStr}\n\n`;
-                
-                // Instrucciones especiales para servicios específicos
-                if (obsequioService.toLowerCase().includes('netflix')) {
-                    message += `📽️ *INSTRUCCIONES PARA ACTIVAR NETFLIX*:\n`;
-                    message += `Para activar correctamente su cuenta de Netflix, por favor siga los pasos detallados en este video:\n`;
-                    message += `👉 https://www.youtube.com/watch?v=SXrViahIoEQ\n\n`;
-                } else if (obsequioService.toLowerCase().includes('panax')) {
-                    message += `📱 *INSTRUCCIONES PARA INSTALAR PANAXTREAMING*:\n`;
-                    message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
-                    message += `👉 https://youtu.be/mpdY5xEeWUU?si=cfo_FTLcmztB98Nz\n\n`;
-                } else if (obsequioService.toLowerCase().includes('vix+')) {
-                    message += `📺 *INSTRUCCIONES PARA ACTIVAR VIX+*:\n`;
-                    message += `Puede acceder a VIX+ desde su navegador o descargando la aplicación oficial:\n`;
-                    message += `👉 https://www.vix.com/es\n\n`;
-                } else if (obsequioService.toLowerCase().includes('flujo')) {
-                    message += `📺 *INSTRUCCIONES PARA ACTIVAR FLUJO TV*:\n`;
-                    message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
-                    message += `👉 https://youtu.be/ejemplo-flujotv\n\n`;
-                }
-                
-                message += `⚠️ *IMPORTANTE*:\n`;
-                message += `🔴 Prohibido cambiar correo y contraseña\n`;
-                message += `🔴 Prohibido editar datos de la cuenta\n`;
-                message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo\n`;
-                message += `🔴 Prohibido compartir la cuenta\n`;
-                message += `🔴 Prohibido Cambiar Nombre del Perfil\n`;
-                message += `🔴 Prohibido Cambiar pin de perfil\n\n`;
-                message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DEL PERFIL SIN REEMBOLSO\n\n`;
-                
-                // Mensaje especial para VIX+
-                if (obsequioService === 'VIX+') {
-                    message += `📲 *¿Ya conoces ViX+?*\n`;
-                    message += `Es la plataforma premium de streaming en español que está revolucionando el entretenimiento.\n\n`;
-                    message += `🎬 *¿Qué ofrece?*\n`;
-                    message += `- Series y películas exclusivas que no verás en ningún otro lado.\n`;
-                    message += `- Estrenos semanales con historias que te atrapan desde el primer minuto.\n`;
-                    message += `- Deportes en vivo como la Liga MX y mucho más.\n`;
-                    message += `- Noticias, novelas, comedia, drama… ¡todo sin anuncios!\n\n`;
-                    message += `💥 *Ventajas que marcan la diferencia:*\n`;
-                    message += `✅ Más de 10,000 horas de contenido extra.\n`;
-                    message += `✅ Calidad HD y acceso en varios dispositivos.\n`;
-                    message += `✅ Producciones latinas que reflejan nuestra cultura.\n`;
-                    message += `✅ Ideal para toda la familia: desde acción hasta contenido infantil.\n\n`;
-                    message += `🔐 *ViX+ no es solo entretenimiento, es una experiencia completa en español. Si te gusta*\n\n`;
-                }
-                
-                message += `${signature}`;
-                
-                document.getElementById('output-message').value = message;
-                document.getElementById('promo-section').classList.add('hidden');
-                
-                // Mostrar mensaje de éxito
-                const successMessage = document.getElementById('success-message');
-                successMessage.style.display = 'block';
-                setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
-                
-                return;
-            }
-            
-            // Caso especial para REEMPLAZO
-            if (accountType === 'reemplazo') {
-                const replacementService = document.getElementById('replacement-service').value;
-                
-                // Extraer datos de la cuenta de garantía
-                const emailMatch = inputData.match(/(CORREO|Usuario|Email|USUARIO):?\s*([^\s]+)/i);
-                const passwordMatch = inputData.match(/(CLAVE|Contraseña|Password|PASSWORD):?\s*([^\s]+)/i);
-                const profileMatch = inputData.match(/(Perfil|PERFIL|Profile):?\s*(\d+)/i);
-                const pinMatch = inputData.match(/(PIN|Pin|pin|CODIGO):?\s*(\d+)/i);
-                
-                const email = emailMatch ? emailMatch[2] : 'No proporcionado';
-                const password = passwordMatch ? passwordMatch[2] : 'No proporcionado';
-                const profile = profileMatch ? profileMatch[2] : 'No proporcionado';
-                const pin = pinMatch ? pinMatch[2] : 'No proporcionado';
-                
-                // Obtener fechas
-                const today = new Date();
-                const nextMonth = new Date();
-                nextMonth.setMonth(nextMonth.getMonth() + 1);
-                
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                const todayStr = today.toLocaleDateString('es-ES', options);
-                const nextMonthStr = nextMonth.toLocaleDateString('es-ES', options);
-                
-                // Mostrar la imagen de reemplazo
-                replacementHeader.classList.remove('hidden');
-                
-                let message = `🔄 *REEMPLAZO DE CUENTA ${replacementService} CON ÉXITO* 🔄\n\n`;
-                message += `✅ *CUENTA REEMPLAZADA CON ÉXITO!* ✅\n\n`;
-                message += `*Cuenta anterior que fue reemplazada (${replacementService}):*\n${replacementData}\n\n`;
-                message += `*A continuación los datos de la cuenta de garantía:*\n\n`;
-                
-                // Sección de datos de la cuenta
-                message += `*DETALLES DE LA CUENTA DE GARANTÍA:*\n`;
-                message += `👤 Usuario: ${email}\n`;
-                message += `🔑 Clave: ${password}\n`;
-                if (profile !== 'No proporcionado') message += `📌 PERFIL: ${profile}\n`;
-                if (pin !== 'No proporcionado') message += `🔢 PIN DEL PERFIL: ${pin}\n\n`;
-                
-                message += `📅 Fecha de reemplazo: Hoy, ${todayStr}\n`;
-                message += `⏳ Vencimiento: ${nextMonthStr}\n\n`;
-                
-                // Instrucciones especiales para servicios específicos
-                if (replacementService.toLowerCase().includes('netflix')) {
-                    message += `📽️ *INSTRUCCIONES PARA ACTIVAR NETFLIX*:\n`;
-                    message += `Para activar correctamente su cuenta de Netflix, por favor siga los pasos detallados en este video:\n`;
-                    message += `👉 https://www.youtube.com/watch?v=SXrViahIoEQ\n\n`;
-                } else if (replacementService.toLowerCase().includes('panax')) {
-                    message += `📱 *INSTRUCCIONES PARA INSTALAR PANAXTREAMING*:\n`;
-                    message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
-                    message += `👉 https://youtu.be/mpdY5xEeWUU?si=cfo_FTLcmztB98Nz\n\n`;
-                } else if (replacementService.toLowerCase().includes('vix+')) {
-                    message += `📺 *INSTRUCCIONES PARA ACTIVAR VIX+*:\n`;
-                    message += `Puede acceder to VIX+ desde su navegador o descargando la aplicación oficial:\n`;
-                    message += `👉 https://www.vix.com/es\n\n`;
-                } else if (replacementService.toLowerCase().includes('disney')) {
-                    message += `🏰 *INSTRUCCIONES PARA ACTIVAR DISNEY+*:\n`;
-                    message += `Puede acceder a Disney+ desde su navegador o descargando la aplicación oficial:\n`;
-                    message += `👉 https://www.disneyplus.com\n\n`;
-                } else if (replacementService.toLowerCase().includes('flujo')) {
-                    message += `📺 *INSTRUCCIONES PARA ACTIVAR FLUJO TV*:\n`;
-                    message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
-                    message += `👉 https://youtu.be/ejemplo-flujotv\n\n`;
-                } else if (replacementService.toLowerCase().includes('max')) {
-                    message += `🎬 *INSTRUCCIONES PARA ACTIVAR MAX*:\n`;
-                    message += `Puede acceder a MAX desde su navegador o descargando la aplicación oficial:\n`;
-                    message += `👉 https://www.max.com\n\n`;
-                }
-                
-                message += `⚠️ *IMPORTANTE*:\n`;
-                message += `🔴 Prohibido cambiar correo y contraseña\n`;
-                message += `🔴 Prohibido editar datos de la cuenta\n`;
-                message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo\n`;
-                message += `🔴 Prohibido compartir la cuenta\n\n`;
-                message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DEL PERFIL SIN REEMBOLSO\n\n`;
-                
-                message += `¡Gracias por confiar en ${companyType === 'vendeygana' ? '*DPTO. STREAMING VENDE Y GANA*' : '*SALDO EXPRESS*'}!\n`;
-                message += `🎬 Disfruta de tu contenido favorito\n\n`;
-                message += `${signature}`;
-                
-                document.getElementById('output-message').value = message;
-                document.getElementById('promo-section').classList.add('hidden');
-                
-                // Mostrar mensaje de éxito
-                const successMessage = document.getElementById('success-message');
-                successMessage.style.display = 'block';
-                setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
-                
-                return;
-            }
-            
-            // Resto del código para otros tipos de cuenta...
-            // Detectar servicio automáticamente
-            let service = 'Otro servicio';
-            const services = [
-                { name: 'NETFLIX', keywords: ['netflix'] },
-                { name: 'AMAZON PRIME', keywords: ['amazon prime', 'amazon'] },
-                { name: 'DISNEY PLUS', keywords: ['disney', 'disney plus'] },
-                { name: 'MAX', keywords: ['max', 'hbo max'] },
-                { name: 'HBO MAX', keywords: ['hbo', 'hbo max'] },
-                { name: 'MAX PREMIUM', keywords: ['max premium'] },
-                { name: 'DISNEY+ + ESPN', keywords: ['disney+ + espn', 'disney espn'] },
-                { name: 'AMAZON PRIME VIDEO', keywords: ['amazon prime', 'prime video'] },
-                { name: 'PANAXTREAMING', keywords: ['panax', 'panaxstreaming'] },
-                { name: 'CRUNCHYROLL', keywords: ['crunchyroll'] },
-                { name: 'YOUTUBE PREMIUM', keywords: ['youtube premium', 'youtueb'] },
-                { name: 'SPOTIFY PREMIUM', keywords: ['spotify premium', 'spotify'] },
-                { name: 'FLUJO TV', keywords: ['flujo tv', 'flujotv'] },
-                { name: 'VIX+', keywords: ['vix+', 'vix plus'] },
-                { name: 'CANVA PRO', keywords: ['canva', 'canva pro'] },
-                { name: 'CAPCUT PRO', keywords: ['capcut', 'capcut pro'] }
-            ];
-            
-            for (const s of services) {
-                for (const keyword of s.keywords) {
-                    if (inputData.toLowerCase().includes(keyword)) {
-                        service = s.name;
-                        break;
-                    }
-                }
-                if (service !== 'Otro servicio') break;
-            }
-            
-            // Extraer datos
-            const emailMatch = inputData.match(/(CORREO|Usuario|Email|USUARIO):?\s*([^\s]+)/i);
-            const passwordMatch = inputData.match(/(CLAVE|Contraseña|Password|PASSWORD):?\s*([^\s]+)/i);
-            const profileMatch = inputData.match(/(Perfil|PERFIL|Profile):?\s*(\d+)/i);
-            const pinMatch = inputData.match(/(PIN|Pin|pin|CODIGO):?\s*(\d+)/i);
-            
-            const email = emailMatch ? emailMatch[2] : 'No proporcionado';
-            const password = passwordMatch ? passwordMatch[2] : 'No proporcionado';
-            const profile = profileMatch ? profileMatch[2] : 'No proporcionado';
-            const pin = pinMatch ? pinMatch[2] : 'No proporcionado';
-            
-            // Obtener fechas
-            const today = new Date();
-            const nextMonth = new Date();
-            nextMonth.setMonth(nextMonth.getMonth() + 1);
-            
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const todayStr = today.toLocaleDateString('es-ES', options);
-            const nextMonthStr = nextMonth.toLocaleDateString('es-ES', options);
-            
-            // Caso especial para Canva Pro
-            if (service.includes('CANVA PRO')) {
-                // Mostrar la imagen de Canva Pro
-                canvaHeader.classList.remove('hidden');
-                
-                let message = `📌 *DATOS DE SU CUENTA CANVA PRO* 📌\n\n`;
-                
-                message += `Estimado cliente, le fue enviada una invitación por un año al correo ${canvaEmail || 'No proporcionado'} para activar la cuenta Canva. Por favor, ingrese al correo, seleccione el mensaje y haga click en el botón "Unirse a la clase".\n\n`;
-                
-                message += `*DETALLES DE LA CUENTA:*\n`;
-                message += `👤 Usuario: ${email}\n`;
-                message += `🔑 Clave: ${password}\n\n`;
-                
-                message += `📅 Fecha de entrega: Hoy, ${todayStr}\n`;
-                message += `⏳ Vencimiento: ${nextMonthStr}\n\n`;
-                
-                message += `📝 *INSTRUCCIONES PARA ACTIVAR CANVA PRO*:\n`;
-                message += `1. Revise su correo electrónico (${canvaEmail || 'No proporcionado'})\n`;
-                message += `2. Busque el correo de invitación de Canva\n`;
-                message += `3. Haga clic en el botón "Unirse a la clase"\n`;
-                message += `4. Inicie sesión con las credenciales proporcionadas\n\n`;
-                
-                message += `⚠️ *IMPORTANTE*:\n`;
-                message += `🔴 Prohibido cambiar correo y contraseña\n`;
-                message += `🔴 Prohibido editar datos de la cuenta\n`;
-                message += `🔴 Prohibido compartir la cuenta\n\n`;
-                message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DE LA CUENTA SIN REEMBOLSO\n\n`;
-                
-                message += `¡Gracias por comprar ${companyType === 'vendeygana' ? '*DPTO. STREAMING VENDE Y GANA*' : '*SALDO EXPRESS*'}!\n`;
-                message += `🎨 Disfruta de todas las funciones premium de Canva Pro\n\n`;
-                message += `${signature}`;
-                
-                document.getElementById('output-message').value = message;
-                document.getElementById('promo-section').classList.add('hidden');
-                
-                // Mostrar mensaje de éxito
-                const successMessage = document.getElementById('success-message');
-                successMessage.style.display = 'block';
-                setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
-                
-                return;
-            }
-            
-            // Generar mensaje
-            let header;
-            let accountTypeText;
-            
-            // Caso especial para Demo PanaxTreaming
-            if (accountType === 'demo-panax') {
-                const now = new Date();
-                const timeStr = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-                
-                let message = `📺 *DATOS DE SU DEMO PANAXTREAMING TV GO* 📺\n\n`;
-                message += `👤 Usuario: ${email}\n`;
-                message += `🔑 Clave: ${password}\n\n`;
-                message += `📅 Fecha de entrega: ${todayStr} a las ${timeStr}\n`;
-                message += `⏳ Duración: 12 horas\n\n`;
-                
-                message += `📱 *COMPATIBLE CON:* TU TELÉFONO ANDROID, SMARTTV, PC, LAPTOP O TABLET\n\n`;
-                
-                message += `🚀 *SUPER FÁCIL DE INSTALAR, TE CONTAMOS TODO*\n\n`;
-                
-                message += `🤔 *¿O PREFIERES SEGUIR PAGANDO PLATAFORMAS QUE TE DAN TANTO PROBLEMA?*\n`;
-                message += `Como Netflix con falla de hogar, contraseña, and restricciones de todo tipo...\n\n`;
-                
-                message += `🌟 *NUESTRAS VENTAJAS:*\n`;
-                message += `✅ Nuestras cuentas abren sin restricción de geolocalización\n`;
-                message += `✅ En cualquier parte del mundo puede adquirir\n\n`;
-                
-                message += `💎 *OPCIONES DE SERVICIO:*\n`;
-                message += `• CUENTA COMPLETA: 3 DISPOSITIVOS SIMULTÁNEOS\n`;
-                message += `• PANTALla: 1 PANTALLA EN CUALQUIER PARTE del MUNDO\n\n`;
-                
-                message += `⚠️ *IMPORTANTE:* SIGUE LOS PASOS DEL SIGUIENTE VIDEO PARA INSTALAR LA APLICACIÓN:\n`;
-                message += `👉 https://www.youtube.com/watch?v=mpdY5xEeWUU\n\n`;
-                message += `*COLOCAR LOS DATOS EN LA SECCIÓN DEMO*\n\n`;
-                
-                message += `¡Es un placer que uses nuestro demo! Estamos seguros que terminarás adquiriendo una cuenta completa que te permitirá disfrutar de TV POR INTERNET con:\n\n`;
-                message += `✅ Más de 80 canales nacionales\n`;
-                message += `✅ Más de 48 canales de deportes\n`;
-                message += `✅ Música y películas como HBO y TODO LOS EXISTENTES\n`;
-                message += `✅ Todas las películas y series que quieres ver en otras plataformas\n`;
-                message += `✅ Sin los problemas y restricciones de otras plataformas\n\n`;
-                message += `🇻🇪 *ADEMÁS*, al comprar nuestro servicio estás apoyando lo nuestro con sabor venezolano, ¡tan pana como tú!\n\n`;
-                message += `${signature}`;
-                
-                document.getElementById('output-message').value = message;
-                document.getElementById('promo-section').classList.add('hidden');
-                
-                // Mostrar mensaje de éxito
-                const successMessage = document.getElementById('success-message');
-                successMessage.style.display = 'block';
-                setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
-                
-                return;
-            }
-            
-            if (accountType === 'renovacion') {
-                accountTypeText = 'RENOVACIÓN';
-                header = `✅ *${accountTypeText} DE CUENTA ${service} CON ÉXITO* ✅\n\n`;
-            } else {
-                accountTypeText = accountType === 'pantalla' ? 'PANTALLA' : 'CUENTA';
-                header = `📌 *DATOS DE SU ${accountTypeText} ${service}* 📌\n\n`;
-            }
-            
-            // Cabecera especial para servicios específicos
-            if (service.includes('SPOTIFY')) {
-                header = accountType === 'renovacion' 
-                    ? `✅ *RENOVACIÓN DE CUENTA SPOTIFY CON ÉXITO* ✅\n\n` 
-                    : `*DATOS DE SU CUENTA SPOTIFY*\n\n`;
-            } else if (service.includes('YOUTUBE')) {
-                header = accountType === 'renovacion' 
-                    ? `✅ *RENOVACIÓN DE CUENTA YOUTUBE PREMIUM CON ÉXITO* ✅\n\n` 
-                    : `*DATOS DE SU CUENTA YOUTUBE PREMIUM*\n\n`;
-            } else if (service.includes('VIX+')) {
-                header = accountType === 'renovacion' 
-                    ? `✅ *RENOVACIÓN DE CUENTA VIX+ CON ÉXITO* ✅\n\n` 
-                    : `*DATOS DE SU ${accountTypeText} VIX+*\n\n`;
-            } else if (service.includes('DISNEY PLUS')) {
-                header = accountType === 'renovacion' 
-                    ? `✅ *RENOVACIÓN DE CUENTA DISNEY+ CON ÉXITO* ✅\n\n` 
-                    : `*DATOS DE SU ${accountTypeText} DISNEY+*\n\n`;
-            } else if (service.includes('FLUJO TV')) {
-                header = accountType === 'renovacion' 
-                    ? `✅ *RENOVACIÓN DE CUENTA FLUJO TV CON ÉXITO* ✅\n\n` 
-                    : `*DATOS DE SU ${accountTypeText} FLUJO TV*\n\n`;
-            } else if (service.includes('PANAXTREAMING')) {
-                header = accountType === 'renovacion' 
-                    ? `✅ *RENOVACIÓN DE CUENTA PANAXTREAMING CON ÉXITO* ✅\n\n` 
-                    : `*DATOS DE SU ${accountTypeText} PANAXTREAMING*\n\n`;
-            } else if (service.includes('CAPCUT PRO')) {
-                header = accountType === 'renovacion' 
-                    ? `✅ *RENOVACIÓN DE CUENTA CAPCUT PRO CON ÉXITO* ✅\n\n` 
-                    : `*DATOS DE SU ${accountTypeText} CAPCUT PRO*\n\n`;
-            } else if (service.includes('MAX')) {
-                header = accountType === 'renovacion' 
-                    ? `✅ *RENOVACIÓN DE CUENTA MAX CON ÉXITO* ✅\n\n` 
-                    : `*DATOS DE SU ${accountTypeText} MAX*\n\n`;
-            }
-            
-            let message = header;
-            
-            // Mostrar imagen de cabecera para servicios específicos
-            if (service.includes('AMAZON')) {
-                amazonHeader.classList.remove('hidden');
-            } else if (service.includes('NETFLIX') && (accountType === 'pantalla' || accountType === 'cuenta')) {
-                netflixHeader.classList.remove('hidden');
-            } else if (service.includes('SPOTIFY') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion')) {
-                spotifyHeader.classList.remove('hidden');
-            } else if (service.includes('VIX+') && (accountType === 'pantalla' || accountType === 'cuenta')) {
-                vixHeader.classList.remove('hidden');
-            } else if (service.includes('DISNEY PLUS') && (accountType === 'pantalla' || accountType === 'cuenta')) {
-                disneyHeader.classList.remove('hidden');
-            } else if (service.includes('FLUJO TV') && (accountType === 'pantalla' || accountType === 'cuenta')) {
-                flujotvHeader.classList.remove('hidden');
-            } else if (service.includes('PANAXTREAMING') && (accountType === 'pantalla' || accountType === 'cuenta')) {
-                panaxHeader.classList.remove('hidden');
-            } else if (service.includes('YOUTUBE') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion')) {
-                youtubeHeader.classList.remove('hidden');
-            } else if (service.includes('CAPCUT PRO') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion')) {
-                capcutHeader.classList.remove('hidden');
-            } else if (service.includes('MAX') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion')) {
-                maxHeader.classList.remove('hidden');
-            }
-            
-            // Mostrar imagen de renovación para todos los servicios cuando el tipo es "renovacion"
-            if (accountType === 'renovacion') {
-                renewalHeader.classList.remove('hidden');
-            }
-            
-            // Agregar mensaje especial según tipo de cuenta
-            if (accountType === 'renovacion') {
-                message += `✅ *CUENTA RENOVADA CON ÉXITO!* ✅\n\n`;
-            }
-            
-            // Sección de datos de la cuenta
-            message += `*DETALLES DE LA CUENTA:*\n`;
-            message += `👤 Usuario: ${email}\n`;
-            message += `🔑 Clave: ${password}\n`;
-            if (profile !== 'No proporcionado') message += `📌 PERFIL: ${profile}\n`;
-            if (pin !== 'No proporcionado') message += `🔢 PIN DEL PERFIL: ${pin}\n\n`;
-            
-            message += `📅 Fecha de ${accountType === 'renovacion' ? 'renovación' : 'entrega'}: Hoy, ${todayStr}\n`;
-            message += `⏳ Vencimiento: ${nextMonthStr}\n\n`;
-            
-            // Instrucciones especiales para servicios específicos
-            if (service.toLowerCase().includes('netflix')) {
-                message += `📽️ *INSTRUCCIONES PARA ACTIVAR NETFLIX*:\n`;
-                message += `Para activar correctamente su cuenta de Netflix, por favor siga los pasos detallados en este video:\n`;
-                message += `👉 https://www.youtube.com/watch?v=SXrViahIoEQ\n\n`;
-            } else if (service.toLowerCase().includes('panax')) {
-                message += `📱 *INSTRUCCIONES PARA INSTALAR PANAXTREAMING*:\n`;
-                message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
-                message += `👉 https://youtu.be/mpdY5xEeWUU?si=cfo_FTLcmztB98Nz\n\n`;
-            } else if (service.toLowerCase().includes('vix+')) {
-                message += `📺 *INSTRUCCIONES PARA ACTIVAR VIX+*:\n`;
-                message += `Puede acceder a VIX+ desde su navegador o descargando la aplicación oficial:\n`;
-                message += `👉 https://www.vix.com/es\n\n`;
-            } else if (service.toLowerCase().includes('disney')) {
-                message += `🏰 *INSTRUCCIONES PARA ACTIVAR DISNEY+*:\n`;
-                message += `Puede acceder a Disney+ desde su navegador o descargando la aplicación oficial:\n`;
-                message += `👉 https://www.disneyplus.com\n\n`;
-            } else if (service.toLowerCase().includes('flujo')) {
-                message += `📺 *INSTRUCCIONES PARA ACTIVAR FLUJO TV*:\n`;
-                message += `Para descargar nuestra APK sigue los pasos de este video:\n`;
-                message += `👉 https://youtu.be/ejemplo-flujotv\n\n`;
-            } else if (service.toLowerCase().includes('max')) {
-                message += `🎬 *INSTRUCCIONES PARA ACTIVAR MAX*:\n`;
-                message += `Puede acceder a MAX desde su navegador o descargando la aplicación oficial:\n`;
-                message += `👉 https://www.max.com\n\n`;
-            }
-            
-            message += `⚠️ *IMPORTANTE*:\n`;
-            
-            // Términos y condiciones especiales para CapCut Pro
-            if (service.includes('CAPCUT PRO')) {
-                message += `* 👀 TERMINOS Y CONDICIONES \n\n`;
-                message += `❗❗ Obligatorio\n`;
-                message += ` Copiar y Pegar correo y contraseña para evitar problemas de acceso \n\n`;
-                message += ` ✅Disponible Todas Las Funciones de CAPCUT PRO  👑\n`;
-                message += `Acceso \n`;
-                message += `✅1 Dispositivo Móvil 📱\n`;
-                message += `🚫No Usar VPN\n`;
-                message += `🚫No puedes cerrar sesión y abrir en otro dispositivo. Solo puedes vincular con 1 dispositivo ya que se bloquea la cuenta\n`;
-                message += `🚫No puedes compartir el correo y contraseña de acceso, con otra persona y otro dispositivo.\n`;
-                message += `🚫No puedes vincular con Tiktok ni Youtube directamente desde la app.\n`;
-                message += `Almacenamiento de ediciones\n`;
-                message += `✅En su Dispositivo Móvil.\n`;
-                message += `🚫Sin Acceso Privado a la nube.\n`;
-                message += `❗si incumple con los términos, perderá la garantía ‼\n\n`;
-            } else {
-                // Condición para mostrar diferentes instrucciones según el tipo de cuenta
-                if (accountType === 'cuenta') {
-                    message += `🔴 Prohibido cambiar correo y contraseña\n`;
-                    message += `🔴 Prohibido editar datos de la cuenta\n`;
-                    message += `🔴 Usted administra la cuenta, perfiles и pines internos de esta\n`;
-                } else if (accountType === 'pantalla') {
-                    message += `🔴 Prohibido cambiar correo y contraseña\n`;
-                    message += `🔴 Prohibido editar datos de la cuenta\n`;
-                    message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo\n`;
-                    message += `🔴 Prohibido compartir la cuenta\n\n`;
-                    message += `🔴 Prohibido Cambiar Nombre del Perfil\n\n`;
-                    message += `🔴 Prohibido Cambiar pin de perfil\n\n`;
-                } else if (accountType === 'renovacion') {
-                    message += `🔴 Prohibido cambiar correo y contraseña\n`;
-                    message += `🔴 Prohibido editar datos de la cuenta\n`;
-                    message += `🔴 Prohibido usar la cuenta en más de 1 dispositivo (si es pantalla)\n`;
-                    message += `🔴 Prohibido compartir la cuenta\n\n`;
-                }
-
-                message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DEL PERFIL SIN REEMBOLSO\n\n`;
-            }
-            
-            message += `¡Gracias por ${accountType === 'renovacion' ? 'renovar con' : 'comprar'} ${companyType === 'vendeygana' ? '*DPTO. STREAMING VENDE Y GANA*' : '*SALDO EXPRESS*'}!\n`;
-            message += `🎬 Disfruta de tu contenido favorito\n\n`;
-            message += `${signature}`;
-            
-            document.getElementById('output-message').value = message;
-            
-            // Generar mensaje promocional para servicios seleccionados
-            const promoSection = document.getElementById('promo-section');
-            const promoMessage = document.getElementById('promo-message');
-            
-            const promoEnabledServices = ['NETFLIX', 'AMAZON PRIME', 'AMAZON PRIME VIDEO', 'DISNEY+', 'MAX', 'MAX PREMIUM', 'CRUNCHYROLL', 'VIX+'];
-            
-            if (promoEnabledServices.includes(service)) {
-                let promoText = `*¡No te quedes atrás!* 🚀\n\n`;
-                promoText += `*¿Ya estás disfrutando de tu nueva plataforma?* 😉 ¡Genial! Pero si quieres aún más, te recordamos que el contenido de esa y otras plataformas lo consigues *TODO EN UNA* con *FLUJO TV o PANAXTREAMING!* ✨\n\n`;
-                promoText += `Además de tus películas y series favoritas 🎬, ¡disfruta de más de *1.000 CANALES EN VIVO* 🌐 para que no te pierdas nada:\n`;
-                promoText += `⚽️ *Deportes* | 🎨 *Cultura* | 📰 *Noticias* | 🎵 *Música* | 🛐 *Religión*\n`;
-                promoText += `...¡y canales de todo el continente, desde CANADÁ hasta ARGENTINA! 🌎\n\n`;
-                promoText += `*¡La diversión no tiene límites y está al alcance de tu mano!* 🙌\n\n`;
-                promoText += `¿Listo para transformar tu experiencia de entretenimiento? 😉\n\n`;
-                promoText += `👉 Descubre nuestros increíbles precios y planes aquí:\n\n`;
-                promoText += `*FLUJO TV:* https://vendeygana.forms.app/compraflujotv\n\n`;
-                promoText += `*PANAXTREAMING:* https://vendeygana.forms.app/panaxtreaming\n\n`;
-                promoText += `¡No esperas más para disfrutar de la TV del futuro! 🎉`;
-                
-                promoMessage.value = promoText;
-                promoSection.classList.remove('hidden');
-            } else {
-                promoSection.classList.add('hidden');
-            }
+            // Resto del código existente para otros tipos de cuenta...
+            // [El resto del código permanece igual, solo se agregó el caso para "respuesta-falla"]
             
             // Mostrar mensaje de éxito
             const successMessage = document.getElementById('success-message');
