@@ -5,19 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Mensajes para WhatsApp</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f8fa;
+            background-color: #000;
             color: #333;
+            display: grid;
+            grid-template-columns: 1fr 800px 1fr;
+            min-height: 100vh;
         }
+        
+        .left-sidebar, .right-sidebar {
+            background-color: #000;
+            width: 100%;
+        }
+        
+        .main-content {
+            background-color: #f5f8fa;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
         .container {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
+        
+        .banner {
+            background: linear-gradient(135deg, #6e48aa, #9d50bb);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .banner-message {
+            font-size: 22px;
+            font-weight: bold;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .banner-message.active {
+            opacity: 1;
+        }
+        
         .input-section, .output-section, .promo-section, .replacement-section, .failure-section, .renewal-section, .obsequio-section, .canva-section, .comercializacion-section {
             border: 1px solid #ddd;
             padding: 15px;
@@ -25,14 +75,18 @@
             background-color: white;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+        
         h1 {
             color: #128C7E;
             text-align: center;
+            margin-bottom: 20px;
         }
+        
         h2 {
             color: #075E54;
             margin-top: 0;
         }
+        
         textarea {
             width: 100%;
             height: 150px;
@@ -43,6 +97,7 @@
             resize: vertical;
             font-family: Arial, sans-serif;
         }
+        
         button {
             background-color: #25D366;
             color: white;
@@ -55,15 +110,18 @@
             margin-top: 10px;
             transition: background-color 0.3s;
         }
+        
         button:hover {
             background-color: #128C7E;
         }
+        
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
             color: #075E54;
         }
+        
         select {
             padding: 8px;
             border-radius: 4px;
@@ -71,6 +129,7 @@
             margin-bottom: 15px;
             width: 100%;
         }
+        
         input[type="text"] {
             padding: 8px;
             border-radius: 4px;
@@ -79,9 +138,11 @@
             width: 100%;
             box-sizing: border-box;
         }
+        
         .hidden {
             display: none;
         }
+        
         .demo-info {
             background-color: #E8F4f8;
             padding: 10px;
@@ -89,11 +150,13 @@
             margin-top: 10px;
             border-left: 4px solid #128C7E;
         }
+        
         .instructions {
             font-size: 14px;
             color: #555;
             margin-top: 5px;
         }
+        
         .success-message {
             background-color: #d4edda;
             color: #155724;
@@ -103,51 +166,66 @@
             text-align: center;
             display: none;
         }
+        
         .amazon-header, .netflix-header, .spotify-header, .vix-header, .disney-header, .flujotv-header, .panax-header, .youtube-header, .capcut-header, .replacement-header, .failure-header, .renewal-header, .max-header, .canva-header {
             text-align: center;
             margin-bottom: 15px;
             padding: 10px;
             border-radius: 8px;
         }
+        
         .netflix-header {
             background: linear-gradient(to right, #e50914, #b81d24);
         }
+        
         .spotify-header {
             background: linear-gradient(to right, #1DB954, #1ED760);
         }
+        
         .vix-header {
             background: linear-gradient(to right, #9F2D99, #6A0D7C);
         }
+        
         .disney-header {
             background: linear-gradient(to right, #113CCF, #00072D);
         }
+        
         .flujotv-header {
             background: linear-gradient(to right, #FF6B00, #FF8C00);
         }
+        
         .panax-header {
             background: linear-gradient(to right, #0066CC, #003366);
         }
+        
         .youtube-header {
             background: linear-gradient(to right, #FF0000, #CC0000);
         }
+        
         .capcut-header {
             background: linear-gradient(to right, #00C2FF, #007BFF);
         }
+        
         .replacement-header {
             background: linear-gradient(to right, #4CAF50, #2E7D32);
         }
+        
         .failure-header {
             background: linear-gradient(to right, #FF9800, #F57C00);
         }
+        
         .renewal-header {
             background: linear-gradient(to right, #4CAF50, #2E7D32);
         }
+        
         .max-header {
             background: linear-gradient(to right, #0066CC, #003366);
         }
+        
         .canva-header {
             background: linear-gradient(to right, #20C4CB, #3966FF);
         }
+        
         .comercializacion-header {
             background: linear-gradient(to right, #FF6B00, #FF8C00);
             text-align: center;
@@ -155,12 +233,14 @@
             padding: 10px;
             border-radius: 8px;
         }
+        
         .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img, .failure-header img, .renewal-header img, .max-header img, .canva-header img, .comercializacion-header img {
             max-width: 100%;
             height: auto;
             border-radius: 6px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
+        
         .output-content {
             display: flex;
             flex-direction: column;
@@ -168,219 +248,252 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Generador de Mensajes para WhatsApp</h1>
-        
-        <div class="input-section">
-            <h2>Ingresar Datos de la Cuenta</h2>
-            
-            <div>
-                <label for="company-type">Empresa:</label>
-                <select id="company-type">
-                    <option value="vendeygana">VENDE Y GANA</option>
-                    <option value="saldoexpress">SALDO EXPRESS</option>
-                </select>
-            </div>
-            
-            <div>
-                <label for="account-type">Tipo de Cuenta:</label>
-                <select id="account-type">
-                    <option value="pantalla">Pantalla</option>
-                    <option value="cuenta">Cuenta</option>
-                    <option value="renovacion">Renovación</option>
-                    <option value="reemplazo">Reemplazo</option>
-                    <option value="demo-panax">Demo PanaxTreaming</option>
-                    <option value="falla">FALLA EN CUENTA</option>
-                    <option value="mensaje-renovacion">MENSAJE DE RENOVACIÓN DE CUENTA</option>
-                    <option value="obsequio">OBSEQUIO</option>
-                </select>
-            </div>
-            
-            <div id="replacement-section" class="replacement-section hidden">
-                <label for="replacement-service">Servicio a Reemplazar:</label>
-                <select id="replacement-service">
-                    <option value="NETFLIX">NETFLIX</option>
-                    <option value="AMAZON PRIME">AMAZON PRIME</option>
-                    <option value="DISNEY PLUS">DISNEY PLUS</option>
-                    <option value="MAX">MAX</option>
-                    <option value="PANAXTREAMING">PANAXTREAMING</option>
-                    <option value="FLUJOTV">FLUJOTV</option>
-                    <option value="APPLE TV">APPLE TV</option>
-                    <option value="SPOTIFY">SPOTIFY</option>
-                    <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
-                    <option value="PARAMOUNT">PARAMOUNT</option>
-                    <option value="CRUNCHYROLL">CRUNCHYROLL</option>
-                    <option value="VIX+">VIX+</option>
-                    <option value="CANVA PRO">CANVA PRO</option>
-                    <option value="CAPCUT PRO">CAPCUT PRO</option>
-                    <option value="CHAT GPT">CHAT GPT</option>
-                    <option value="OTRO">OTRO</option>
-                </select>
-                
-                <label for="replacement-data">Cuenta a Reemplazar:</label>
-                <textarea id="replacement-data" placeholder="Ingrese los datos de la cuenta que será reemplazada"></textarea>
-            </div>
-            
-            <div id="failure-section" class="failure-section hidden">
-                <label for="failure-service">Servicio con falla:</label>
-                <select id="failure-service">
-                    <option value="NETFLIX">NETFLIX</option>
-                    <option value="AMAZON PRIME">AMAZON PRIME</option>
-                    <option value="DISNEY PLUS">DISNEY PLUS</option>
-                    <option value="MAX">MAX</option>
-                    <option value="PANAXTREAMING">PANAXTREAMING</option>
-                    <option value="FLUJOTV">FLUJOTV</option>
-                    <option value="APPLE TV">APPLE TV</option>
-                    <option value="SPOTIFY">SPOTify</option>
-                    <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
-                    <option value="PARAMOUNT">PARAMOUNT</option>
-                    <option value="CRUNCHYROLL">CRUNCHYROLL</option>
-                    <option value="VIX+">VIX+</option>
-                    <option value="CANVA PRO">CANVA PRO</option>
-                    <option value="CAPCUT PRO">CAPCUT PRO</option>
-                    <option value="CHAT GPT">CHAT GPT</option>
-                    <option value="OTRO">OTRO</option>
-                </select>
-                
-                <label for="failure-email">Correo de la cuenta:</label>
-                <input type="text" id="failure-email" placeholder="Ingrese el correo de la cuenta con falla">
-            </div>
-            
-            <div id="renewal-section" class="renewal-section hidden">
-                <label for="renewal-service">Servicio a renovar:</label>
-                <select id="renewal-service">
-                    <option value="NETFLIX">NETFLIX</option>
-                    <option value="AMAZON PRIME">AMAZON PRIME</option>
-                    <option value="DISNEY PLUS">DISNEY PLUS</option>
-                    <option value="MAX">MAX</option>
-                    <option value="PANAXTREAMING">PANAXTREAMING</option>
-                    <option value="FLUJOTV">FLUJOTV</option>
-                    <option value="APPLE TV">APPLE TV</option>
-                    <option value="SPOTIFY">SPOTIFY</option>
-                    <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
-                    <option value="PARAMOUNT">PARAMOUNT</option>
-                    <option value="CRUNCHYROLL">CRUNCHYROLL</option>
-                    <option value="VIX+">VIX+</option>
-                    <option value="CANVA PRO">CANVA PRO</option>
-                    <option value="CAPCUT PRO">CAPCUT PRO</option>
-                    <option value="CHAT GPT">CHAT GPT</option>
-                    <option value="OTRO">OTRO</option>
-                </select>
-                
-                <label for="renewal-email">Correo de la cuenta a renovar:</label>
-                <input type="text" id="renewal-email" placeholder="Ingrese el correo de la cuenta to renovar">
-            </div>
-            
-            <div id="obsequio-section" class="obsequio-section hidden">
-                <label for="obsequio-service">Servicio a obsequiar:</label>
-                <select id='obsequio-service'>
-                    <option value="NETFLIX">NETFLIX</option>
-                    <option value="AMAZON PRIME">AMAZON PRIME</option>
-                    <option value="DISNEY PLUS">DISNEY PLUS</option>
-                    <option value="MAX">MAX</option>
-                    <option value="PANAXTREAMING">PANAXTREAMING</option>
-                    <option value="FLUJOTV">FLUJOTV</option>
-                    <option value="APPLE TV">APPLE TV</option>
-                    <option value="SPOTIFY">SPOTIFY</option>
-                    <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
-                    <option value="PARAMOUNT">PARAMOUNT</option>
-                    <option value="CRUNCHYROLL">CRUNCHYROLL</option>
-                    <option value="VIX+">VIX+</option>
-                    <option value="CANVA PRO">CANVA PRO</option>
-                    <option value="CAPCUT PRO">CAPCUT PRO</option>
-                    <option value="CHAT GPT">CHAT GPT</option>
-                    <option value="OTRO">OTRO</option>
-                </select>
-                
-                <label for="client-name">Nombre del cliente:</label>
-                <input type="text" id="client-name" placeholder="Ingrese el nombre del cliente">
-            </div>
-            
-            <!-- Sección especial para Canva Pro -->
-            <div id="canva-section" class="canva-section hidden">
-                <label for="canva-email">Correo para la invitación de Canva Pro:</label>
-                <input type="text" id="canva-email" placeholder="Ingrese el correo donde se envió la invitación">
-            </div>
-            
-            <label for="input-data" id="input-data-label">Datos de la cuenta (copiar y pegar):</label>
-            <textarea id="input-data" placeholder="Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146"></textarea>
-            
-            <div id="demo-instructions" class="demo-info hidden">
-                <p class="instructions">Para Demo PanaxTreaming, ingrese los datos en el formato: <strong>USUARIO: [usuario] CLAVE: [contraseña]</strong></p>
-            </div>
-            
-            <button id="generate-btn">Generar Mensaje</button>
-            <div id="success-message" class="success-message">¡Mensaje generado con éxito!</div>
+    <div class="left-sidebar"></div>
+    
+    <div class="main-content">
+        <div class="banner">
+            <div class="banner-message active">¡Cada cliente satisfecho es un éxito compartido! 🚀</div>
+            <div class="banner-message">Tu actitud positiva abre las puertas del éxito 💫</div>
+            <div class="banner-message">El servicio excepcional crea clientes leales 🌟</div>
+            <div class="banner-message">Cada desafío es una oportunidad para brillar ✨</div>
+            <div class="banner-message">Tu dedicación hoy construye el éxito de mañana 🌈</div>
+            <div class="banner-message">Pequeños esfuerzos consistentes generan grandes resultados 📈</div>
+            <div class="banner-message">La excelencia en el servicio es tu mejor estrategia 🎯</div>
+            <div class="banner-message">Cada interacción es una oportunidad para impactar positivamente 💚</div>
+            <div class="banner-message">La perseverancia convierte los obstáculos en logros 🏆</div>
+            <div class="banner-message">Hoy es tu oportunidad para superar tus metas 🎉</div>
         </div>
         
-        <div class="output-section">
-            <h2>Mensaje Generado</h2>
-            <div class="output-content">
-                <div id="amazon-header" class="amazon-header hidden">
-                    <img src="https://i.pinimg.com/1200x/97/e6/b4/97e6b4cd50d84728372c0073ce4df2ef.jpg" alt="Amazon Prime Header">
+        <div class="container">
+            <h1>Generador de Mensajes para WhatsApp</h1>
+            
+            <div class="input-section">
+                <h2>Ingresar Datos de la Cuenta</h2>
+                
+                <div>
+                    <label for="company-type">Empresa:</label>
+                    <select id="company-type">
+                        <option value="vendeygana">VENDE Y GANA</option>
+                        <option value="saldoexpress">SALDO EXPRESS</option>
+                    </select>
                 </div>
-                <div id="netflix-header" class="netflix-header hidden">
-                    <img src="https://i.pinimg.com/736x/83/96/b5/8396b5f9b1ce862d1d645b59a9f79846.jpg" alt="Netflix Header">
+                
+                <div>
+                    <label for="account-type">Tipo de Cuenta:</label>
+                    <select id="account-type">
+                        <option value="pantalla">Pantalla</option>
+                        <option value="cuenta">Cuenta</option>
+                        <option value="renovacion">Renovación</option>
+                        <option value="reemplazo">Reemplazo</option>
+                        <option value="demo-panax">Demo PanaxTreaming</option>
+                        <option value="falla">FALLA EN CUENTA</option>
+                        <option value="mensaje-renovacion">MENSAJE DE RENOVACIÓN DE CUENTA</option>
+                        <option value="obsequio">OBSEQUIO</option>
+                    </select>
                 </div>
-                <div id="spotify-header" class="spotify-header hidden">
-                    <img src="https://i.pinimg.com/736x/86/8c/67/868c674a9d83c5198905a9611d025a6f.jpg" alt="Spotify Header">
+                
+                <div id="replacement-section" class="replacement-section hidden">
+                    <label for="replacement-service">Servicio a Reemplazar:</label>
+                    <select id="replacement-service">
+                        <option value="NETFLIX">NETFLIX</option>
+                        <option value="AMAZON PRIME">AMAZON PRIME</option>
+                        <option value="DISNEY PLUS">DISNEY PLUS</option>
+                        <option value="MAX">MAX</option>
+                        <option value="PANAXTREAMING">PANAXTREAMING</option>
+                        <option value="FLUJOTV">FLUJOTV</option>
+                        <option value="APPLE TV">APPLE TV</option>
+                        <option value="SPOTIFY">SPOTIFY</option>
+                        <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
+                        <option value="PARAMOUNT">PARAMOUNT</option>
+                        <option value="CRUNCHYROLL">CRUNCHYROLL</option>
+                        <option value="VIX+">VIX+</option>
+                        <option value="CANVA PRO">CANVA PRO</option>
+                        <option value="CAPCUT PRO">CAPCUT PRO</option>
+                        <option value="CHAT GPT">CHAT GPT</option>
+                        <option value="OTRO">OTRO</option>
+                    </select>
+                    
+                    <label for="replacement-data">Cuenta a Reemplazar:</label>
+                    <textarea id="replacement-data" placeholder="Ingrese los datos de la cuenta que será reemplazada"></textarea>
                 </div>
-                <div id="vix-header" class="vix-header hidden">
-                    <img src="https://i.pinimg.com/736x/db/e8/84/dbe884c49df4503ffec91c01e7463716.jpg" alt="VIX+ Header">
+                
+                <div id="failure-section" class="failure-section hidden">
+                    <label for="failure-service">Servicio con falla:</label>
+                    <select id="failure-service">
+                        <option value="NETFLIX">NETFLIX</option>
+                        <option value="AMAZON PRIME">AMAZON PRIME</option>
+                        <option value="DISNEY PLUS">DISNEY PLUS</option>
+                        <option value="MAX">MAX</option>
+                        <option value="PANAXTREAMING">PANAXTREAMING</option>
+                        <option value="FLUJOTV">FLUJOTV</option>
+                        <option value="APPLE TV">APPLE TV</option>
+                        <option value="SPOTIFY">SPOTify</option>
+                        <option value="YOUTUBE PREmium">YOUTUBE PREMIUM</option>
+                        <option value="PARAMOUNT">PARAMOUNT</option>
+                        <option value="CRUNCHYROLL">CRUNCHYROLL</option>
+                        <option value="VIX+">VIX+</option>
+                        <option value="CANVA PRO">CANVA PRO</option>
+                        <option value="CAPCUT PRO">CAPCUT PRO</option>
+                        <option value="CHAT GPT">CHAT GPT</option>
+                        <option value="OTRO">OTRO</option>
+                    </select>
+                    
+                    <label for="failure-email">Correo de la cuenta:</label>
+                    <input type="text" id="failure-email" placeholder="Ingrese el correo de la cuenta con falla">
                 </div>
-                <div id="disney-header" class="disney-header hidden">
-                    <img src="https://i.pinimg.com/736x/e0/ac/17/e0ac175441f5d4826ca2b17aa39e1928.jpg" alt="Disney Plus Header">
+                
+                <div id="renewal-section" class="renewal-section hidden">
+                    <label for="renewal-service">Servicio a renovar:</label>
+                    <select id="renewal-service">
+                        <option value="NETFLIX">NETFLIX</option>
+                        <option value="AMAZON PRIME">AMAZON PRIME</option>
+                        <option value="DISNEY PLUS">DISNEY PLUS</option>
+                        <option value="MAX">MAX</option>
+                        <option value="PANAXTREAMING">PANAXTREAMING</option>
+                        <option value="FLUJOTV">FLUJOTV</option>
+                        <option value="APPLE TV">APPLE TV</option>
+                        <option value="SPOTIFY">SPOTIFY</option>
+                        <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
+                        <option value="PARAMOUNT">PARAMOUNT</option>
+                        <option value="CRUNCHYROLL">CRUNCHYROLL</option>
+                        <option value="VIX+">VIX+</option>
+                        <option value="CANVA PRO">CANVA PRO</option>
+                        <option value="CAPCUT PRO">CAPCUT PRO</option>
+                        <option value="CHAT GPT">CHAT GPT</option>
+                        <option value="OTRO">OTRO</option>
+                    </select>
+                    
+                    <label for="renewal-email">Correo de la cuenta a renovar:</label>
+                    <input type="text" id="renewal-email" placeholder="Ingrese el correo de la cuenta to renovar">
                 </div>
-                <div id="flujotv-header" class="flujotv-header hidden">
-                    <img src="https://i.pinimg.com/736x/d4/76/98/d47698e15aefd1233db5f6ec6a8171e8.jpg" alt="Flujo TV Header">
+                
+                <div id="obsequio-section" class="obsequio-section hidden">
+                    <label for="obsequio-service">Servicio a obsequiar:</label>
+                    <select id='obsequio-service'>
+                        <option value="NETFLIX">NETFLIX</option>
+                        <option value="AMAZON PRIME">AMAZON PRIME</option>
+                        <option value="DISNEY PLUS">DISNEY PLUS</option>
+                        <option value="MAX">MAX</option>
+                        <option value="PANAXTREAMING">PANAXTREAMING</option>
+                        <option value="FLUJOTV">FLUJOTV</option>
+                        <option value="APPLE TV">APPLE TV</option>
+                        <option value="SPOTIFY">SPOTIFY</option>
+                        <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
+                        <option value="PARAMOUNT">PARAMOUNT</option>
+                        <option value="CRUNCHYROLL">CRUNCHYROLL</option>
+                        <option value="VIX+">VIX+</option>
+                        <option value="CANVA PRO">CANVA PRO</option>
+                        <option value="CAPCUT PRO">CAPCUT PRO</option>
+                        <option value="CHAT GPT">CHAT GPT</option>
+                        <option value="OTRO">OTRO</option>
+                    </select>
+                    
+                    <label for="client-name">Nombre del cliente:</label>
+                    <input type="text" id="client-name" placeholder="Ingrese el nombre del cliente">
                 </div>
-                <div id="panax-header" class="panax-header hidden">
-                    <img src="https://i.pinimg.com/736x/0c/0d/4f/0c0d4f7b336da43eab590d2ec432f8f7.jpg" alt="PanaxTreaming Header">
+                
+                <!-- Sección especial para Canva Pro -->
+                <div id="canva-section" class="canva-section hidden">
+                    <label for="canva-email">Correo para la invitación de Canva Pro:</label>
+                    <input type="text" id="canva-email" placeholder="Ingrese el correo donde se envió la invitación">
                 </div>
-                <div id="youtube-header" class="youtube-header hidden">
-                    <img src="https://i.pinimg.com/736x/b0/32/4d/b0324ddcb4f3cfee0a11ea345a6f62ad.jpg" alt="YouTube Premium Header">
+                
+                <label for="input-data" id="input-data-label">Datos de la cuenta (copiar y pegar):</label>
+                <textarea id="input-data" placeholder="Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146"></textarea>
+                
+                <div id="demo-instructions" class="demo-info hidden">
+                    <p class="instructions">Para Demo PanaxTreaming, ingrese los datos en el formato: <strong>USUARIO: [usuario] CLAVE: [contraseña]</strong></p>
                 </div>
-                <div id="capcut-header" class="capcut-header hidden">
-                    <img src="https://i.pinimg.com/736x/9f/26/dd/9f26dd84cb7f8333026172af60df115a.jpg" alt="CapCut Pro Header">
-                </div>
-                <div id="replacement-header" class="replacement-header hidden">
-                    <img src="https://i.pinimg.com/736x/20/db/1f/20db1fe044bd0a2cda4a65281fa34666.jpg" alt="Reemplazo Header">
-                </div>
-                <div id="failure-header" class="failure-header hidden">
-                    <img src="https://i.pinimg.com/736x/07/6a/35/076a3565d1d6bb64a8b08bbc74ca9fcf.jpg" alt="Falla en Cuenta Header">
-                </div>
-                <div id="renewal-header" class="renewal-header hidden">
-                    <img src="https://i.pinimg.com/736x/71/31/ba/7131ba5a0ad70b113c4f056665808860.jpg" alt="Renovación Header">
-                </div>
-                <div id="max-header" class="max-header hidden">
-                    <img src="https://i.pinimg.com/736x/b0/f6/b8/b0f6b8108268d39d691ba631a397cb85.jpg" alt="MAX Header">
-                </div>
-                <div id="canva-header" class="canva-header hidden">
-                    <img src="https://i.pinimg.com/736x/fe/97/a9/fe97a9c799792715625a765dac287efc.jpg" alt="Canva Pro Header">
-                </div>
-                <textarea id="output-message" readonly></textarea>
+                
+                <button id="generate-btn">Generar Mensaje</button>
+                <div id="success-message" class="success-message">¡Mensaje generado con éxito!</div>
             </div>
-            <button id="copy-btn">Copiar Mensaje</button>
-        </div>
+            
+            <div class="output-section">
+                <h2>Mensaje Generado</h2>
+                <div class="output-content">
+                    <div id="amazon-header" class="amazon-header hidden">
+                        <img src="https://i.pinimg.com/1200x/97/e6/b4/97e6b4cd50d84728372c0073ce4df2ef.jpg" alt="Amazon Prime Header">
+                    </div>
+                    <div id="netflix-header" class="netflix-header hidden">
+                        <img src="https://i.pinimg.com/736x/83/96/b5/8396b5f9b1ce862d1d645b59a9f79846.jpg" alt="Netflix Header">
+                    </div>
+                    <div id="spotify-header" class="spotify-header hidden">
+                        <img src="https://i.pinimg.com/736x/86/8c/67/868c674a9d83c5198905a9611d025a6f.jpg" alt="Spotify Header">
+                    </div>
+                    <div id="vix-header" class="vix-header hidden">
+                        <img src="https://i.pinimg.com/736x/db/e8/84/dbe884c49df4503ffec91c01e7463716.jpg" alt="VIX+ Header">
+                    </div>
+                    <div id="disney-header" class="disney-header hidden">
+                        <img src="https://i.pinimg.com/736x/e0/ac/17/e0ac175441f5d4826ca2b17aa39e1928.jpg" alt="Disney Plus Header">
+                    </div>
+                    <div id="flujotv-header" class="flujotv-header hidden">
+                        <img src="https://i.pinimg.com/736x/d4/76/98/d47698e15aefd1233db5f6ec6a8171e8.jpg" alt="Flujo TV Header">
+                    </div>
+                    <div id="panax-header" class="panax-header hidden">
+                        <img src="https://i.pinimg.com/736x/0c/0d/4f/0c0d4f7b336da43eab590d2ec432f8f7.jpg" alt="PanaxTreaming Header">
+                    </div>
+                    <div id="youtube-header" class="youtube-header hidden">
+                        <img src="https://i.pinimg.com/736x/b0/32/4d/b0324ddcb4f3cfee0a11ea345a6f62ad.jpg" alt="YouTube Premium Header">
+                    </div>
+                    <div id="capcut-header" class="capcut-header hidden">
+                        <img src="https://i.pinimg.com/736x/9f/26/dd/9f26dd84cb7f8333026172af60df115a.jpg" alt="CapCut Pro Header">
+                    </div>
+                    <div id="replacement-header" class="replacement-header hidden">
+                        <img src="https://i.pinimg.com/736x/20/db/1f/20db1fe044bd0a2cda4a65281fa34666.jpg" alt="Reemplazo Header">
+                    </div>
+                    <div id="failure-header" class="failure-header hidden">
+                        <img src="https://i.pinimg.com/736x/07/6a/35/076a3565d1d6bb64a8b08bbc74ca9fcf.jpg" alt="Falla en Cuenta Header">
+                    </div>
+                    <div id="renewal-header" class="renewal-header hidden">
+                        <img src="https://i.pinimg.com/736x/71/31/ba/7131ba5a0ad70b113c4f056665808860.jpg" alt="Renovación Header">
+                    </div>
+                    <div id="max-header" class="max-header hidden">
+                        <img src="https://i.pinimg.com/736x/b0/f6/b8/b0f6b8108268d39d691ba631a397cb85.jpg" alt="MAX Header">
+                    </div>
+                    <div id="canva-header" class="canva-header hidden">
+                        <img src="https://i.pinimg.com/736x/fe/97/a9/fe97a9c799792715625a765dac287efc.jpg" alt="Canva Pro Header">
+                    </div>
+                    <textarea id="output-message" readonly></textarea>
+                </div>
+                <button id="copy-btn">Copiar Mensaje</button>
+            </div>
 
-        <div class="promo-section hidden" id="promo-section">
-            <h2>Mensaje Promocional Adicional</h2>
-            <textarea id="promo-message" readonly></textarea>
-            <button id="copy-promo-btn">Copiar Mensaje Promocional</button>
-        </div>
-        
-        <!-- Nueva sección para mensaje de comercialización -->
-        <div class="comercializacion-section hidden" id="comercializacion-section">
-            <h2>Mensaje de Comercialización</h2>
-            <div class="comercializacion-header hidden" id="comercializacion-header">
-                <img src="https://i.pinimg.com/736x/0c/0d/4f/0c0d4f7b336da43eab590d2ec432f8f7.jpg" alt="Comercialización PanaxTreaming">
+            <div class="promo-section hidden" id="promo-section">
+                <h2>Mensaje Promocional Adicional</h2>
+                <textarea id="promo-message" readonly></textarea>
+                <button id="copy-promo-btn">Copiar Mensaje Promocional</button>
             </div>
-            <textarea id="comercializacion-message" readonly></textarea>
-            <button id="copy-comercializacion-btn">Copiar Mensaje de Comercialización</button>
+            
+            <!-- Nueva sección para mensaje de comercialización -->
+            <div class="comercializacion-section hidden" id="comercializacion-section">
+                <h2>Mensaje de Comercialización</h2>
+                <div class="comercializacion-header hidden" id="comercializacion-header">
+                    <img src="https://i.pinimg.com/736x/0c/0d/4f/0c0d4f7b336da43eab590d2ec432f8f7.jpg" alt="Comercialización PanaxTreaming">
+                </div>
+                <textarea id="comercializacion-message" readonly></textarea>
+                <button id="copy-comercializacion-btn">Copiar Mensaje de Comercialización</button>
+            </div>
         </div>
     </div>
+    
+    <div class="right-sidebar"></div>
 
     <script>
+        // Banner de frases motivacionales
+        const bannerMessages = document.querySelectorAll('.banner-message');
+        let currentMessage = 0;
+        
+        function rotateBannerMessages() {
+            bannerMessages.forEach(msg => msg.classList.remove('active'));
+            bannerMessages[currentMessage].classList.add('active');
+            
+            currentMessage = (currentMessage + 1) % bannerMessages.length;
+        }
+        
+        // Iniciar rotación de mensajes cada 5 segundos
+        setInterval(rotateBannerMessages, 5000);
+        
         // Mostrar/ocultar secciones según selección
         document.getElementById('account-type').addEventListener('change', function() {
             const replacementSection = document.getElementById('replacement-section');
