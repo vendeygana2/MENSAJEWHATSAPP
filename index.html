@@ -18,7 +18,7 @@
             flex-direction: column;
             gap: 20px;
         }
-        .input-section, .output-section, .promo-section, .replacement-section, .failure-section, .renewal-section, .obsequio-section, .canva-section {
+        .input-section, .output-section, .promo-section, .replacement-section, .failure-section, .renewal-section, .obsequio-section, .canva-section, .comercializacion-section {
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 8px;
@@ -148,7 +148,14 @@
         .canva-header {
             background: linear-gradient(to right, #20C4CB, #3966FF);
         }
-        .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img, .failure-header img, .renewal-header img, .max-header img, .canva-header img {
+        .comercializacion-header {
+            background: linear-gradient(to right, #FF6B00, #FF8C00);
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img, .failure-header img, .renewal-header img, .max-header img, .canva-header img, .comercializacion-header img {
             max-width: 100%;
             height: auto;
             border-radius: 6px;
@@ -361,6 +368,16 @@
             <textarea id="promo-message" readonly></textarea>
             <button id="copy-promo-btn">Copiar Mensaje Promocional</button>
         </div>
+        
+        <!-- Nueva sección para mensaje de comercialización -->
+        <div class="comercializacion-section hidden" id="comercializacion-section">
+            <h2>Mensaje de Comercialización</h2>
+            <div class="comercializacion-header hidden" id="comercializacion-header">
+                <img src="https://i.pinimg.com/736x/0c/0d/4f/0c0d4f7b336da43eab590d2ec432f8f7.jpg" alt="Comercialización PanaxTreaming">
+            </div>
+            <textarea id="comercializacion-message" readonly></textarea>
+            <button id="copy-comercializacion-btn">Copiar Mensaje de Comercialización</button>
+        </div>
     </div>
 
     <script>
@@ -464,6 +481,8 @@
             const renewalHeader = document.getElementById('renewal-header');
             const maxHeader = document.getElementById('max-header');
             const canvaHeader = document.getElementById('canva-header');
+            const comercializacionHeader = document.getElementById('comercializacion-header');
+            const comercializacionSection = document.getElementById('comercializacion-section');
             
             // Ocultar las imágenes de cabecera por defecto
             amazonHeader.classList.add('hidden');
@@ -480,6 +499,7 @@
             renewalHeader.classList.add('hidden');
             maxHeader.classList.add('hidden');
             canvaHeader.classList.add('hidden');
+            comercializacionHeader.classList.add('hidden');
             
             // Definir firma según la empresa seleccionada
             let signature = '';
@@ -514,6 +534,7 @@
                 
                 document.getElementById('output-message').value = message;
                 document.getElementById('promo-section').classList.add('hidden');
+                comercializacionSection.classList.add('hidden');
                 
                 // Mostrar mensaje de éxito
                 const successMessage = document.getElementById('success-message');
@@ -563,6 +584,7 @@
                 
                 document.getElementById('output-message').value = message;
                 document.getElementById('promo-section').classList.add('hidden');
+                comercializacionSection.classList.add('hidden');
                 
                 // Mostrar mensaje de éxito
                 const successMessage = document.getElementById('success-message');
@@ -663,6 +685,7 @@
                 
                 document.getElementById('output-message').value = message;
                 document.getElementById('promo-section').classList.add('hidden');
+                comercializacionSection.classList.add('hidden');
                 
                 // Mostrar mensaje de éxito
                 const successMessage = document.getElementById('success-message');
@@ -754,6 +777,7 @@
                 
                 document.getElementById('output-message').value = message;
                 document.getElementById('promo-section').classList.add('hidden');
+                comercializacionSection.classList.add('hidden');
                 
                 // Mostrar mensaje de éxito
                 const successMessage = document.getElementById('success-message');
@@ -849,6 +873,7 @@
                 
                 document.getElementById('output-message').value = message;
                 document.getElementById('promo-section').classList.add('hidden');
+                comercializacionSection.classList.add('hidden');
                 
                 // Mostrar mensaje de éxito
                 const successMessage = document.getElementById('success-message');
@@ -903,6 +928,7 @@
                 
                 document.getElementById('output-message').value = message;
                 document.getElementById('promo-section').classList.add('hidden');
+                comercializacionSection.classList.add('hidden');
                 
                 // Mostrar mensaje de éxito
                 const successMessage = document.getElementById('success-message');
@@ -962,7 +988,7 @@
                 amazonHeader.classList.remove('hidden');
             } else if (service.includes('NETFLIX') && (accountType === 'pantalla' || accountType === 'cuenta')) {
                 netflixHeader.classList.remove('hidden');
-            } else if (service.includes('SPOTIFY') && (accountType === 'pantalla' || accountType === 'cuenta' || accountType === 'renovacion')) {
+            } else if (service.includes('SPOTIFY') && (accountType === 'pantalla' || accountType === 'cuenda' || accountType === 'renovacion')) {
                 spotifyHeader.classList.remove('hidden');
             } else if (service.includes('VIX+') && (accountType === 'pantalla' || accountType === 'cuenta')) {
                 vixHeader.classList.remove('hidden');
@@ -1040,7 +1066,7 @@
                 message += `🚫No Usar VPN\n`;
                 message += `🚫No puedes cerrar sesión y abrir en otro dispositivo. Solo puedes vincular con 1 dispositivo ya que se bloquea la cuenta\n`;
                 message += `🚫No puedes compartir el correo y contraseña de acceso, con otra persona y otro dispositivo.\n`;
-                message += `🚫No puedes vincular con Tiktok ni Youtube directamente desde la app.\n`;
+                message += `🚫No puedes vinculare con Tiktok ni Youtube directamente desde la app.\n`;
                 message += `Almacenamiento de ediciones\n`;
                 message += `✅En su Dispositivo Móvil.\n`;
                 message += `🚫Sin Acceso Privado a la nube.\n`;
@@ -1099,6 +1125,25 @@
                 promoSection.classList.add('hidden');
             }
             
+            // Mostrar mensaje de comercialización para tipos "pantalla" y "cuenta"
+            if (accountType === 'pantalla' || accountType === 'cuenta') {
+                let comercializacionText = `¡Hola! 👋 ¿Cansado de que Netflix te ponga límites y te pida clave de "hogar"? 😤 ¡Llegó la solución que estabas esperando!\n\n`;
+                comercializacionText += `Con PanaXstreaming, olvídate de las restricciones y disfruta de TODO el entretenimiento en un solo lugar. 🚀\n\n`;
+                comercializacionText += `¿Qué te ofrecemos?\n`;
+                comercializacionText += `✅ TV en Vivo: Más de 800 canales, incluyendo todos los deportes (ESPN, DirecTV, Fox Sports), noticias y películas. ¡Para que no te pierdas nada! ⚽📺\n`;
+                comercializacionText += `✅ Contenido de Estreno: Todas las series y películas de Netflix, Max, Disney+, Amazon Prime y más, sin las complicaciones de esas plataformas. ¡Lo mejor de todo, en una sola app! 🎬🍿\n`;
+                comercializacionText += `✅ Sin Restricciones: Úsala en cualquier parte de Venezuela. ¡Es de panas para panas! 🇻🇪\n`;
+                comercializacionText += `✅ Precio Insuperable: Todo esto por solo $2.22 al precio del BCV, con eventos deportivos premium incluidos.\n\n`;
+                comercializacionText += `¡No esperes más! Dale clic al enlace para unirte a la experiencia PanaXstreaming. 👇\n\n`;
+                comercializacionText += `LO PUEDES DISFRUTAR EN TU TELEFONO, PC, TABLET, LAPTOP, SMARTV CON PLAY STORE, FIRETV`;
+                
+                document.getElementById('comercializacion-message').value = comercializacionText;
+                comercializacionSection.classList.remove('hidden');
+                comercializacionHeader.classList.remove('hidden');
+            } else {
+                comercializacionSection.classList.add('hidden');
+            }
+            
             // Mostrar mensaje de éxito
             const successMessage = document.getElementById('success-message');
             successMessage.style.display = 'block';
@@ -1117,6 +1162,13 @@
             promoMessage.select();
             document.execCommand('copy');
             alert('Mensaje promocional copiado al portapapeles!');
+        });
+        
+        document.getElementById('copy-comercializacion-btn').addEventListener('click', function() {
+            const comercializacionMessage = document.getElementById('comercializacion-message');
+            comercializacionMessage.select();
+            document.execCommand('copy');
+            alert('Mensaje de comercialización copiado al portapapeles!');
         });
     </script>
 </body>
