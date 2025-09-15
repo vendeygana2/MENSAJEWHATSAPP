@@ -425,6 +425,9 @@
                         <option value="OTRO">OTRO</option>
                     </select>
                     
+                    <label for="cuenta-falla">Cuenta en Falla:</label>
+                    <textarea id="cuenta-falla" placeholder="Ingrese los datos de la cuenta con falla (correo, contraseña, perfil, etc.)"></textarea>
+                    
                     <label for="dias-programacion">Días de programación agregados:</label>
                     <input type="text" id="dias-programacion" placeholder="Ej: 3 días adicionales">
                     
@@ -651,6 +654,7 @@
             if (accountType === 'respuesta-falla') {
                 const respuestaFallaService = document.getElementById('respuesta-falla-service').value;
                 const respuestaFallaMensaje = document.getElementById('respuesta-falla-mensaje').value;
+                const cuentaFalla = document.getElementById('cuenta-falla').value;
                 const diasProgramacion = document.getElementById('dias-programacion').value;
                 const fechaCorte = document.getElementById('fecha-corte').value;
                 
@@ -660,6 +664,13 @@
                 let message = `👋 *Estimado usuario, un placer saludarte esperando te encuentres bien junto a los tuyos* 👋\n\n`;
                 
                 message += `📢 *RESPUESTA SOBRE LA FALLA REPORTADA EN ${respuestaFallaService}* 📢\n\n`;
+                
+                // Agregar información de la cuenta en falla si se proporcionó
+                if (cuentaFalla.trim() !== '') {
+                    message += `🔴 *CUENTA EN FALLA:*\n`;
+                    message += `${cuentaFalla}\n\n`;
+                }
+                
                 message += `${respuestaFallaMensaje}\n\n`;
                 
                 // Agregar días de programación si se proporcionaron
@@ -849,7 +860,7 @@
                 message += `🔴 Prohibido compartir la cuenta\n`;
                 message += `🔴 Prohibido Cambiar Nombre del Perfil\n`;
                 message += `🔴 Prohibido Cambiar pin de perfil\n\n`;
-                message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DEL PERFIL SIN REEMBOLSO\n\n`;
+                message += `🔴 INCUMPLIR LLEVA A EL BLOQUEO DEL PERfil SIN REEMBOLSO\n\n`;
                 
                 // Mensaje especial para VIX+
                 if (obsequioService === 'VIX+') {
@@ -1161,7 +1172,7 @@
             } else if (service.includes('CAPCUT PRO')) {
                 header = accountType === 'renovacion' 
                     ? `✅ *RENOVACIÓN DE CUENTA CAPCUT PRO CON ÉXITO* ✅\n\n` 
-                    : `*DATOS DE SU ${accountTypeText} CAPCUT PRO*\n\n`;
+                    : `*DATOS OF SU ${accountTypeText} CAPCUT PRO*\n\n`;
             } else if (service.includes('MAX')) {
                 header = accountType === 'renovacion' 
                     ? `✅ *RENOVACIÓN DE CUENTA MAX CON ÉXITO* ✅\n\n` 
@@ -1298,13 +1309,13 @@
                 promoText += `*¿Ya estás disfrutando de tu nueva plataforma?* 😉 ¡Genial! Pero si quieres aún más, te recordamos que el contenido de esa y otras plataformas lo consigues *TODO EN UNA* con *FLUJO TV o PANAXTREAMING!* ✨\n\n`;
                 promoText += `Además de tus películas y series favoritas 🎬, ¡disfruta de más de *1.000 CANALES EN VIVO* 🌐 para que no te pierdas nada:\n`;
                 promoText += `⚽️ *Deportes* | 🎨 *Cultura* | 📰 *Noticias* | 🎵 *Música* | 🛐 *Religión*\n`;
-                promoText += `...¡y canales de todo el continente, desde CANADÁ hasta ARGENTINA! 🌎\n\n`;
-                promoText += `*¡La diversión no tiene límites y está al alcance de tu mano!* 🙌\n\n`;
-                promoText += `¿Listo para transformar tu experiencia de entretenimiento? 😉\n\n`;
-                promoText += `👉 Descubre nuestros increíbles precios y planes aquí:\n\n`;
-                promoText += `*FLUJO TV:* https://vendeygana.forms.app/compraflujotv\n\n`;
-                promoText += `*PANAXTREAMING:* https://vendeygana.forms.app/panaxtreaming\n\n`;
-                promoText += `¡No esperas más para disfrutar de la TV del futuro! 🎉`;
+                message += `...¡y canales de todo el continente, desde CANADÁ hasta ARGENTINA! 🌎\n\n`;
+                message += `*¡La diversión no tiene límites y está al alcance de tu mano!* 🙌\n\n`;
+                message += `¿Listo para transformar tu experiencia de entretenimiento? 😉\n\n`;
+                message += `👉 Descubre nuestros increíbles precios y planes aquí:\n\n`;
+                message += `*FLUJO TV:* https://vendeygana.forms.app/compraflujotv\n\n`;
+                message += `*PANAXTREAMING:* https://vendeygana.forms.app/panaxtreaming\n\n`;
+                message += `¡No esperas más para disfrutar de la TV del futuro! 🎉`;
                 
                 promoMessage.value = promoText;
                 promoSection.classList.remove('hidden');
