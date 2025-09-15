@@ -68,7 +68,7 @@
             opacity: 1;
         }
         
-        .input-section, .output-section, .promo-section, .replacement-section, .failure-section, .renewal-section, .obsequio-section, .canva-section, .comercializacion-section {
+        .input-section, .output-section, .promo-section, .replacement-section, .failure-section, .renewal-section, .obsequio-section, .canva-section, .comercializacion-section, .respuesta-falla-section {
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 8px;
@@ -167,7 +167,7 @@
             display: none;
         }
         
-        .amazon-header, .netflix-header, .spotify-header, .vix-header, .disney-header, .flujotv-header, .panax-header, .youtube-header, .capcut-header, .replacement-header, .failure-header, .renewal-header, .max-header, .canva-header {
+        .amazon-header, .netflix-header, .spotify-header, .vix-header, .disney-header, .flujotv-header, .panax-header, .youtube-header, .capcut-header, .replacement-header, .failure-header, .renewal-header, .max-header, .canva-header, .respuesta-falla-header {
             text-align: center;
             margin-bottom: 15px;
             padding: 10px;
@@ -226,6 +226,10 @@
             background: linear-gradient(to right, #20C4CB, #3966FF);
         }
         
+        .respuesta-falla-header {
+            background: linear-gradient(to right, #FF6B00, #F57C00);
+        }
+        
         .comercializacion-header {
             background: linear-gradient(to right, #FF6B00, #FF8C00);
             text-align: center;
@@ -234,7 +238,7 @@
             border-radius: 8px;
         }
         
-        .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img, .failure-header img, .renewal-header img, .max-header img, .canva-header img, .comercializacion-header img {
+        .amazon-header img, .netflix-header img, .spotify-header img, .vix-header img, .disney-header img, .flujotv-header img, .panax-header img, .youtube-header img, .capcut-header img, .replacement-header img, .failure-header img, .renewal-header img, .max-header img, .canva-header img, .comercializacion-header img, .respuesta-falla-header img {
             max-width: 100%;
             height: auto;
             border-radius: 6px;
@@ -289,6 +293,7 @@
                         <option value="falla">FALLA EN CUENTA</option>
                         <option value="mensaje-renovacion">MENSAJE DE RENOVACIÓN DE CUENTA</option>
                         <option value="obsequio">OBSEQUIO</option>
+                        <option value="respuesta-falla">RESPUESTA DE FALLA</option>
                     </select>
                 </div>
                 
@@ -398,6 +403,38 @@
                     <input type="text" id="canva-email" placeholder="Ingrese el correo donde se envió la invitación">
                 </div>
                 
+                <!-- Nueva sección para Respuesta de Falla -->
+                <div id="respuesta-falla-section" class="respuesta-falla-section hidden">
+                    <label for="respuesta-falla-service">Servicio con falla:</label>
+                    <select id="respuesta-falla-service">
+                        <option value="NETFLIX">NETFLIX</option>
+                        <option value="AMAZON PRIME">AMAZON PRIME</option>
+                        <option value="DISNEY PLUS">DISNEY PLUS</option>
+                        <option value="MAX">MAX</option>
+                        <option value="PANAXTREAMING">PANAXTREAMING</option>
+                        <option value="FLUJOTV">FLUJOTV</option>
+                        <option value="APPLE TV">APPLE TV</option>
+                        <option value="SPOTIFY">SPOTIFY</option>
+                        <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
+                        <option value="PARAMOUNT">PARAMOUNT</option>
+                        <option value="CRUNCHYROLL">CRUNCHYROLL</option>
+                        <option value="VIX+">VIX+</option>
+                        <option value="CANVA PRO">CANVA PRO</option>
+                        <option value="CAPCUT PRO">CAPCUT PRO</option>
+                        <option value="CHAT GPT">CHAT GPT</option>
+                        <option value="OTRO">OTRO</option>
+                    </select>
+                    
+                    <label for="dias-programacion">Días de programación agregados:</label>
+                    <input type="text" id="dias-programacion" placeholder="Ej: 3 días adicionales">
+                    
+                    <label for="fecha-corte">Misma fecha de corte de la compra original:</label>
+                    <input type="text" id="fecha-corte" placeholder="Ej: 15 de octubre de 2023">
+                    
+                    <label for="respuesta-falla-mensaje">Respuesta de Falla:</label>
+                    <textarea id="respuesta-falla-mensaje" placeholder="Escriba aquí la respuesta sobre la falla reportada"></textarea>
+                </div>
+                
                 <label for="input-data" id="input-data-label">Datos de la cuenta (copiar y pegar):</label>
                 <textarea id="input-data" placeholder="Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146"></textarea>
                 
@@ -454,6 +491,9 @@
                     <div id="canva-header" class="canva-header hidden">
                         <img src="https://i.pinimg.com/736x/fe/97/a9/fe97a9c799792715625a765dac287efc.jpg" alt="Canva Pro Header">
                     </div>
+                    <div id="respuesta-falla-header" class="respuesta-falla-header hidden">
+                        <img src="https://i.pinimg.com/736x/07/6a/35/076a3565d1d6bb64a8b08bbc74ca9fcf.jpg" alt="Respuesta de Falla Header">
+                    </div>
                     <textarea id="output-message" readonly></textarea>
                 </div>
                 <button id="copy-btn">Copiar Mensaje</button>
@@ -501,63 +541,46 @@
             const renewalSection = document.getElementById('renewal-section');
             const obsequioSection = document.getElementById('obsequio-section');
             const canvaSection = document.getElementById('canva-section');
+            const respuestaFallaSection = document.getElementById('respuesta-falla-section');
             const inputDataLabel = document.getElementById('input-data-label');
             const demoInstructions = document.getElementById('demo-instructions');
             const inputData = document.getElementById('input-data');
             
+            // Ocultar todas las secciones primero
+            replacementSection.classList.add('hidden');
+            failureSection.classList.add('hidden');
+            renewalSection.classList.add('hidden');
+            obsequioSection.classList.add('hidden');
+            canvaSection.classList.add('hidden');
+            respuestaFallaSection.classList.add('hidden');
+            demoInstructions.classList.add('hidden');
+            
             if (this.value === 'reemplazo') {
                 replacementSection.classList.remove('hidden');
-                failureSection.classList.add('hidden');
-                renewalSection.classList.add('hidden');
-                obsequioSection.classList.add('hidden');
-                canvaSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta de garantía:';
-                demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Ingrese los datos de la cuenta de garantía";
             } else if (this.value === 'demo-panax') {
-                replacementSection.classList.add('hidden');
-                failureSection.classList.add('hidden');
-                renewalSection.classList.add('hidden');
-                obsequioSection.classList.add('hidden');
-                canvaSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta Demo PanaxTreaming:';
                 demoInstructions.classList.remove('hidden');
                 inputData.placeholder = "USUARIO: [usuario] CLAVE: [contraseña]";
             } else if (this.value === 'falla') {
-                replacementSection.classList.add('hidden');
                 failureSection.classList.remove('hidden');
-                renewalSection.classList.add('hidden');
-                obsequioSection.classList.add('hidden');
-                canvaSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Información adicional (opcional):';
-                demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Puede agregar detalles adicionales sobre la falla aquí";
             } else if (this.value === 'mensaje-renovacion') {
-                replacementSection.classList.add('hidden');
-                failureSection.classList.add('hidden');
                 renewalSection.classList.remove('hidden');
-                obsequioSection.classList.add('hidden');
-                canvaSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Información adicional (opcional):';
-                demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Puede agregar detalles adicionales aquí";
             } else if (this.value === 'obsequio') {
-                replacementSection.classList.add('hidden');
-                failureSection.classList.add('hidden');
-                renewalSection.classList.add('hidden');
                 obsequioSection.classList.remove('hidden');
-                canvaSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta to obsequiar:';
-                demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146";
+            } else if (this.value === 'respuesta-falla') {
+                respuestaFallaSection.classList.remove('hidden');
+                inputDataLabel.textContent = 'Información adicional (opcional):';
+                inputData.placeholder = "Puede agregar información adicional aquí si es necesario";
             } else {
-                replacementSection.classList.add('hidden');
-                failureSection.classList.add('hidden');
-                renewalSection.classList.add('hidden');
-                obsequioSection.classList.add('hidden');
-                canvaSection.classList.add('hidden');
                 inputDataLabel.textContent = 'Datos de la cuenta (copiar y pegar):';
-                demoInstructions.classList.add('hidden');
                 inputData.placeholder = "Ejemplo: DATOS DE SU PANTALLA NETFLIX: CORREO: p35is.co@brotux.com CLAVE: VG707075 Perfil: 1 PIN: 8146";
             }
         });
@@ -594,6 +617,7 @@
             const renewalHeader = document.getElementById('renewal-header');
             const maxHeader = document.getElementById('max-header');
             const canvaHeader = document.getElementById('canva-header');
+            const respuestaFallaHeader = document.getElementById('respuesta-falla-header');
             const comercializacionHeader = document.getElementById('comercializacion-header');
             const comercializacionSection = document.getElementById('comercializacion-section');
             
@@ -612,6 +636,7 @@
             renewalHeader.classList.add('hidden');
             maxHeader.classList.add('hidden');
             canvaHeader.classList.add('hidden');
+            respuestaFallaHeader.classList.add('hidden');
             comercializacionHeader.classList.add('hidden');
             
             // Definir firma según la empresa seleccionada
@@ -621,6 +646,55 @@
             } else if (companyType === 'saldoexpress') {
                 signature = '*Que gusto que confíes en nosotros gracias por preferirnos ATENTAMENTE: SALDO EXPRESS C.A. ubicados en pleno centro de MERIDA CALLE 26 ENTRE AVENIDAS 7 Y 8*';
             }
+            
+            // Caso especial para RESPUESTA DE FALLA
+            if (accountType === 'respuesta-falla') {
+                const respuestaFallaService = document.getElementById('respuesta-falla-service').value;
+                const respuestaFallaMensaje = document.getElementById('respuesta-falla-mensaje').value;
+                const diasProgramacion = document.getElementById('dias-programacion').value;
+                const fechaCorte = document.getElementById('fecha-corte').value;
+                
+                // Mostrar la imagen de respuesta de falla
+                respuestaFallaHeader.classList.remove('hidden');
+                
+                let message = `👋 *Estimado usuario, un placer saludarte esperando te encuentres bien junto a los tuyos* 👋\n\n`;
+                
+                message += `📢 *RESPUESTA SOBRE LA FALLA REPORTADA EN ${respuestaFallaService}* 📢\n\n`;
+                message += `${respuestaFallaMensaje}\n\n`;
+                
+                // Agregar días de programación si se proporcionaron
+                if (diasProgramacion.trim() !== '') {
+                    message += `📅 *DÍAS DE PROGRAMACIÓN AGREGADOS:* ${diasProgramacion}\n\n`;
+                }
+                
+                // Agregar fecha de corte si se proporcionó
+                if (fechaCorte.trim() !== '') {
+                    message += `⏳ *MISMA FECHA DE CORTE DE LA COMPRA ORIGINAL:* ${fechaCorte}\n\n`;
+                }
+                
+                // Agregar información adicional si se proporcionó
+                if (inputData.trim() !== '') {
+                    message += `📝 *INFORMACIÓN ADICIONAL:*\n`;
+                    message += `${inputData}\n\n`;
+                }
+                
+                message += `🔜 *Estamos para servirte, cualquier duda no dudes en contactarnos.* 🔜\n\n`;
+                message += `${signature}`;
+                
+                document.getElementById('output-message').value = message;
+                document.getElementById('promo-section').classList.add('hidden');
+                comercializacionSection.classList.add('hidden');
+                
+                // Mostrar mensaje de éxito
+                const successMessage = document.getElementById('success-message');
+                successMessage.style.display = 'block';
+                setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+                
+                return;
+            }
+            
+            // Resto del código existente para otros tipos de mensajes...
+            // (El resto del código permanece igual, solo se agregó el caso para respuesta-falla)
             
             // Caso especial para MENSAJE DE RENOVACIÓN DE CUENTA
             if (accountType === 'mensaje-renovacion') {
