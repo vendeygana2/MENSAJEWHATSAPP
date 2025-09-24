@@ -537,6 +537,27 @@
         // Iniciar rotación de mensajes cada 5 segundos
         setInterval(rotateBannerMessages, 5000);
         
+        // Función para limpiar todos los campos de entrada
+        function clearAllInputs() {
+            document.getElementById('input-data').value = '';
+            document.getElementById('replacement-data').value = '';
+            document.getElementById('canva-email').value = '';
+            document.getElementById('failure-email').value = '';
+            document.getElementById('renewal-email').value = '';
+            document.getElementById('client-name').value = '';
+            document.getElementById('cuenta-falla').value = '';
+            document.getElementById('dias-programacion').value = '';
+            document.getElementById('fecha-corte').value = '';
+            document.getElementById('respuesta-falla-mensaje').value = '';
+            
+            // Resetear selects a su valor por defecto
+            document.getElementById('replacement-service').selectedIndex = 0;
+            document.getElementById('failure-service').selectedIndex = 0;
+            document.getElementById('renewal-service').selectedIndex = 0;
+            document.getElementById('obsequio-service').selectedIndex = 0;
+            document.getElementById('respuesta-falla-service').selectedIndex = 0;
+        }
+        
         // Mostrar/ocultar secciones según selección
         document.getElementById('account-type').addEventListener('change', function() {
             const replacementSection = document.getElementById('replacement-section');
@@ -658,6 +679,11 @@
                 const diasProgramacion = document.getElementById('dias-programacion').value;
                 const fechaCorte = document.getElementById('fecha-corte').value;
                 
+                // Obtener fecha actual para "Fecha de respuesta"
+                const today = new Date();
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const todayStr = today.toLocaleDateString('es-ES', options);
+                
                 // Mostrar la imagen de respuesta de falla
                 respuestaFallaHeader.classList.remove('hidden');
                 
@@ -689,6 +715,9 @@
                     message += `${inputData}\n\n`;
                 }
                 
+                // Agregar fecha de respuesta (solo para respuesta de falla)
+                message += `📅 *FECHA DE RESPUESTA:* ${todayStr}\n\n`;
+                
                 message += `🔜 *Estamos para servirte, cualquier duda no dudes en contactarnos.* 🔜\n\n`;
                 message += `${signature}`;
                 
@@ -700,6 +729,9 @@
                 const successMessage = document.getElementById('success-message');
                 successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+                
+                // Limpiar todos los campos después de generar el mensaje
+                clearAllInputs();
                 
                 return;
             }
@@ -738,6 +770,9 @@
                 const successMessage = document.getElementById('success-message');
                 successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+                
+                // Limpiar todos los campos después de generar el mensaje
+                clearAllInputs();
                 
                 return;
             }
@@ -788,6 +823,9 @@
                 const successMessage = document.getElementById('success-message');
                 successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+                
+                // Limpiar todos los campos después de generar el mensaje
+                clearAllInputs();
                 
                 return;
             }
@@ -890,6 +928,9 @@
                 successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
                 
+                // Limpiar todos los campos después de generar el mensaje
+                clearAllInputs();
+                
                 return;
             }
             
@@ -981,6 +1022,9 @@
                 const successMessage = document.getElementById('success-message');
                 successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+                
+                // Limpiar todos los campos después de generar el mensaje
+                clearAllInputs();
                 
                 return;
             }
@@ -1078,6 +1122,9 @@
                 successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
                 
+                // Limpiar todos los campos después de generar el mensaje
+                clearAllInputs();
+                
                 return;
             }
             
@@ -1109,7 +1156,7 @@
                 
                 message += `💎 *OPCIONES DE SERVICIO:*\n`;
                 message += `• CUENTA COMPLETA: 3 DISPOSITIVOS SIMULTÁNEOS\n`;
-                message += `• PANTALla: 1 PANTALLA EN CUALQUIER PARTE del MUNDO\n\n`;
+                message += `• PANTALLA: 1 PANTALLA EN CUALQUIER PARTE del MUNDO\n\n`;
                 
                 message += `⚠️ *IMPORTANTE:* SIGUE LOS PASOS DEL SIGUIENTE VIDEO PARA INSTALAR LA APLICACIÓN:\n`;
                 message += `👉 https://www.youtube.com/watch?v=mpdY5xEeWUU\n\n`;
@@ -1132,6 +1179,9 @@
                 const successMessage = document.getElementById('success-message');
                 successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+                
+                // Limpiar todos los campos después de generar el mensaje
+                clearAllInputs();
                 
                 return;
             }
@@ -1325,15 +1375,46 @@
             
             // Mostrar mensaje de comercialización para tipos "pantalla" y "cuenta"
             if (accountType === 'pantalla' || accountType === 'cuenta') {
-                let comercializacionText = `¡Hola! 👋 ¿Cansado de que Netflix te ponga límites y te pida clave de "hogar"? 😤 ¡Llegó la solución que estabas esperando!\n\n`;
-                comercializacionText += `Con PanaXstreaming, olvídate de las restricciones y disfruta de TODO el entretenimiento en un solo lugar. 🚀\n\n`;
-                comercializacionText += `¿Qué te ofrecemos?\n`;
-                comercializacionText += `✅ TV en Vivo: Más de 800 canales, incluyendo todos los deportes (ESPN, DirecTV, Fox Sports), noticias y películas. ¡Para que no te pierdas nada! ⚽📺\n`;
-                comercializacionText += `✅ Contenido de Estreno: Todas las series y películas de Netflix, Max, Disney+, Amazon Prime y más, sin las complicaciones de esas plataformas. ¡Lo mejor de todo, en una sola app! 🎬🍿\n`;
-                comercializacionText += `✅ Sin Restricciones: Úsala en cualquier parte de Venezuela. ¡Es de panas para panas! 🇻🇪\n`;
-                comercializacionText += `✅ Precio Insuperable: Todo esto por solo $2.22 al precio del BCV, con eventos deportivos premium incluidos.\n\n`;
-                comercializacionText += `¡No esperes más! Dale clic al enlace para unirte a la experiencia PanaXstreaming. 👇\n\n`;
-                comercializacionText += `LO PUEDES DISFRUTAR EN TU TELEFONO, PC, TABLET, LAPTOP, SMARTV CON PLAY STORE, FIRETV`;
+                let comercializacionText = `📺🔥 *¡Transforma tu forma de ver TV con PanaxStreaming TV Go o Flujo TV!* 🌟\n\n`;
+                
+                comercializacionText += `🔹 *TV en vivo con más de 1000 canales:*\n`;
+                comercializacionText += `Accede a canales en vivo de todo el mundo, incluyendo:\n\n`;
+                
+                comercializacionText += `🏆 *Deportes Premium:* ESPN, FOX Sports, DIRECTV Sports y más.\n\n`;
+                
+                comercializacionText += `📰 *Noticias al instante:* CNN, BBC, Telemundo, Univisión y otros canales internacionales sin censura.\n\n`;
+                
+                comercializacionText += `👶 *Canales infantiles:* Cartoon Network, Disney Channel, Nickelodeon y más.\n\n`;
+                
+                comercializacionText += `📡 *Canales nacionales:* Telesur, Televen, Venevisión, Globovisión y muchos más.\n\n`;
+                
+                comercializacionText += `🎯 *¿Lo mejor?* Puedes disfrutar de todo esto desde tu 📱 Android, Smart TV con Play Store, Fire TV o cualquier dispositivo compatible.\n\n`;
+                
+                comercializacionText += `🎬 *¡Películas y series sin complicaciones!* 🎥\n`;
+                comercializacionText += `Disfruta de estrenos exclusivos y clásicos de plataformas de streaming como:\n\n`;
+                
+                comercializacionText += `Netflix, Amazon Prime, Disney+, Max, Paramount+, Apple TV y más.\n\n`;
+                
+                comercializacionText += `🎉 *Sin las complicaciones de las restricciones de Netflix:* No más problemas de contraseñas compartidas ni fallas de geolocalización. ¡Todo directo y sin interrupciones!\n\n`;
+                
+                comercializacionText += `💸 *¡Los mejores precios del mercado!* 💥\n\n`;
+                
+                comercializacionText += `*PanaxStreaming TV Go:*\n`;
+                comercializacionText += `• *Pantalla por solo $2.06* (al tipo de cambio BCV)\n`;
+                comercializacionText += `• *Cuenta completa por $7.1* (4 dispositivos en simultáneo, sin restricciones de geolocalización)\n\n`;
+                
+                comercializacionText += `¡Podrás compartir tu cuenta con amigos y familiares! 🌍\n\n`;
+                
+                comercializacionText += `*Flujo TV:*\n`;
+                comercializacionText += `• *Pantalla por solo $2.5* (al tipo de cambio BCV)\n`;
+                comercializacionText += `• *Cuenta completa por $7* (3 dispositivos en simultáneo)\n\n`;
+                
+                comercializacionText += `Disfruta de la misma calidad sin restricciones. 📱💻\n\n`;
+                
+                comercializacionText += `🇻🇪 *¡PanaxStreaming TV Go es 100% Hecho en Venezuela, un orgullo venezolano!* 🎉✨\n\n`;
+                
+                comercializacionText += `🎉 *¡No te quedes atrás!*\n`;
+                comercializacionText += `Únete a la revolución del entretenimiento y disfruta de lo mejor en TV en vivo, películas, series y deportes sin las limitaciones de Netflix. ¡Todo por precios increíbles! 🌟`;
                 
                 document.getElementById('comercializacion-message').value = comercializacionText;
                 comercializacionSection.classList.remove('hidden');
@@ -1346,6 +1427,9 @@
             const successMessage = document.getElementById('success-message');
             successMessage.style.display = 'block';
             setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+            
+            // Limpiar todos los campos después de generar el mensaje
+            clearAllInputs();
         });
         
         document.getElementById('copy-btn').addEventListener('click', function() {
