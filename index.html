@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Mensajes para WhatsApp</title>
     <style>
+        /* Estilos existentes se mantienen igual */
         * {
             margin: 0;
             padding: 0;
@@ -512,7 +513,8 @@
             <div class="comercializacion-section hidden" id="comercializacion-section">
                 <h2>Mensaje de Comercialización</h2>
                 <div class="comercializacion-header hidden" id="comercializacion-header">
-                    <img src="https://i.pinimg.com/736x/0c/0d/4f/0c0d4f7b336da43eab590d2ec432f8f7.jpg" alt="Comercialización PanaxTreaming">
+                    <!-- Imagen actualizada según solicitud -->
+                    <img src="https://i.pinimg.com/1200x/c8/73/32/c87332f5368f2f05d3e0269820c6c58f.jpg" alt="Comercialización Alternativas Streaming">
                 </div>
                 <textarea id="comercializacion-message" readonly></textarea>
                 <button id="copy-comercializacion-btn">Copiar Mensaje de Comercialización</button>
@@ -1375,46 +1377,43 @@
             
             // Mostrar mensaje de comercialización para tipos "pantalla" y "cuenta"
             if (accountType === 'pantalla' || accountType === 'cuenta') {
-                let comercializacionText = `📺🔥 *¡Transforma tu forma de ver TV con PanaxStreaming TV Go o Flujo TV!* 🌟\n\n`;
+                // Mensaje de comercialización actualizado según solicitud
+                let comercializacionText = `¡Hola! 👋 \n\n`;
                 
-                comercializacionText += `🔹 *TV en vivo con más de 1000 canales:*\n`;
-                comercializacionText += `Accede a canales en vivo de todo el mundo, incluyendo:\n\n`;
+                comercializacionText += `¿Vendes cuentas streaming y la primera opción que pide tu cliente es NETFLIX? 😱\n\n`;
                 
-                comercializacionText += `🏆 *Deportes Premium:* ESPN, FOX Sports, DIRECTV Sports y más.\n\n`;
+                comercializacionText += `Seguro que ya conoces todas las limitaciones que esta plataforma ha puesto para su uso. Solo si vendes un perfil extra o llamado VIP de uso exclusivo, el cliente podrá disfrutar de la programación sin problemas. Pero si adquieres o vendes perfil de una cuenta de 5, tendrás estas fallas comunes:\n\n`;
                 
-                comercializacionText += `📰 *Noticias al instante:* CNN, BBC, Telemundo, Univisión y otros canales internacionales sin censura.\n\n`;
+                comercializacionText += `🏠 *FALLA DE HOGAR*\n`;
+                comercializacionText += `Esta falla se da porque la mayoría de las cuentas que adquieres son un perfil compartido de 5 y NETFLIX las regula para que se usen en la misma casa. 🏡 Al no usarse en el mismo hogar, en algún momento (incluso recién adquirida la pantalla), este error puede presentarse y tu cliente deberá contactarte y tú a tu distribuidor para que te dé el código y pueda ingresar nuevamente. 🤦‍♂️\n\n`;
                 
-                comercializacionText += `👶 *Canales infantiles:* Cartoon Network, Disney Channel, Nickelodeon y más.\n\n`;
+                comercializacionText += `🔑 *CONTRASEÑA INCORRECTA*\n`;
+                comercializacionText += `Esta falla puede darse por dos motivos:\n\n`;
                 
-                comercializacionText += `📡 *Canales nacionales:* Telesur, Televen, Venevisión, Globovisión y muchos más.\n\n`;
+                comercializacionText += `*MOTIVO 1* : El cliente ingresa sin el uso de DATOS MÓVILES a su cuenta. 📶 La mayoría de los distribuidores de internet por fibra tienden a tener una IP de otro país, aunque estén en Venezuela. Como la cuenta es de uso exclusivo para Venezuela, tu cliente tendrá que usar los datos de su línea móvil (Movistar, Digitel o Movilnet) para conectar su TV e iniciar sesión. Luego de ingresar, podrá cambiar al internet que tiene contratado para su casa. 💡\n\n`;
                 
-                comercializacionText += `🎯 *¿Lo mejor?* Puedes disfrutar de todo esto desde tu 📱 Android, Smart TV con Play Store, Fire TV o cualquier dispositivo compatible.\n\n`;
+                comercializacionText += `*MOTIVO 2* : Es común esta falla en las pantallas o perfiles compartidos de una cuenta de 5, pues al entregar individualmente, alguno de los usuarios en la mayoría de los casos ingresa de forma incorrecta (ya sea porque no usa los datos, como se explica en el motivo 1, o porque deja los datos de la cuenta anterior en su TV). Al recibir varios intentos de ingreso incorrecto, NETFLIX BLOQUEA LA CONTRASEÑA por seguridad, lo que causa un bloqueo que puede tardar en resolverse. 🚫\n\n`;
                 
-                comercializacionText += `🎬 *¡Películas y series sin complicaciones!* 🎥\n`;
-                comercializacionText += `Disfruta de estrenos exclusivos y clásicos de plataformas de streaming como:\n\n`;
+                comercializacionText += `💸 *HABLEMOS DE COSTOS*\n`;
+                comercializacionText += `Una pantalla compartida en el mercado tiene un valor promedio para hoy 26 de septiembre de no menos de 700 BS con otros distribuidores. ¡NOSOTROS LA TENEMOS EN 480 BS! 🤑 Si eres vendedor, tendrás que colocar tu ganancia, lo que eleva el costo y te pone en una situación de desventaja para competir. 😕 Si quieres un PERFIL VIP O EXTRA para no pasar por estos problemas, el costo se eleva considerablemente a unos 1300 BS por este servicio, pero NOSOTROS LA TENEMOS EN 1050 BS. 💰\n\n`;
                 
-                comercializacionText += `Netflix, Amazon Prime, Disney+, Max, Paramount+, Apple TV y más.\n\n`;
+                comercializacionText += `💡 *OFRECE ALTERNATIVAS*\n`;
+                comercializacionText += `Te informamos esto para que, si vendes estos servicios, ofrezcas a tus clientes alternativas informándote primero. Pregunta a tu cliente dónde usará la cuenta: ¿en el teléfono, Smart TV, TV con Roku o Fire TV? 📱📺\n\n`;
                 
-                comercializacionText += `🎉 *Sin las complicaciones de las restricciones de Netflix:* No más problemas de contraseñas compartidas ni fallas de geolocalización. ¡Todo directo y sin interrupciones!\n\n`;
+                comercializacionText += `Seguro tu cliente busca una película o serie en específico, y te mostraremos que las alternativas que te damos ya tienen esa serie o película, ¡aun cuando sea un estreno! 🎬\n\n`;
                 
-                comercializacionText += `💸 *¡Los mejores precios del mercado!* 💥\n\n`;
+                comercializacionText += `Ofrece alternativas que sean mejores, más económicas y con mayor contenido de programas, incluyendo TV en vivo. Estas plataformas NO PRESENTAN PROBLEMAS como los de Netflix y te dan:\n\n`;
                 
-                comercializacionText += `*PanaxStreaming TV Go:*\n`;
-                comercializacionText += `• *Pantalla por solo $2.06* (al tipo de cambio BCV)\n`;
-                comercializacionText += `• *Cuenta completa por $7.1* (4 dispositivos en simultáneo, sin restricciones de geolocalización)\n\n`;
+                comercializacionText += `TV en vivo con más de 1.000 canales 📡, incluyendo DEPORTES PREMIUM como ESPN, FOX SPORTS, DIRECTV SPORTS para los amantes del deporte 🏈, además de canales nacionales e internacionales de noticias, cultura, religión, infantiles y cine, como todos los HBO PREMIUM.\n\n`;
                 
-                comercializacionText += `¡Podrás compartir tu cuenta con amigos y familiares! 🌍\n\n`;
+                comercializacionText += `Estrenos de NETFLIX, AMAZON PRIME, DISNEY PLUS, MAX, CRUNCHYROLL, APPLE TV, PARAMOUNT+ ¡y mucho más! ✨\n\n`;
                 
-                comercializacionText += `*Flujo TV:*\n`;
-                comercializacionText += `• *Pantalla por solo $2.5* (al tipo de cambio BCV)\n`;
-                comercializacionText += `• *Cuenta completa por $7* (3 dispositivos en simultáneo)\n\n`;
+                comercializacionText += `Compara: una pantalla de Netflix puede costar 700 BS con todos los problemas que ya leíste, mientras que plataformas como PANAXTREAMING TV GO (venezolana) 🇻🇪 y FLUJO TV están en un promedio de 350 a 450 BS.\n\n`;
                 
-                comercializacionText += `Disfruta de la misma calidad sin restricciones. 📱💻\n\n`;
+                comercializacionText += `✅ *¿ QUÉ NECESITAS PARA VENDER ESTAS PLATAFORMAS?*\n`;
+                comercializacionText += `Tu cliente solo necesita tener un Smart TV con sistema Android que pueda descargar de la Play Store, teléfono, PC, Fire TV o Google TV. ¡Solo eso! 😉 Así podrás vender plataformas con ganancia sin tantas complicaciones para ti y tus clientes.\n\n`;
                 
-                comercializacionText += `🇻🇪 *¡PanaxStreaming TV Go es 100% Hecho en Venezuela, un orgullo venezolano!* 🎉✨\n\n`;
-                
-                comercializacionText += `🎉 *¡No te quedes atrás!*\n`;
-                comercializacionText += `Únete a la revolución del entretenimiento y disfruta de lo mejor en TV en vivo, películas, series y deportes sin las limitaciones de Netflix. ¡Todo por precios increíbles! 🌟`;
+                comercializacionText += `PREGUNTA POR NUESTROS PLANES Y DEMOS para estos servicios, además de otros servicios alternativos a precios insuperables para ti, como DISNEY PLUS, MAX, AMAZON PRIME, CRUNCHYROLL, APPLE TV, ¡y muchos más! 🎉`;
                 
                 document.getElementById('comercializacion-message').value = comercializacionText;
                 comercializacionSection.classList.remove('hidden');
