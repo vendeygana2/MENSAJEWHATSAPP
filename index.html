@@ -343,8 +343,8 @@
                         <option value="PANAXTREAMING">PANAXTREAMING</option>
                         <option value="FLUJOTV">FLUJOTV</option>
                         <option value="APPLE TV">APPLE TV</option>
-                        <option value="SPOTIFY">SPOTify</option>
-                        <option value="YOUTUBE PREmium">YOUTUBE PREMIUM</option>
+                        <option value="SPOTIFY">SPOTIFY</option>
+                        <option value="YOUTUBE PREMIUM">YOUTUBE PREMIUM</option>
                         <option value="PARAMOUNT">PARAMOUNT</option>
                         <option value="CRUNCHYROLL">CRUNCHYROLL</option>
                         <option value="VIX+">VIX+</option>
@@ -722,9 +722,6 @@
                 successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
                 
-                // Limpiar todos los campos después de generar el mensaje
-                clearAllInputs();
-                
                 return;
             }
             
@@ -787,9 +784,6 @@
                 successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
                 
-                // Limpiar todos los campos después de generar el mensaje
-                clearAllInputs();
-                
                 return;
             }
             
@@ -824,9 +818,6 @@
                 const successMessage = document.getElementById('success-message');
                 successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
-                
-                // Limpiar todos los campos después de generar el mensaje
-                clearAllInputs();
                 
                 return;
             }
@@ -877,9 +868,6 @@
                 const successMessage = document.getElementById('success-message');
                 successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
-                
-                // Limpiar todos los campos después de generar el mensaje
-                clearAllInputs();
                 
                 return;
             }
@@ -982,9 +970,6 @@
                 successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
                 
-                // Limpiar todos los campos después de generar el mensaje
-                clearAllInputs();
-                
                 return;
             }
             
@@ -1076,9 +1061,6 @@
                 const successMessage = document.getElementById('success-message');
                 successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
-                
-                // Limpiar todos los campos después de generar el mensaje
-                clearAllInputs();
                 
                 return;
             }
@@ -1176,9 +1158,6 @@
                 successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
                 
-                // Limpiar todos los campos después de generar el mensaje
-                clearAllInputs();
-                
                 return;
             }
             
@@ -1233,9 +1212,6 @@
                 const successMessage = document.getElementById('success-message');
                 successMessage.style.display = 'block';
                 setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
-                
-                // Limpiar todos los campos después de generar el mensaje
-                clearAllInputs();
                 
                 return;
             }
@@ -1399,6 +1375,24 @@
             message += `¡Gracias por ${accountType === 'renovacion' ? 'renovar con' : 'comprar'} ${companyType === 'vendeygana' ? '*DPTO. STREAMING VENDE Y GANA*' : '*SALDO EXPRESS*'}!\n`;
             message += `🎬 Disfruta de tu contenido favorito\n\n`;
             message += `${signature}`;
+
+            // AGREGAR MENSAJE PROMOCIONAL SOLICITADO PARA PANTALLA Y CUENTA
+            if (accountType === 'pantalla' || accountType === 'cuenta') {
+                message += `\n\n🌟 *¡NO ESPERES MÁS!* 🚀 Vende y Gana te trae la forma más RÁPIDA de vender tus cuentas STREAMING (Netflix 🍿, Amazon 📦, Disney+ ✨, HBO, etc.), HERRAMIENTAS PRO (Canva Pro 🎨, CapCut 🎬, Spotify Premium 🎧, YouTube 🔴) y RECARGAS DE FREE FIRE 🔥.\n\n`;
+                message += `🤖 *¡TODO AUTOMÁTICO con nuestro BOT de TELEGRAM!* 🤖 Olvídate de demoras, las credenciales se entregan al instante 24/7.\n\n`;
+                message += `👉 *¿Cómo empezar?*\n\n`;
+                message += `1️⃣ Recarga tu saldo 💳\n`;
+                message += `2️⃣ Saldo asignado ✅\n`;
+                message += `3️⃣ ¡Compra y recibe tus datos automáticamente! 🚀\n\n`;
+                message += `🔥 *OFERTA ESPECIAL:* ¡Recibe un 10% EXTRA sobre recargas de 2.000 o más! (Ej: Recarga 2.000, recibe 2.200 🤯)\n\n`;
+                message += `📚 *Aprende a usar el BOT en minutos:*\n\n`;
+                message += `Tutorial 1 (Recarga y Saldo): https://www.youtube.com/watch?v=6m05VrOlsy0\n`;
+                message += `Tutorial 2 (Compra y Entrega Automática): https://www.youtube.com/shorts/vRg1h_6KbPU\n\n`;
+                message += `¡Únete y potencia tu negocio! 📈\n\n`;
+                message += `*AFÍLIATE AHORA MISMO a nuestro canal de TELEGRAM:*\n`;
+                message += `⬇️⬇️⬇️⬇️⬇️⬇️⬇️\n`;
+                message += `https://t.me/panaxvendeygana_bot`;
+            }
             
             document.getElementById('output-message').value = message;
             
@@ -1446,7 +1440,7 @@
                 comercializacionText += `*MOTIVO 2* : Es común esta falla en las pantallas o perfiles compartidos de una cuenta de 5, pues al entregar individualmente, alguno de los usuarios en la mayoría de los casos ingresa de forma incorrecta (ya sea porque no usa los datos, como se explica en el motivo 1, o porque deja los datos de la cuenta anterior en su TV). Al recibir varios intentos de ingreso incorrecto, NETFLIX BLOQUEA LA CONTRASEÑA por seguridad, lo que causa un bloqueo que puede tardar en resolverse. 🚫\n\n`;
                 
                 comercializacionText += `💸 *HABLEMOS DE COSTOS*\n`;
-                comercializacionText += `Una pantalla compartida en el mercado tiene un valor promedio para hoy 26 de septiembre de no menos de 700 BS con otros distribuidores. ¡NOSOTROS LA TENEMOS EN 480 BS! 🤑 Si eres vendedor, tendrás que colocar tu ganancia, lo que eleva el costo y te pone en una situación de desventaja para competir. 😕 Si quieres un PERFIL VIP O EXTRA para no pasar por estos problemas, el costo se eleva considerablemente a unos 1300 BS por este servicio, pero NOSOTROS LA TENEMOS EN 1050 BS. 💰\n\n`;
+                comercializacionText += `Una pantalla compartida en el mercado tiene un valor promedio para hoy 26 de septiembre de no menos de 700 BS con otros distribuidors. ¡NOSOTROS LA TENEMOS EN 480 BS! 🤑 Si eres vendedor, tendrás que colocar tu ganancia, lo que eleva el costo y te pone en una situación de desventaja para competir. 😕 Si quieres un PERFIL VIP O EXTRA para no pasar por estos problemas, el costo se eleva considerablemente a unos 1300 BS por este servicio, pero NOSOTROS LA TENEMOS EN 1050 BS. 💰\n\n`;
                 
                 comercializacionText += `💡 *OFRECE ALTERNATIVAS*\n`;
                 comercializacionText += `Te informamos esto para que, si vendes estos servicios, ofrezcas a tus clientes alternativas informándote primero. Pregunta a tu cliente dónde usará la cuenta: ¿en el teléfono, Smart TV, TV con Roku o Fire TV? 📱📺\n\n`;
@@ -1477,9 +1471,6 @@
             const successMessage = document.getElementById('success-message');
             successMessage.style.display = 'block';
             setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
-            
-            // Limpiar todos los campos después de generar el mensaje
-            clearAllInputs();
         });
         
         document.getElementById('copy-btn').addEventListener('click', function() {
